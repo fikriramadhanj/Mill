@@ -20,14 +20,14 @@ class CreateSuppliersTable extends Migration
             $table->string('nama_npwp');
             $table->string('alamat');
             $table->string('kota');
-            $table->integer('kode_pos');
-            $table->integer('no_telp');
+            $table->string('kode_pos');
+            $table->string('no_telp');
             $table->string('fax');
-            $table->integer('kontak_person');
+            $table->string('kontak_person');
             $table->integer('limit_hutang');
             $table->integer('tempo_bayar');
-            $table->integer('npwp');
-            $table->integer('nppkp');
+            $table->string('npwp');
+            $table->string('nppkp');
 
 
             $table->timestamps();

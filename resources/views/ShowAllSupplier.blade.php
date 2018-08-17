@@ -22,7 +22,7 @@
 
   </tr>
 
-    @foreach ($suppliers as $supplier)
+    @foreach($suppliers as $supplier)
 
       <tr>
               <td align="center"> {{$supplier->kode_supplier}} </td>

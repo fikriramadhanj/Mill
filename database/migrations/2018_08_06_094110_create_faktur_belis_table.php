@@ -23,12 +23,15 @@ class CreateFakturBelisTable extends Migration
           $table->integer('uang_muka');
           $table->integer('total_bayar');
           $table->integer('discount');
-
-
-
           $table->string('keterangan');
 
-          
+          $table->unsignedInteger('supplier_id');
+          $table->foreign('supplier_id')
+                ->references('id')->on('suppliers')
+                ->onDelete('cascade');
+
+
+          $table->timestamps();
         });
     }
 

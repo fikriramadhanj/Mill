@@ -63,7 +63,21 @@ class MillController extends Controller
 
 
     }
+    public function showAllFakturBeli()
+    {
 
+              $fakturJuals = DB::table('faktur_belis')
+                             ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
+                             ->select('faktur_belis.id','faktur_belis.no_fb','faktur_belis.tgl_fb',
+                                      'faktur_belis.tempo_bayar','suppliers.nama_supplier',
+                                      'faktur_belis.tgl_jatuh_tempo','faktur_belis.keterangan')
+                             ->get();
+              return view('ShowAllFakturBeli',[
+                          'fakturBelis'=> $fakturbelis
+                          ]);
+
+
+    }
 
 
     public function showDetilPenjualan($id)
@@ -82,6 +96,21 @@ class MillController extends Controller
           return view('ShowDetilPenjualan',['detilPenjualans'=>$detilPenjualans
           ]);
     }
+    public function showDetilPembelian($id)
+    {
+            $detilPembelians=DB::table('detil_pembelians')
+                            ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
+                            ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
+                            ->select('detil_pembelians.qty','detil_pembelians.sub_total','barangs.nama','barangs.kode_barang',
+                                'barangs.harga_beli','faktur_belis.no_fb')
+                            ->where('faktur_belis.id',"=",$id)
+                            ->get();
+
+           return view('ShowDetilPembelian',['detilPembelians'=>$detilPembelians
+                            ]);
+
+    }
+
     public function showFormAddSupplier()
     {
           return view('FormAddSupplier');
@@ -113,6 +142,26 @@ class MillController extends Controller
           ];
 
           return view('FormFakturJual', $result);
+    }
+    public function showFormFakturBeli()
+    {
+        $suppliers = $this->getSupplier();
+        $barangs = $this->getBarang();
+
+        $result = ['suppliers'=>$suppliers,
+                    'barangs'=>$barangs
+                  ];
+        return view('FormFakturBeli',$result);
+
+    }
+
+    public function showFormPelunasanPiutang()
+    {
+        $pelanggans = $this->getPelanggan();
+
+        $result = ['pelanggans'=>$pelanggans],
+      ;
+       return view('FormPelunasanPiutang')
     }
     public function showFormUpdateBarang($id)
     {
@@ -172,6 +221,11 @@ class MillController extends Controller
         $idPelanggan = Pelanggan::all();
         return $idPelanggan;
     }
+    public function getSupplier()
+    {
+        $idSupplier = Supplier::all();
+        return $idSupplier;
+    }
     public function getBarang()
     {
         $barangs = Barang::all();
@@ -225,7 +279,6 @@ class MillController extends Controller
     }
     public function addFakturJual(Request $request)
     {
-
             $fakturJuals=new FakturJual();
             $fakturJuals->no_fj=$request->noFJ;
             $fakturJuals->tgl_fj=$request->tglFJ;
@@ -247,9 +300,10 @@ class MillController extends Controller
                     $detilJuals->barang_id=$inputJual['barangId'];
                     $detilJuals->fj_id = $fakturJuals->id;
                     $detilJuals->save();
+
                   }
               }
-
+              
             // $detilJuals=new DetilPenjualan();
             // $detilJuals->qty=$request->qty;
             // $detilJuals->sub_total=$request->subTotal;
@@ -264,34 +318,28 @@ class MillController extends Controller
 
     public function addFakturBeli(Request $request)
     {
-          $fb= new FakturBeli();
-          $fb->no_fb=$request->noFB;
-          $fb->tgl_fb=$request->tglFB;
-          $fb->tempo_bayar=$request->tempoBayar;
-          $fb->kode_supplier=$request->kode; //foreign key
-          $fb->nama_supplier=$request->nama; //foreign key
-          $fb->sub_total=$request->subTotal;
-          $fb->total_faktur=$request->totalFaktur;
-          $fb->no_pajak=$request->noPajak;
-          $fb->keterangan=$request->keterangan;
-          $fb->save();
-
+          $fakturBelis= new FakturBeli();
+          $fakturBelis->no_fb=$request->noFB;
+          $fakturBelis->tgl_fb=$request->tglFB;
+          $fakturBelis->tempo_bayar=$request->tempoBayar;
+          $fakturBelis->total_faktur=$request->totalFaktur;
+          $fakturBelis->no_pajak=$request->noPajak;
+          $fakturBelis->keterangan=$request->keterangan;
+          $fakturBelis->save();
           return redirect()->action('MillController@showAllFakturBeli');
 
     }
-    public function detilPembelian(Request $request)
+    public function addDetilPembelian(Request $request)
     {
-          $fb= new FakturBeli();
-          $fb->no_fb=$request->noFB; //foreign key
-          $fb->kode_barang=$request->kodeBarang; //foreign key
-          $fb->tempo_bayar=$request->tempoBayar;
-          $fb->kode_supplier=$request->kode; //foreign key
-          $fb->nama_supplier=$request->nama; //foreign key
-          $fb->sub_total=$request->subTotal;
-          $fb->total_faktur=$request->totalFaktur;
-          $fb->no_pajak=$request->noPajak;
-          $fb->keterangan=$request->keterangan;
-          $fb->save();
+          $detilPembelians= new DetilPembelian();
+          $detilPembelians->fb_id=$request->fbId;
+          $detilPembelians->barang_id=$request->barangId;
+          $detilPembelians->qty=$request->qty;
+          $detilPembelians->sub_total=$request->subTotal;
+          $detilPembelians->discount=$request->discount;
+          $detilPembelians->total_setelah_diskon=$request->totalSetelahDiskon;
+
+          $detilPembelians->save();
 
           return redirect()->action('MillController@showDetilPembelian');
 

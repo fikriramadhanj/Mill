@@ -20,13 +20,13 @@ class CreatePelanggansTable extends Migration
             $table->string('alamat');
             $table->string('kota');
             $table->string('kode_pos');
-            $table->integer('no_telp');
+            $table->string('no_telp');
             $table->string('fax');
-            $table->integer('kontak_person');
+            $table->string('kontak_person');
             $table->integer('limit_hutang');
             $table->integer('default_tempo');
-            $table->integer('npwp');
-            $table->integer('nppkp');
+            $table->string('npwp');
+            $table->string('nppkp');
 
 
             $table->timestamps();

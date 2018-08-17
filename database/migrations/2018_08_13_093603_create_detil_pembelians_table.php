@@ -24,6 +24,16 @@ class CreateDetilPembeliansTable extends Migration
           $table->integer('sub_total');
           $table->integer('total');
 
+          $table->unsignedInteger('barang_id');
+          $table->foreign('barang_id')
+                ->references('id')->on('barangs')
+                ->onDelete('cascade');
+
+          $table->unsignedInteger('fb_id');
+          $table->foreign('fb_id')
+                ->references('id')->on('faktur_belis')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

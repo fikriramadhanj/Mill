@@ -10,14 +10,20 @@
           <td>Tgl Faktur  </td>
           <td>:<input type="text" name="tglFb" id="tglFb" /></td>
       </tr>
-
       <tr>
           <td>Tempo Bayar </td>
           <td>:<input type="text" name="tempoBayar" id="tempoBayar"/></td>
       </tr>
       <tr>
           <td>Kode Supplier </td>
-          <td>:<input type="text" name="kodeSupplier" id="kodeSupplier" /></td>
+          <td>:<select name="supplierId" id="supplierId">
+                @foreach($suppliers as $supplier)
+                  <option value="{{$supplier->id}}">{{$supplier->nama_supplier}} </option>
+                @endforeach
+
+                </select>
+          </td>
+
       </tr>
       <tr>
           <td>Sub Total</td>

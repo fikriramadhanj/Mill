@@ -33,6 +33,8 @@ Route::get('/barang/formUpdateBarang/{id}', 'MillController@showFormUpdateBarang
 Route::get('/Supplier/FormUpdateSupplier/{id}', 'MillController@showFormUpdateSupplier');
 Route::get('/Pelanggan/FormUpdatePelanggan/{id}', 'MillController@showFormUpdatePelanggan');
 Route::get('/FakturJual/FormAddFakturJual', 'MillController@showFormFakturJual');
+Route::get('/FakturBeli/FormAddFakturBeli', 'MillController@showFormFakturBeli');
+
 
 Route::get('/FakturJual/GetFaktur', 'MillController@getFaktur');
 
