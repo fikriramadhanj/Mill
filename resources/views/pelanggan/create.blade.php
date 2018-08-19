@@ -5,12 +5,14 @@
 @endsection
 
 @section('pageOptions')
-<a href={{ route('faktur-jual.index')}} class="btn btn-primary">Kembali ke List Penjualan</a>
+<a href={{ route('pelanggan.index')}} class="btn btn-primary">Kembali ke List Pelanggan</a>
 @endsection
 
 @section('content')
-<div class="my-3">
-  @include('pelanggan.form', ['formAction' => route('pelanggan.store')])
+<div class="container">
+  <div class="my-3">
+    @include('pelanggan.form', ['formAction' => route('pelanggan.store'), 'pelanggan' => ''])
+  </div>
 </div>
 @endsection
 
