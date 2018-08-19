@@ -1,4 +1,4 @@
-<form name="form1" id="form1" method="get" action="/barang/ProsesUpdateBarang/{{$update->id}}">
+<form name="form1" id="form1" method="get" action="/barang.edit/{{$update->id}">
 
 <table border="1">
       <tr>

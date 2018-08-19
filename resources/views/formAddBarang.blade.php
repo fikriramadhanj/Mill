@@ -1,4 +1,4 @@
-<form name="form1" id="form1" method="get" action="/barang/ProsesAddBarang">
+<form name="form1" id="form1" method="get" action="/barang.store">
 
 <table border="1">
       <tr>

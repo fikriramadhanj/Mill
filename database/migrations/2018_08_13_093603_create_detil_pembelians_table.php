@@ -16,10 +16,7 @@ class CreateDetilPembeliansTable extends Migration
         Schema::create('detil_pembelians', function (Blueprint $table) {
 
           $table->increments('id');
-          $table->string('no_fb');
-          $table->string('kode_barang');
           $table->integer('qty');
-          $table->integer('harga_beli');
           $table->integer('discount');
           $table->integer('sub_total');
           $table->integer('total');

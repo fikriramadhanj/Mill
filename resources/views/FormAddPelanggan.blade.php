@@ -1,4 +1,4 @@
-<form name="form1" id="form1" method="get" action="/Pelanggan/ProsesAddPelanggan">
+<form name="form1" id="form1" method="get" action="/pelanggan.create">
 
 <table border="1">
       <tr>

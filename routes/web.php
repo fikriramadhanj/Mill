@@ -50,9 +50,10 @@ Route::group(
     'prefix' => 'FakturBeli',
     'as' => 'faktur-beli.'
   ], function () {
-    Route::get('', 'MillController@showAllFakturBeli')->name('index');
-    Route::get('ShowDetilPembelian/{id}', 'MillController@showDetilPembelian')->name('show');
-    Route::get('FormAddFakturBeli', 'MillController@showFormFakturBeli')->name('form-create');
+    Route::get('', 'FakturBeliController@index')->name('index');
+    Route::get('create', 'FakturBeliController@create')->name('create');
+    Route::post('create', 'FakturBeliController@store')->name('store');
+    Route::get('detail/{id}', 'FakturBeliController@show')->name('show');
   }
 );
 
@@ -67,7 +68,7 @@ Route::group(
     Route::post('create', 'PelangganController@store')->name('store');
     Route::get('edit/{id}', 'PelangganController@edit')->name('edit');
     Route::post('edit/{id}', 'PelangganController@update')->name('update');
-    Route::post('delete/{id}', 'PelangganController@destroy')->name('destroy');    
+    Route::post('delete/{id}', 'PelangganController@destroy')->name('destroy');
   }
 );
 

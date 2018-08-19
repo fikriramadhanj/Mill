@@ -16,14 +16,16 @@ class CreatePelunasanPiutangsTable extends Migration
         Schema::create('pelunasan_piutangs', function (Blueprint $table) {
 
           $table->increments('id');
-          $table->string('no_pembayaran');
+          $table->string('no_pembayaran')->unique();
           $table->dateTime('tgl_pembayaran');
-          $table->string('kode_pelanggan');
-          $table->string('nama_pelanggan');
-          $table->string('total_pembayaran');
+          $table->integer('total_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
 
+          $table->unsignedInteger('pelanggan_id');
+          $table->foreign('pelanggan_id')
+                ->references('id')->on('pelanggans')
+                ->onDelete('cascade');
 
           $table->timestamps();
 

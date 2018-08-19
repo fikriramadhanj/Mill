@@ -16,22 +16,24 @@ class CreatePembayaranHutangsTable extends Migration
         Schema::create('pembayaran_hutangs', function (Blueprint $table) {
 
           $table->increments('id');
-          $table->integer('no_pembayaran');
-          $table->integer('tgl_pembayaran');
+          $table->string('no_pembayaran')->unique();
+          $table->dateTime('tgl_pembayaran');
           $table->dateTime('tgl_jatuh_tempo');
-          $table->string('kode_supplier');
-          $table->string('nama_supplier');
-          $table->string('nama_pelanggan');
           $table->integer('bayar_tunai');
           $table->integer('bayar_transfer');
           $table->integer('bayar_giro');
-          $table->integer('no_giro');
+          $table->string('no_giro');
           $table->string('nama_bank');
           $table->integer('total_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
 
-            $table->timestamps();
+          $table->unsignedInteger('supplier_id');
+          $table->foreign('supplier_id')
+                ->references('id')->on('suppliers')
+                ->onDelete('cascade');
+
+          $table->timestamps();
         });
     }
 

@@ -15,13 +15,15 @@ class CreateDetilPelunasanPiutangsTable extends Migration
     {
         Schema::create('detil_pelunasan_piutangs', function (Blueprint $table) {
 
-          $table->string('no_fj');
-          $table->dateTime('tgl_fj');
           $table->integer('bayar');
           $table->integer('discount');
           $table->string('writeoff');
           $table->integer('piutang');
-          $table->integer('total_faktur');
+
+          $table->unsignedInteger('fj_id');
+          $table->foreign('fj_id')
+                ->references('id')->on('faktur_juals')
+                ->onDelete('cascade');
 
               $table->timestamps();
 

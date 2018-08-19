@@ -160,7 +160,7 @@ class MillController extends Controller
         $pelanggans = $this->getPelanggan();
 
         $result = ['pelanggans'=>$pelanggans];
-      
+
        return view('FormPelunasanPiutang');
     }
     public function showFormUpdateBarang($id)
@@ -169,7 +169,7 @@ class MillController extends Controller
         $tipeBarang=$this->showTipeBarang();
         return view('barang.update',[
           'update'=>$barangs,
-          'tipeBarangs' => $tipeBarang 
+          'tipeBarangs' => $tipeBarang
           ]);
 
     }
@@ -305,7 +305,7 @@ class MillController extends Controller
 
                   }
               }
-              
+
             // $detilJuals=new DetilPenjualan();
             // $detilJuals->qty=$request->qty;
             // $detilJuals->sub_total=$request->subTotal;
