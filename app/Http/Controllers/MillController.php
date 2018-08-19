@@ -23,7 +23,7 @@ class MillController extends Controller
     {
 
             $barangs = Barang::all();
-            return view('showAllBarang', [
+            return view('barang.index', [
               'barangs' => $barangs
               ]);
 
@@ -57,7 +57,7 @@ class MillController extends Controller
                                       'faktur_juals.tempo_bayar','pelanggans.nama_pelanggan',
                                       'faktur_juals.tgl_jatuh_tempo','faktur_juals.keterangan')
                              ->get();
-              return view('ShowAllFakturJual',[
+              return view('fakturJual.index',[
                           'fakturJuals'=> $fakturJuals
                           ]);
 
@@ -93,7 +93,7 @@ class MillController extends Controller
         //  $detilPenjualans = FakturJual::findOrFail($id)->detilPenjualan;
                             \Log::debug($detilPenjualans);
 
-          return view('ShowDetilPenjualan',['detilPenjualans'=>$detilPenjualans
+          return view('fakturJual.show',['detilPenjualans'=>$detilPenjualans
           ]);
     }
     public function showDetilPembelian($id)
@@ -124,7 +124,7 @@ class MillController extends Controller
     public function showFormAddBarang()
     {
           $tipeBarang=$this->showTipeBarang();
-          return view('formAddBarang',['tipeBarangs'=>$tipeBarang
+          return view('barang.create',['tipeBarangs'=>$tipeBarang
           ]);
     }
     public function showFormFakturJual()
@@ -141,7 +141,7 @@ class MillController extends Controller
             'noFJ'=>$noFJ
           ];
 
-          return view('FormFakturJual', $result);
+          return view('fakturJual.create', $result);
     }
     public function showFormFakturBeli()
     {
@@ -159,15 +159,17 @@ class MillController extends Controller
     {
         $pelanggans = $this->getPelanggan();
 
-        $result = ['pelanggans'=>$pelanggans],
-      ;
-       return view('FormPelunasanPiutang')
+        $result = ['pelanggans'=>$pelanggans];
+      
+       return view('FormPelunasanPiutang');
     }
     public function showFormUpdateBarang($id)
     {
         $barangs = Barang::find($id);
-        return view('formUpdateBarang',[
-          'update'=>$barangs
+        $tipeBarang=$this->showTipeBarang();
+        return view('barang.update',[
+          'update'=>$barangs,
+          'tipeBarangs' => $tipeBarang 
           ]);
 
     }

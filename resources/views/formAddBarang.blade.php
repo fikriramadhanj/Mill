@@ -30,27 +30,27 @@
       </tr>
       <tr>
           <td>Harga beli</td>
-          <td>:<input type="text" name="hargaBeli" id="hargaBeli"/></td>
+          <td>:<input type="text" name="hargaBeli" id="hargaBeli"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Harga Jual 1</td>
-          <td>:<input type="text" name="hargaJual1" id="hargaJual1"/></td>
+          <td>:<input type="text" name="hargaJual1" id="hargaJual1"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Harga Jual 2</td>
-          <td>:<input type="text" name="hargaJual2" id="hargaJual2"/></td>
+          <td>:<input type="text" name="hargaJual2" id="hargaJual2"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Harga Jual 3</td>
-          <td>:<input type="text" name="hargaJual3" id="hargaJual3"/></td>
+          <td>:<input type="text" name="hargaJual3" id="hargaJual3"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Harga Jual 4</td>
-          <td>:<input type="text" name="hargaJual4" id="hargaJual4"/></td>
+          <td>:<input type="text" name="hargaJual4" id="hargaJual4"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Harga Jual 5</td>
-          <td>:<input type="text" name="hargaJual5" id="hargaJual5"/></td>
+          <td>:<input type="text" name="hargaJual5" id="hargaJual5"/>Rp / Kg</td>
       </tr>
       <tr>
           <td>Qty </td>

@@ -1,0 +1,46 @@
+/* General */
+td, th, p, span {
+  font-size: 0.93rem
+}
+
+.btn {
+  font-size: 0.8rem;
+}
+
+
+.table td,
+.table thead th {
+  vertical-align: middle;
+}
+
+.table thead th {
+  text-align: center;
+}
+
+/* Datepicker */
+.datepicker .table-condensed th,
+.datepicker .table-condensed td {
+  padding: 0.4rem;
+  font-size: 1rem;
+} 
+
+.form-control.datepicker {
+  padding: .375rem .75rem;
+}
+
+/* Form Jual */
+.barang-subtotal input[readonly] {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;  
+}
+.barang-subtotal .input-group-prepend {
+  flex: 10 1 auto;
+}
+
+.barang-subtotal .input-group-text {
+  background: transparent;
+  border: 0;
+  width: auto;
+  padding: 0;
+}
