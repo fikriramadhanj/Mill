@@ -84,7 +84,7 @@ class FakturJualController extends Controller
             }
         }
             
-        return redirect()->action('BarangController@index');
+        return redirect()->action('FakturJualController@index');
     }
 
     /**

@@ -28,7 +28,7 @@
               <th>Default Tempo </th>
               <th>NPWP </th>
               <th>NPPKP </th>
-              <th colspan="3">Action </th>
+              <th colspan="2">Action </th>
             </tr>
           </thead>
           <tbody>

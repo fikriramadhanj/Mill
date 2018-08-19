@@ -77,12 +77,12 @@ Route::group(
     'prefix' => 'supplier',
     'as' => 'supplier.'
   ], function () {
-    Route::get('', 'MillController@showAllDataSupplier')->name('index');
-    Route::get('FormAddSupplier', 'MillController@showFormAddSupplier')->name('form-create');
-    Route::get('FormUpdateSupplier/{id}', 'MillController@showFormUpdateSupplier')->name('form-update');
-    Route::get('ProsesAddSupplier', 'MillController@addSupplier')->name('create');
-    Route::get('ProsesUpdateSupplier/{id}', 'MillController@updateSupplier')->name('update');
-    Route::get('ProsesDeleteSupplier/{id}', 'MillController@deleteSupplier')->name('delete');
+    Route::get('', 'SupplierController@index')->name('index');
+    Route::get('create', 'SupplierController@create')->name('create');
+    Route::post('create', 'SupplierController@store')->name('store');
+    Route::get('edit/{id}', 'SupplierController@edit')->name('edit');
+    Route::post('edit/{id}', 'SupplierController@update')->name('update');
+    Route::post('delete/{id}', 'SupplierController@destroy')->name('destroy');
   }
 );
 
