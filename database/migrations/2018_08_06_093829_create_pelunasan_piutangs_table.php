@@ -19,8 +19,14 @@ class CreatePelunasanPiutangsTable extends Migration
           $table->string('no_pembayaran')->unique();
           $table->dateTime('tgl_pembayaran');
           $table->integer('total_pembayaran');
+          $table->integer('sisa_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
+
+          $table->unsignedInteger('fj_id');
+          $table->foreign('fj_id')
+                ->references('id')->on('faktur_juals')
+                ->onDelete('cascade');
 
           $table->unsignedInteger('pelanggan_id');
           $table->foreign('pelanggan_id')

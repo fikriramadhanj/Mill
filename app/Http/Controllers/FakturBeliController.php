@@ -20,9 +20,9 @@ class FakturBeliController extends Controller
     public function index()
     {
          $fakturBelis = DB::table('faktur_belis')
-                        ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
+                        ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
                         ->select('faktur_belis.no_fb','faktur_belis.tgl_fb','faktur_belis.tempo_bayar','faktur_belis.tgl_jatuh_tempo
-                        ','suppliers.nama_supplier','faktur_belis.no_sj')
+                        ','faktur_belis.uang_muka','suppliers.nama_supplier','faktur_belis.no_sj','faktur_belis.no_pajak','faktur_belis.keterangan')
                         ->get();
 
         return view('fakturBeli.index',
@@ -59,14 +59,14 @@ class FakturBeliController extends Controller
     public function store(Request $request)
     {
         $fakturBelis = new FakturBeli();
-        $fakturBelis->no_fb = $request->noFb;
-        $fakturBelis->tgl_fb = $request->tglFb;
-        $fakturBelis->no_sj = $request->noSj;
+        $fakturBelis->no_fb = $request->noFB;
+        $fakturBelis->tgl_fb = $request->tglFB;
+        $fakturBelis->tgl_jatuh_tempo = $request->tglJatuhTempo;
+        $fakturBelis->no_sj = $request->noSJ;
         $fakturBelis->tempo_bayar = $request->tempoBayar;
         $fakturBelis->no_pajak = $request->noPajak;
         $fakturBelis->uang_muka = $request->uangMuka;
-        $fakturBelis->total_bayar = $request->totalBayar;
-        $fakturBelis->discount = $request->discount;
+        $fakturBelis->keterangan = $request->keterangan;
         $fakturBelis->supplier_id = $request->supplierId;
 
         $fakturBelis->save();
@@ -97,7 +97,7 @@ class FakturBeliController extends Controller
      */
     public function show($id)
     {
-        $detilPembelians = DB::table('detil_pembelians');
+        $detilPembelians = DB::table('detil_pembelians')
                           ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
                           ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
                           ->select('barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
@@ -107,7 +107,7 @@ class FakturBeliController extends Controller
                           return view('fakturBeli.show',
                               [
                                   'detilPembelians' => $detilPembelians
-                              ];
+                              ]
                           );
 
     }

@@ -89,7 +89,7 @@ class BarangController extends Controller
         $tipeBarang = TipeBarang::all();
         return view('barang.update',[
           'update'=>$barangs,
-          'tipeBarangs' => $tipeBarang 
+          'tipeBarangs' => $tipeBarang
           ]);
     }
 

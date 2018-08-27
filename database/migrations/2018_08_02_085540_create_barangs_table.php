@@ -19,7 +19,7 @@ class CreateBarangsTable extends Migration
             $table->string('kode_barang');
             $table->string('nama');
             $table->integer('berat');
-            $table->integer('harga_beli');
+            $table->decimal('harga_beli',10,3);
             $table->integer('harga_jual1');
             $table->integer('harga_jual2');
             $table->integer('harga_jual3');

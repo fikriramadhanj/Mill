@@ -28,6 +28,22 @@ Route::group(
   }
 );
 
+/* Tipe Barang */
+Route::group(
+    [
+    'prefix' => 'tipe-barang',
+    'as' => 'tipe-barang.'
+    ], function () {
+    Route::get('', 'TipeBarangController@index')->name('index');
+    Route::get('create', 'TipeBarangController@create')->name('create');
+    Route::post('create', 'TipeBarangController@store')->name('store');
+    Route::get('edit/{id}', 'TipeBarangController@edit')->name('edit');
+    Route::post('edit/{id}', 'TipeBarangController@update')->name('update');
+    Route::post('delete/{id}', 'TipeBarangController@destroy')->name('destroy');
+    }
+);
+
+
 /* Faktur Jual */
 Route::group(
   [
@@ -47,7 +63,7 @@ Route::group(
 /* Faktur Beli */
 Route::group(
   [
-    'prefix' => 'FakturBeli',
+    'prefix' => 'faktur-beli',
     'as' => 'faktur-beli.'
   ], function () {
     Route::get('', 'FakturBeliController@index')->name('index');
@@ -56,6 +72,36 @@ Route::group(
     Route::get('detail/{id}', 'FakturBeliController@show')->name('show');
   }
 );
+
+/* PelunasanPiutang */
+
+Route::group(
+  [
+      'prefix' => 'PelunasanPiutang',
+      'as' => 'pelunasan-piutang.'
+
+  ], function () {
+      Route::get('','PelunasanPiutangController@index')->name('index');
+      Route::get('create','PelunasanPiutangController@create')->name('create');
+      Route::post('create','PelunasanPiutangController@store')->name('store');
+      Route::post('detail/{id}','PelunasanPiutangController@show')->name('show');
+  }
+);
+
+/* PembayaranHutang */
+Route::group(
+  [
+      'prefix' => 'PembayaranHutang',
+      'as' => 'pembayaran-hutang',
+
+  ], function (){
+      Route::get('','PembayaranHutangController@index')->name('index');
+      Route::get('create','PembayaranHutangController@create')->name('create');
+      Route::post('create','PembayaranHutangController@store')->name('store');
+      Route::post('detail/{id}','PelunasanPiutangController@show')->name('show');
+  }
+);
+
 
 /* Pelanggan */
 Route::group(

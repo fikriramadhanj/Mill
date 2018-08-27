@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6"> 
+            <div class="col-lg-6">
               <div class="form-group row">
                 <label class="col-form-label col-md-4">Nama Barang</label>
                 <div class="col-md-8">

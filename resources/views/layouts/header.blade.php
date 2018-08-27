@@ -4,12 +4,17 @@
         'barang.index' => 'Barang',
         'supplier.index' => 'Supplier',
         'pelanggan.index' => 'Pelanggan',
+        'tipe-barang.index' => 'Tipe Barang',
+
     ];
 
     $dropdown = [
         'Transaksi' => [
             'faktur-jual.index' => 'Penjualan',
             'faktur-beli.index' => 'Pembelian'
+          
+
+
         ]
     ]
 @endphp
