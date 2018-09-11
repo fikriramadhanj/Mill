@@ -20,7 +20,8 @@
             <th> Harga Barang </th>
             <th> Qty </th>
             <th> Subtotal </th>
-          </tr  >
+
+          </tr>
         </thead>
         <tbody>
           @if (isset($detilPenjualans))
@@ -28,9 +29,10 @@
               <tr>
                 <td> {{$detilPenjualan->kode_barang}} </td>
                 <td> {{$detilPenjualan->nama}} </td>
-                <td> {{$detilPenjualan->harga_jual1}} </td>
+                <td> Rp. {{number_format($detilPenjualan->harga_jual1,2, ".", ",")}} </td>
                 <td> {{$detilPenjualan->qty}} </td>
-                <td> {{$detilPenjualan->sub_total}} </td> 
+                <td> Rp. {{number_format($detilPenjualan->sub_total,2, ".", ",")}} </td>
+
               </tr>
             @endforeach
           @endif

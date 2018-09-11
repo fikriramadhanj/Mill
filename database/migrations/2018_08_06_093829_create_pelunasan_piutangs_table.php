@@ -18,8 +18,8 @@ class CreatePelunasanPiutangsTable extends Migration
           $table->increments('id');
           $table->string('no_pembayaran')->unique();
           $table->dateTime('tgl_pembayaran');
-          $table->integer('total_pembayaran');
-          $table->integer('sisa_pembayaran');
+          $table->bigInteger('total_pembayaran');
+          $table->bigInteger('sisa_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
 

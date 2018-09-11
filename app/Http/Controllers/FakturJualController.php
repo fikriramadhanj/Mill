@@ -25,6 +25,8 @@ class FakturJualController extends Controller
                     'faktur_juals.tempo_bayar','pelanggans.nama_pelanggan',
                     'faktur_juals.tgl_jatuh_tempo','faktur_juals.keterangan')
             ->get();
+
+
         return view('fakturJual.index',
             [
                 'fakturJuals'=> $fakturJuals
@@ -83,7 +85,7 @@ class FakturJualController extends Controller
                 $detilJuals->save();
             }
         }
-            
+
         return redirect()->action('FakturJualController@index');
     }
 
@@ -96,6 +98,7 @@ class FakturJualController extends Controller
     public function show($id)
     {
         $detilPenjualans=DB::table('detil_penjualans')
+
             ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
             ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
             ->select('detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
@@ -103,12 +106,21 @@ class FakturJualController extends Controller
             ->where('faktur_juals.id',"=",$id)
             ->get();
 
-        \Log::debug($detilPenjualans);
         return view('fakturJual.show',
             [
                 'detilPenjualans' => $detilPenjualans
             ]
         );
+    }
+    public function createBarang()
+    {
+          return view('fakturJual.DataBarang');
+    }
+    public function getBarang()
+    {
+        $barangs = Barang::all();
+        return view('fakturJual.DataBarang',['barangs'=>$barangs]);
+
     }
 
     /**

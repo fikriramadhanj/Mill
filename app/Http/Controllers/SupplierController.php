@@ -55,7 +55,7 @@ class SupplierController extends Controller
         $supplier->nppkp=$request->nppkp;
 
         $supplier->save();
-
+        
         return redirect()->action('SupplierController@index');
     }
 

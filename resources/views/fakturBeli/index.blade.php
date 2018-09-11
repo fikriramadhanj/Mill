@@ -36,7 +36,7 @@
             <td> {{$fakturBeli->nama_supplier}} </td>
             <td> {{$fakturBeli->uang_muka}} </td>
             <td> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
-            <td> {{date('j F Y', strtotime($fakturJual->tgl_jatuh_tempo))}} </td>
+            <td> {{date('j F Y', strtotime($fakturBeli->tgl_jatuh_tempo))}} </td>
             <td> {{$fakturBeli->tempo_bayar}} </td>
             <td> {{$fakturBeli->keterangan}} </td>
             <td> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}"> Detil Pembelian  </a></td>

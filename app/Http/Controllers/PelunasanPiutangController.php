@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Pelanggan;
 use App\FakturJual;
+use App\PelunasanPiutang;
+
 
 
 class PelunasanPiutangController extends Controller
@@ -36,7 +38,7 @@ class PelunasanPiutangController extends Controller
     public function create()
     {
           $pelanggans = Pelanggan::all();
-          return view('pelunasanPiutang.create',$pelanggans);
+          return view('pelunasanPiutang.form',['pelanggans'=>$pelanggans]);
     }
 
     /**
@@ -68,6 +70,12 @@ class PelunasanPiutangController extends Controller
      */
     public function show($id)
     {
+
+        $getFakturJuals = DB::table('faktur_juals')
+                     ->select('faktur_juals.no_fj', 'faktur_juals.sub_total')
+                     ->where('faktur_juals.pelanggan_id','=',1)
+                     ->get();
+
         $detilPelunasanPiutangs = DB::table('detil_pelunasan_piutangs')
                                   ->join('faktur_juals','detil_pelunasan_piutangs.fj_id','=','faktur_juals.id')
                                   ->select('faktur_juals.no_fj','faktur_juals.tgl_fj'
@@ -87,6 +95,8 @@ class PelunasanPiutangController extends Controller
     {
         //
     }
+
+
 
     /**
      * Update the specified resource in storage.

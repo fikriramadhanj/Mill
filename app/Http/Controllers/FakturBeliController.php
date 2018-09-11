@@ -21,8 +21,17 @@ class FakturBeliController extends Controller
     {
          $fakturBelis = DB::table('faktur_belis')
                         ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
-                        ->select('faktur_belis.no_fb','faktur_belis.tgl_fb','faktur_belis.tempo_bayar','faktur_belis.tgl_jatuh_tempo
-                        ','faktur_belis.uang_muka','suppliers.nama_supplier','faktur_belis.no_sj','faktur_belis.no_pajak','faktur_belis.keterangan')
+                        ->select(
+                          'faktur_belis.id',
+                          'faktur_belis.no_fb',
+                          'faktur_belis.tgl_fb',
+                          'faktur_belis.tempo_bayar',
+                          'faktur_belis.tgl_jatuh_tempo',
+                          'faktur_belis.uang_muka',
+                          'suppliers.nama_supplier',
+                          'faktur_belis.no_sj',
+                          'faktur_belis.no_pajak',
+                          'faktur_belis.keterangan')
                         ->get();
 
         return view('fakturBeli.index',

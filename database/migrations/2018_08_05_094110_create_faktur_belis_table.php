@@ -21,7 +21,7 @@ class CreateFakturBelisTable extends Migration
           $table->string('no_sj');
           $table->integer('tempo_bayar');
           $table->string('no_pajak');
-          $table->integer('uang_muka');
+          $table->bigInteger('uang_muka');
           $table->string('keterangan');
 
           $table->unsignedInteger('supplier_id');

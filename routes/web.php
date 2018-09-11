@@ -25,6 +25,7 @@ Route::group(
     Route::get('edit/{id}', 'BarangController@edit')->name('edit');
     Route::post('edit/{id}', 'BarangController@update')->name('update');
     Route::post('delete/{id}', 'BarangController@destroy')->name('destroy');
+
   }
 );
 
@@ -54,9 +55,8 @@ Route::group(
     Route::get('create', 'FakturJualController@create')->name('create');
     Route::post('create', 'FakturJualController@store')->name('store');
     Route::get('detail/{id}', 'FakturJualController@show')->name('show');
+    Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
 
-
-    Route::get('GetFaktur', 'MillController@getFaktur')->name('getFaktur');
   }
 );
 
@@ -77,7 +77,7 @@ Route::group(
 
 Route::group(
   [
-      'prefix' => 'PelunasanPiutang',
+      'prefix' => 'pelunasan-piutang',
       'as' => 'pelunasan-piutang.'
 
   ], function () {
@@ -91,14 +91,14 @@ Route::group(
 /* PembayaranHutang */
 Route::group(
   [
-      'prefix' => 'PembayaranHutang',
+      'prefix' => 'pembayaran-hutang',
       'as' => 'pembayaran-hutang',
 
   ], function (){
       Route::get('','PembayaranHutangController@index')->name('index');
       Route::get('create','PembayaranHutangController@create')->name('create');
       Route::post('create','PembayaranHutangController@store')->name('store');
-      Route::post('detail/{id}','PelunasanPiutangController@show')->name('show');
+      Route::post('detail/{id}','PembayaranHutangController@show')->name('show');
   }
 );
 

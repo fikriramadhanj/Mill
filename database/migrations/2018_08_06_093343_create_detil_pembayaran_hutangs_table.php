@@ -17,8 +17,12 @@ class CreateDetilPembayaranHutangsTable extends Migration
 
           $table->integer('bayar');
           $table->integer('discount');
-          $table->string('writeoff');
-          $table->integer('hutang');
+          $table->bigInteger('hutang');
+          $table->bigInteger('bayar_tunai');
+          $table->bigInteger('bayar_transfer');
+          $table->integer('bayar_giro');
+          $table->string('no_giro');
+          $table->string('nama_bank');
           $table->string('potongan_pembayaran');
 
           $table->unsignedInteger('fb_id');

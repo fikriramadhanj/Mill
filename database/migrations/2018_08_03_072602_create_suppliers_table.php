@@ -24,7 +24,7 @@ class CreateSuppliersTable extends Migration
             $table->string('no_telp');
             $table->string('fax');
             $table->string('kontak_person');
-            $table->integer('limit_hutang');
+            $table->bigInteger('limit_hutang');
             $table->integer('tempo_bayar');
             $table->string('npwp');
             $table->string('nppkp');

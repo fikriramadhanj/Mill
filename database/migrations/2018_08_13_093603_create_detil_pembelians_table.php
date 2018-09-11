@@ -17,7 +17,7 @@ class CreateDetilPembeliansTable extends Migration
 
           $table->increments('id');
           $table->integer('qty');
-          $table->integer('sub_total');
+          $table->bigInteger('sub_total');
 
           $table->unsignedInteger('barang_id');
           $table->foreign('barang_id')

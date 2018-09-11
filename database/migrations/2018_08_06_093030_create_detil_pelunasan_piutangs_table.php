@@ -18,7 +18,7 @@ class CreateDetilPelunasanPiutangsTable extends Migration
           $table->integer('bayar');
           $table->integer('discount');
           $table->string('writeoff');
-          $table->integer('piutang');
+          $table->bigInteger('piutang');
 
           $table->unsignedInteger('fj_id');
           $table->foreign('fj_id')

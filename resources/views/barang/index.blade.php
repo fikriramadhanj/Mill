@@ -30,18 +30,20 @@
           </tr>
         </thead>
         <tbody>
+
+
           @foreach ($barangs as $barang)
           <tr>
             <td> {{date('j F Y, H:i', strtotime($barang->tgl_beli))}} </td>
             <td> {{$barang->kode_barang}} </td>
             <td> {{$barang->nama}} </td>
             <td> {{$barang->berat}} </td>
-            <td> {{$barang->harga_beli}} </td>
-            <td> {{$barang->harga_jual1}} </td>
-            <td> {{$barang->harga_jual2}} </td>
-            <td> {{$barang->harga_jual3}} </td>
-            <td> {{$barang->harga_jual4}} </td>
-            <td> {{$barang->harga_jual5}} </td>
+            <td> Rp.{{number_format($barang->harga_beli,2, ".", ",")}} </td>
+            <td> Rp.{{number_format($barang->harga_jual1,2, ".", ",")}} </td>
+            <td> Rp.{{number_format($barang->harga_jual2,2, ".", ",")}} </td>
+            <td> Rp.{{number_format($barang->harga_jual3,2, ".", ",")}} </td>
+            <td> Rp.{{number_format($barang->harga_jual4,2, ".", ",")}} </td>
+            <td> Rp.{{number_format($barang->harga_jual5,2, ".", ",")}} </td>
             <td> {{$barang->qty}} </td>
             <td><a href="{{ route('barang.edit', [ 'id' => $barang->id ])}}" class="btn btn-secondary"> Update </a></td>
             <td>

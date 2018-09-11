@@ -42,7 +42,7 @@
               <td> {{$pelanggan->no_telp}} </td>
               <td> {{$pelanggan->fax}} </td>
               <td> {{$pelanggan->kontak_person}} </td>
-              <td> {{$pelanggan->limit_hutang}} </td>
+              <td>Rp.{{number_format($pelanggan->limit_hutang,2, ".", ",")}} </td>
               <td> {{$pelanggan->default_tempo}} </td>
               <td> {{$pelanggan->npwp}} </td>
               <td> {{$pelanggan->nppkp}} </td>

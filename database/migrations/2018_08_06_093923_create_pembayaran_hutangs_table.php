@@ -19,12 +19,7 @@ class CreatePembayaranHutangsTable extends Migration
           $table->string('no_pembayaran')->unique();
           $table->dateTime('tgl_pembayaran');
           $table->dateTime('tgl_jatuh_tempo');
-          $table->integer('bayar_tunai');
-          $table->integer('bayar_transfer');
-          $table->integer('bayar_giro');
-          $table->string('no_giro');
-          $table->string('nama_bank');
-          $table->integer('total_pembayaran');
+          $table->bigInteger('total_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Supplier;
 use App\FakturBeli;
+use App\PembayaranHutang;
+
 
 class PembayaranHutangController extends Controller
 {
@@ -18,11 +20,12 @@ class PembayaranHutangController extends Controller
     {
           $pembayaranHutangs = DB::table('pembayaran_hutangs')
                                ->join('suppliers','pembayaran_hutangs.supplier_id','=','suppliers.id')
-                               ->select('pembayaran_hutangs.no_pembayaran','pembayaran_hutangs.tgl_pembayaran',
-                                        'suppliers.nama_supplier','suppliers.kode_supplier','pembayaran_hutangs.tgl_jatuh_tempo',
+                               ->select('pembayaran_hutangs.no_pembayaran',
+                                        'pembayaran_hutangs.tgl_pembayaran',
+                                        'suppliers.nama_supplier',
+                                        'pembayaran_hutangs.tgl_jatuh_tempo',
                                         'pembayaran_hutangs.total_pembayaran')
                               ->get();
-
                             return view('pembayaranHutang.index',['pembayaranHutangs'=> $pembayaranHutangs]);
     }
 
@@ -35,7 +38,7 @@ class PembayaranHutangController extends Controller
     {
           $suppliers = Supplier::all();
 
-          return view('pembayaranHutang.create',['suppliers'=>$suppliers]);
+          return view('pembayaranHutang.form',['suppliers'=>$suppliers]);
 
     }
 
@@ -52,7 +55,9 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tgl_pembayaran=$request->tglBayar;
         $pembayaranHutangs->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
+        $pembayaranHutangs->posted=$request->posted;
         $pembayaranHutangs->supplier_id=$request->supplierId;
+        $pembayaranHutangs->keterangan=$request->keterangan;
 
         $pembayaranHutangs->save();
 
@@ -72,13 +77,13 @@ class PembayaranHutangController extends Controller
         $detilPembayaranHutangs = DB::table('detil_pembayaran_hutangs')
                                   ->join('faktur_belis','detil_pembayaran_hutangs.fb_id','=','faktur_belis.id')
                                   ->select('faktur_belis.no_fb','faktur_belis.tgl_fb','faktur_belis.bayar','faktur_belis.discount',
-                                           'faktur_belis.writeoff','faktur_belis.hutang')
+                                           'faktur_belis.hutang')
                                   ->get();
 
                                   return view('pembayaranHutang.show',
                                       [
                                           'detilPembayaranHutangs' => $detilPembayaranHutangs
-                                      ];
+                                      ]
                                   );
 
     }
@@ -115,5 +120,15 @@ class PembayaranHutangController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getFakturBeli()
+    {
+        $getFakturs = DB::table('faktur_belis')
+                     ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
+                     ->select('faktur_belis.no_fb')
+                     ->get();
+                    return view('pembayaranHutang.form',['getFakturs'=>$getFakturs]);
+
     }
 }

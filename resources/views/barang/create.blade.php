@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Tambah Barang</h3>                        
+<h3>Tambah Barang</h3>
 @endsection
 
 @section('pageOptions')

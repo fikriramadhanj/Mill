@@ -19,12 +19,12 @@ class CreateBarangsTable extends Migration
             $table->string('kode_barang');
             $table->string('nama');
             $table->integer('berat');
-            $table->decimal('harga_beli',10,3);
-            $table->integer('harga_jual1');
-            $table->integer('harga_jual2');
-            $table->integer('harga_jual3');
-            $table->integer('harga_jual4');
-            $table->integer('harga_jual5');
+            $table->bigInteger('harga_beli');
+            $table->bigInteger('harga_jual1');
+            $table->bigInteger('harga_jual2');
+            $table->bigInteger('harga_jual3');
+            $table->bigInteger('harga_jual4');
+            $table->bigInteger('harga_jual5');
             $table->integer('qty');
           //  $table->integer('qty_minimum');
 

@@ -94,7 +94,7 @@
               <tr class="barang-row">
                 <input type="hidden" name="detilBeli[0][subTotal]" value="" class="barang-subtotal-input" />
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm fb-hapus-barang" data-index="0">
+                  <button type="button" class="btn btn-danger btn-sm fj-hapus-barang" data-index="0">
                     Hapus
                   </button>
                 </td>
@@ -106,7 +106,7 @@
                       <option
                           value="{{$barang->id}}"
                           data-nama="{{$barang->nama}}"
-                          data-harga="{{$barang->harga_jual1}}"
+                          data-harga="{{$barang->harga_beli}}"
                           data-kode="{{$barang->kode_barang}}"
                       >{{$barang->nama}}</option>
                     @endforeach

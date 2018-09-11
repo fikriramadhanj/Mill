@@ -19,4 +19,13 @@ class FakturJual extends Model
       return $this->hasMany('App\DetilPenjualan','fj_id');
     }
 
+    public function hitungSubtotal()
+    {
+
+
+
+    }
+
+
+
 }

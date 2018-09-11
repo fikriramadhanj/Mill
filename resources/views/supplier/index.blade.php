@@ -43,7 +43,7 @@
             <td> {{$supplier->no_telp}} </td>
             <td> {{$supplier->fax}} </td>
             <td> {{$supplier->kontak_person}} </td>
-            <td> {{$supplier->limit_hutang}} </td>
+            <td>Rp.{{number_format($supplier->limit_hutang,2, ".", ",")}} </td>
             <td> {{$supplier->tempo_bayar}} </td>
             <td> {{$supplier->npwp}} </td>
             <td> {{$supplier->nppkp}} </td>

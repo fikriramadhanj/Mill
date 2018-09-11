@@ -21,8 +21,10 @@
             <th>Tanggal Jatuh Tempo </th>
             <th>Tempo Bayar </th>
             <th>Keterangan </th>
+            <th>Total </th>
+
             <th colspan="3">Action </th>
-          </tr  >
+          </tr>
         </thead>
         <tbody>
           @foreach($fakturJuals as $fakturJual)
@@ -32,6 +34,7 @@
             <td> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
             <td> {{date('j F Y', strtotime($fakturJual->tgl_jatuh_tempo))}} </td>
             <td> {{$fakturJual->tempo_bayar}} </td>
+            <td> {{$fakturJual->keterangan}} </td>
             <td> {{$fakturJual->keterangan}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}"> Detil Penjualan  </a></td>
           </tr>

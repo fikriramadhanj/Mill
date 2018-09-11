@@ -5,7 +5,7 @@
 
     var startDate = moment(elDateFaktur.datepicker('getDate'));
     var endDate = moment(elDateJatuhTempo.datepicker('getDate'));
-    
+
     var duration = endDate.diff(startDate, 'days');
     if (startDate.isSameOrAfter(endDate)) {
       elDateJatuhTempo.datepicker('update', startDate.format('YYYY-MM-DD'));
@@ -69,11 +69,11 @@
     changes.forEach(function (change) {
       var el = clonedRow.find(change.className);
       el.attr(change.attr, change.value);
-      
+
       // Reset
       if (['input', 'select'].indexOf(change.type) > -1) {
         el.val('');
-      } else if (change.type === 'inputNumber') {        
+      } else if (change.type === 'inputNumber') {
         el.val('1');
       } else if (change.type === 'dataName') {
         el.html('-');
@@ -102,16 +102,16 @@
     
     var valueHarga = elHarga.attr('data-nominal');
     var valueQty = elQty.val();
-    
+
     if (valueHarga && valueQty) {
       var subTotalValue = parseInt(valueHarga) * parseInt(valueQty);
       var subTotalNominal = numeral(subTotalValue).format('$0,0.00');
-  
+
       // Subtotal text
       var elSubTotalText = parent.find('.barang-subtotal');
       elSubTotalText.attr('data-nominal', subTotalValue);
       elSubTotalText.html(subTotalNominal);
-  
+
       // Subtotal input
       var elSubTotalInput = parent.find('.barang-subtotal-input');
       elSubTotalInput.val(subTotalValue);
@@ -133,7 +133,7 @@
         value: 0
       },
     }
-    
+
     $('.barang-row').each(function () {
       var elRow = $(this);
 
@@ -205,7 +205,7 @@
 
     // Subtotal
     changeSubTotalRow(parent);
-    
+
     // Calculate total
     calculateTotal();
   })
@@ -240,7 +240,7 @@
     var indexToDelete = el.data('index');
     var elTableBody = $('#fj-barang-list');
     var elTableRows = elTableBody.find('.barang-row');
-  
+
     if (elTableRows.length > 1) {
       editRowsBeforeDelete(elTableRows, indexToDelete);
       elRow.remove();

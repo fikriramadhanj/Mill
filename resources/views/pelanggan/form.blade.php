@@ -13,7 +13,7 @@
   $pelanggan_nppkp = !empty($pelanggan) ? $pelanggan->nppkp : '';
 @endphp
 
-<form name="form1" method="POST" action={{ $formAction }}>
+<form name="form1" method="POST" action="{{ $formAction }}">
   @csrf
   <div class="row">
     <div class="col-lg-6">
