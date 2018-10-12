@@ -20,15 +20,16 @@
               </div>
               </div>
             </div>
+
+            <div class="row">
             <div class="col-lg-6">
               <div class="form-group row">
                 <label class="col-form-label col-md-4">Nama Tipe</label>
                 <div class="col-md-8">
                   <input type="text" name="namaTipe" class="form-control" required value="{{ $tipeBarang_nama }}" />
                 </div>
-              </div
-                  </div>
-                
+              </div>
+            </div>
                 </div>
               </div>
 

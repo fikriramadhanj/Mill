@@ -26,7 +26,7 @@
           <div class="form-group row">
             <label class="col-form-label col-md-4">Kode Supplier</label>
             <div class="col-md-8">
-              <input type="text" name="kode" class="form-control" required value="{{ $supplier_kode }}" />
+              <input type="text" name="kode" class="form-control" required value="{{ $idSupplier }}" readonly="" />
             </div>
           </div>
           <div class="form-group row">

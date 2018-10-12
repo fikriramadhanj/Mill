@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="my-3">
-    @include('tipeBarang.form', ['formAction' => route('tipe-barang.store'), 'TipeBarang' => ''])
+    @include('tipeBarang.form', ['formAction' => route('tipe-barang.store')])
   </div>
 </div>
 @endsection

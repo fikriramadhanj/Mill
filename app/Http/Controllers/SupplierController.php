@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Supplier;
+use App\Models\Supplier;
+use DB;
 
 class SupplierController extends Controller
 {
@@ -28,7 +29,17 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('supplier.create');
+
+      $idSupplier= DB::table('suppliers')
+                 ->select('id')
+                 ->orderBy('id','DESC')
+                 ->limit(1)
+                 ->value('id');
+      $newid = $idSupplier + 1;
+      $newIdSupplier="SPL-0$newid";
+
+        return view('supplier.create',[ 'idSupplier' =>$newIdSupplier
+          ]);
     }
 
     /**
@@ -55,7 +66,7 @@ class SupplierController extends Controller
         $supplier->nppkp=$request->nppkp;
 
         $supplier->save();
-        
+
         return redirect()->action('SupplierController@index');
     }
 

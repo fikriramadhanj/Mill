@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Supplier;
-use App\Barang;
-use App\FakturBeli;
-use App\DetilPembelian;
+use App\Models\Supplier;
+use App\Models\Barang;
+use App\Models\FakturBeli;
+use App\Models\DetilPembelian;
 
 
 class FakturBeliController extends Controller

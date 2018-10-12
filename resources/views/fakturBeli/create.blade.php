@@ -25,5 +25,5 @@
   <script src="/js/moment.min.js"></script>
   <script src="/js/numeral.min.js"></script>
   <script src="/js/numeral-config.js"></script>
-  <script src="/js/app/faktur-jual.js"></script>
+  <script src="/js/app/faktur-beli.js"></script>
 @endsection

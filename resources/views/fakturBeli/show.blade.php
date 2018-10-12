@@ -28,9 +28,9 @@
               <tr>
                 <td> {{$detilPembelian->kode_barang}} </td>
                 <td> {{$detilPembelian->nama}} </td>
-                <td> {{$detilPembelian->harga_beli}} </td>
+                <td> Rp. {{number_format($detilPembelian->harga_beli,2,".", ",")}} </td>
                 <td> {{$detilPembelian->qty}} </td>
-                <td> {{$detilPembelian->sub_total}} </td>
+                <td> Rp. {{number_format($detilPembelian->sub_total,2,".",",")}} </td>
               </tr>
             @endforeach
           @endif

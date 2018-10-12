@@ -19,6 +19,7 @@ class CreatePembayaranHutangsTable extends Migration
           $table->string('no_pembayaran')->unique();
           $table->dateTime('tgl_pembayaran');
           $table->dateTime('tgl_jatuh_tempo');
+          $table->integer('tempo_bayar');
           $table->bigInteger('total_pembayaran');
           $table->string('posted');
           $table->string('keterangan');
@@ -26,6 +27,11 @@ class CreatePembayaranHutangsTable extends Migration
           $table->unsignedInteger('supplier_id');
           $table->foreign('supplier_id')
                 ->references('id')->on('suppliers')
+                ->onDelete('cascade');
+
+          $table->unsignedInteger('fb_id');
+          $table->foreign('fb_id')
+                ->references('id')->on('faktur_belis')
                 ->onDelete('cascade');
 
           $table->timestamps();

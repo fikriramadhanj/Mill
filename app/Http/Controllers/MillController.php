@@ -168,8 +168,10 @@ class MillController extends Controller
         $barangs = Barang::find($id);
         $tipeBarang=$this->showTipeBarang();
         return view('barang.update',[
-          'update'=>$barangs,
-          'tipeBarangs' => $tipeBarang
+
+              'update'=>$barangs,
+              'tipeBarangs' => $tipeBarang
+              
           ]);
 
     }

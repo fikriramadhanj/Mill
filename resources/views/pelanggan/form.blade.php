@@ -25,7 +25,7 @@
           <div class="form-group row">
             <label class="col-form-label col-md-4">Kode Pelanggan</label>
             <div class="col-md-8">
-              <input type="text" name="kode" class="form-control" required value="{{ $pelanggan_kode }}" />
+              <input type="text" name="kode" class="form-control" required value="{{ $idPelanggan }}" readonly="" />
             </div>
           </div>
           <div class="form-group row">

@@ -15,20 +15,20 @@
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
-            <td>Kode Supplier </td>
-            <td>Nama Supplier </td>
-            <td>Nama NPWP </td>
-            <td>Alamat </td>
-            <td>Kota </td>
-            <td>Kode Pos </td>
-            <td>No Telpon </td>
-            <td>Fax </td>
-            <td>Kontak Supplier</td>
-            <td>Limit Hutang </td>
-            <td>Tempo Bayar </td>
-            <td>NPWP </td>
-            <td>NPPKP </td>
-            <td colspan="2">Action </td>
+            <th>Kode Supplier </th>
+            <th>Nama Supplier </th>
+            <th>Nama NPWP </th>
+            <th>Alamat </th>
+            <th>Kota </th>
+            <th>Kode Pos </th>
+            <th>No Telpon </th>
+            <th>Fax </th>
+            <th>Kontak Supplier</th>
+            <th>Limit Hutang </th>
+            <th>Tempo Bayar </th>
+            <th>NPWP </th>
+            <th>NPPKP </th>
+            <th colspan="2">Action </th>
           </tr>
         </thead>
         <tbody>

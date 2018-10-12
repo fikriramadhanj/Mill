@@ -13,6 +13,10 @@
         'Transaksi' => [
             'faktur-jual.index' => 'Penjualan',
             'faktur-beli.index' => 'Pembelian',
+            'pembayaran-hutang.index' => 'Pembayaran Hutang',
+            'pelunasan-piutang.index' => 'Pelunasan piutang'
+
+
 
 
 

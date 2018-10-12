@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB;
-use App\Pelanggan;
-use App\Barang;
-use App\FakturJual;
-use App\DetilPenjualan;
+use App\Models\Pelanggan;
+use App\Models\Barang;
+use App\Models\FakturJual;
+use App\Models\DetilPenjualan;
+use App\Models\DetilPembelian;
+
 
 class FakturJualController extends Controller
 {
@@ -43,13 +45,20 @@ class FakturJualController extends Controller
     {
         $pelanggan = Pelanggan::all();
         $barangs = Barang::all();
+        $idFaktur= DB::table('faktur_juals')
+                   ->select('id')
+                   ->orderBy('id','DESC')
+                   ->limit(1)
+                   ->value('id');
         $tgl=Date('my');
-        $noFJ="FJ-$tgl";
+        $newid = $idFaktur + 1;
+        $noFJ="FJ0$newid";
 
         $result = [
             'pelanggans' => $pelanggan,
             'barangs' => $barangs,
-            'noFJ' => $noFJ
+            'noFJ' => $noFJ,
+            'idFaktur' => $idFaktur
         ];
 
         return view('fakturJual.create', $result);
@@ -82,6 +91,8 @@ class FakturJualController extends Controller
                 $detilJuals->sub_total=$inputJual['subTotal'];
                 $detilJuals->barang_id=$inputJual['barangId'];
                 $detilJuals->fj_id = $fakturJuals->id;
+
+
                 $detilJuals->save();
             }
         }
@@ -106,16 +117,21 @@ class FakturJualController extends Controller
             ->where('faktur_juals.id',"=",$id)
             ->get();
 
+
+            $total = DB::table('detil_penjualans')
+                     ->select(DB::raw('SUM(sub_total) as Total'))
+                     ->where('fj_id','=',$id)
+                     ->value('sub_total');
+                    //  return response()->json($total);
+
         return view('fakturJual.show',
             [
-                'detilPenjualans' => $detilPenjualans
+                'detilPenjualans' => $detilPenjualans,
+                'total' => $total
             ]
         );
     }
-    public function createBarang()
-    {
-          return view('fakturJual.DataBarang');
-    }
+
     public function getBarang()
     {
         $barangs = Barang::all();
@@ -156,4 +172,13 @@ class FakturJualController extends Controller
     {
         //
     }
+
+
+    public function getTotal($id)
+    {
+
+
+    }
+
+
 }

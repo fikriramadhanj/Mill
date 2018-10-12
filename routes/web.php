@@ -56,6 +56,10 @@ Route::group(
     Route::post('create', 'FakturJualController@store')->name('store');
     Route::get('detail/{id}', 'FakturJualController@show')->name('show');
     Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
+    Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
+    Route::get('getid', 'FakturJualController@getId')->name('id');
+
+
 
   }
 );
@@ -78,7 +82,7 @@ Route::group(
 Route::group(
   [
       'prefix' => 'pelunasan-piutang',
-      'as' => 'pelunasan-piutang.'
+      'as' => 'pelunasan-piutang.',
 
   ], function () {
       Route::get('','PelunasanPiutangController@index')->name('index');
@@ -92,7 +96,7 @@ Route::group(
 Route::group(
   [
       'prefix' => 'pembayaran-hutang',
-      'as' => 'pembayaran-hutang',
+      'as' => 'pembayaran-hutang.',
 
   ], function (){
       Route::get('','PembayaranHutangController@index')->name('index');
@@ -132,46 +136,3 @@ Route::group(
     Route::post('delete/{id}', 'SupplierController@destroy')->name('destroy');
   }
 );
-
-/* Supplier */
-
-// Route::get('/barang', 'MillController@showAllDataBarang')->name('barang');
-// Route::get('/supplier', 'MillController@showAllDataSupplier')->name('supplier');
-// Route::get('/Pelanggan', 'MillController@showAllDataPelanggan')->name('pelanggan');
-// Route::get('/FakturJual', 'MillController@showAllFakturJual')->name('faktur-jual');
-// Route::get('/FakturBeli', 'MillController@showAllFakturBeli')->name('faktur-beli');
-// Route::get('/FakturBeli/ShowDetilPembelian/{id}', 'MillController@showDetilPembelian')->name('faktur-beli-show');
-// Route::get('/FakturJual/ShowDetilPenjualan/{id}', 'MillController@showDetilPenjualan')->name('faktur-jual-show');
-
-
-
-
-
-// Route::get('/barang/formAddBarang', 'MillController@showFormAddBarang');
-// Route::get('/Supplier/FormAddSupplier', 'MillController@showFormAddSupplier');
-// Route::get('/Pelanggan/FormAddPelanggan', 'MillController@showFormAddPelanggan');
-// Route::get('/barang/formUpdateBarang/{id}', 'MillController@showFormUpdateBarang');
-// Route::get('/Supplier/FormUpdateSupplier/{id}', 'MillController@showFormUpdateSupplier');
-// Route::get('/Pelanggan/FormUpdatePelanggan/{id}', 'MillController@showFormUpdatePelanggan');
-// Route::get('/FakturJual/FormAddFakturJual', 'MillController@showFormFakturJual');
-// Route::get('/FakturBeli/FormAddFakturBeli', 'MillController@showFormFakturBeli');
-
-
-// Route::get('/FakturJual/GetFaktur', 'MillController@getFaktur');
-
-
-// Route::get('/barang/ProsesAddBarang', 'MillController@addBarang');
-// Route::get('/supplier/ProsesAddSupplier', 'MillController@addSupplier');
-// Route::get('/Pelanggan/ProsesAddPelanggan', 'MillController@addPelanggan');
-// Route::get('/FakturJual/ProsesAddFakturJual', 'MillController@addFakturJual');
-
-
-
-// Route::get('/barang/ProsesUpdateBarang/{id}', 'MillController@updateBarang');
-// Route::get('/Supplier/ProsesUpdateSupplier/{id}', 'MillController@updateSupplier');
-// Route::get('/Pelanggan/ProsesUpdatePelanggan/{id}', 'MillController@updatePelanggan');
-
-
-// Route::get('/barang/ProsesDeleteBarang/{id}', 'MillController@deleteBarang');
-// Route::get('/Supplier/ProsesDeleteSupplier/{id}', 'MillController@deleteSupplier');
-// Route::get('/Pelanggan/ProsesDeletePelanggan/{id}', 'MillController@deletePelanggan');

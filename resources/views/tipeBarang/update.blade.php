@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="my-3">
-    @include('tipeBarang.form', ['formAction' => route('tipe-barang.update', ['id' => $update->id]), 'tipeBarangs' => $update ])
+    @include('tipeBarang.form', ['formAction' => route('tipe-barang.update', ['id' => $update->id]), 'tipeBarangs' => $update])
   </div>
 </div>
 @endsection

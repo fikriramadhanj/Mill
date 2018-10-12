@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Barang;
-use App\TipeBarang;
+use App\Models\Barang;
+use App\Models\TipeBarang;
+use DB;
 
 class BarangController extends Controller
 {
@@ -32,9 +33,19 @@ class BarangController extends Controller
     public function create()
     {
         $tipeBarang= TipeBarang::all();
+        $idBarang= DB::table('barangs')
+                   ->select('id')
+                   ->orderBy('id','DESC')
+                   ->limit(1)
+                   ->value('id');
+
+        $newid = $idBarang + 1;
+        $newIdBarang="BRG-0$newid";
         return view('barang.create',
             [
-                'tipeBarangs'=>$tipeBarang
+                'tipeBarangs'=>$tipeBarang,
+                'idBarang' => $newIdBarang
+
             ]
         );
     }
@@ -49,7 +60,7 @@ class BarangController extends Controller
     {
         $barang= new Barang();
         $barang->kode_barang=$request->kode;
-        $barang->tipe_id=$request->tipeBarang;
+        $barang->tipe_id=$request->tipeId;
         $barang->tgl_beli=$request->tgl_beli;
         $barang->nama=$request->nama;
         $barang->berat=$request->berat;
@@ -63,7 +74,8 @@ class BarangController extends Controller
         //$barang->keterangan=$request->keterangan;
         \Log::debug($request);
         $barang->save();
-        return redirect()->action('BarangController@index');
+        return response()->json($barang);
+        // return redirect()->action('BarangController@index');
     }
 
     /**
@@ -133,4 +145,19 @@ class BarangController extends Controller
 
         return redirect()->action('BarangController@index');
     }
+
+    public function idBarang()
+    {
+          $idBarang = DB::table('barangs')
+                      ->select('id')
+                      ->orderBy('id desc')
+                      ->get();
+          $kodeBarang=$idBarang+1;
+
+          return view('barang.form',['kode'=>$kodeBarang]);
+
+
+
+    }
+
 }

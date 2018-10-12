@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Edit Supplier - {{ $update->nama_supplier }}</h3>                        
+<h3>Edit Supplier - {{ $update->nama_supplier }}</h3>
 @endsection
 
 @section('pageOptions')
@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
   <div class="my-3">
-    @include('supplier.form', ['formAction' => route('supplier.update', ['id' => $update->id]), 'supplier' => $update ])
+    @include('supplier.formEdit', ['formAction' => route('supplier.update', ['id' => $update->id]), 'supplier' => $update ])
   </div>
 </div>
 @endsection

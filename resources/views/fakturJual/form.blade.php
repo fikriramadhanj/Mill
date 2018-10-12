@@ -10,7 +10,7 @@
           <div class="form-group row">
             <label class="col-form-label col-md-4">No. Faktur</label>
             <div class="col-md-8">
-              <input type="text" name="noFJ" class="form-control" required />
+              <input type="text" name="noFJ" class="form-control" value="{{$noFJ}}" readonly=""required />
             </div>
           </div>
           <div class="form-group row">
@@ -58,7 +58,7 @@
     </div>
     <div class="col-lg-12">
         <a href="/faktur-jual/dataBarang"> Tambah Barang </a>
-        
+
       <div class="card mb-3 border-0">
         <div class="card-header border-top border-left border-right border-bottom-0 d-flex flex-row align-items-center justify-content-between">
           <div class="card-title mb-0">Detail Penjualan</div>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\TipeBarang;
+use App\Models\TipeBarang;
 
 
 class TipeBarangController extends Controller
@@ -85,7 +85,8 @@ class TipeBarangController extends Controller
           $tipeBarangs->id=$request->idTipe;
           $tipeBarangs->nama_tipe=$request->namaTipe;
           $tipeBarangs->save();
-          redirect()->action('TipeBarangController@index');
+
+        return redirect()->action('TipeBarangController@index');
 
     }
 
@@ -99,7 +100,7 @@ class TipeBarangController extends Controller
     {
           $tipeBarang=TipeBarang::find($id);
           $tipeBarang->delete();
-          redirect()->action('TipeBarangController@index');
+          return redirect()->action('TipeBarangController@index');
 
     }
 }

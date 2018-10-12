@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Pelanggan;
+use App\Models\Pelanggan;
+use DB;
 
 class PelangganController extends Controller
 {
@@ -28,7 +29,16 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        return view('pelanggan.create');
+      $idPelanggan= DB::table('pelanggans')
+                 ->select('id')
+                 ->orderBy('id','DESC')
+                 ->limit(1)
+                 ->value('id');
+      $newid = $idPelanggan + 1;
+      $newIdPelanggan="PLG-0$newid";
+
+
+        return view('pelanggan.create',['idPelanggan'=>$newIdPelanggan]);
     }
 
     /**
@@ -76,9 +86,11 @@ class PelangganController extends Controller
      */
     public function edit($id)
     {
+
         $pelanggans = Pelanggan::find($id);
         return view('pelanggan.update',[
-          'update'=>$pelanggans
+          'update'=>$pelanggans,
+
           ]);
     }
 
