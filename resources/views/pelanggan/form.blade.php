@@ -7,8 +7,6 @@
   $pelanggan_no_telp = !empty($pelanggan) ? $pelanggan->no_telp : '';
   $pelanggan_fax = !empty($pelanggan) ? $pelanggan->fax : '';
   $pelanggan_kontak_person = !empty($pelanggan) ? $pelanggan->kontak_person : '';
-  $pelanggan_default_tempo = !empty($pelanggan) ? $pelanggan->default_tempo : '';
-  $pelanggan_limit_hutang = !empty($pelanggan) ? $pelanggan->limit_hutang : '';
   $pelanggan_npwp = !empty($pelanggan) ? $pelanggan->npwp : '';
   $pelanggan_nppkp = !empty($pelanggan) ? $pelanggan->nppkp : '';
 @endphp
@@ -91,18 +89,7 @@
               <input type="text" name="nppkp" class="form-control" required value="{{ $pelanggan_nppkp }}" />
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Limit Hutang</label>
-            <div class="col-md-8">
-              <input type="text" name="limitHutang" class="form-control" required value="{{ $pelanggan_limit_hutang }}" >
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Default Tempo</label>
-            <div class="col-md-8">
-              <input type="text" name="defaultTempo" class="form-control" required value="{{ $pelanggan_default_tempo }}" />
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

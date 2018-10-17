@@ -21,17 +21,11 @@ class CreatePelunasanPiutangsTable extends Migration
           $table->integer('tempo_bayar');
           $table->dateTime('tgl_jatuh_tempo');
           $table->bigInteger('total_pembayaran');
-          $table->string('posted');
           $table->string('keterangan');
 
           $table->unsignedInteger('fj_id');
           $table->foreign('fj_id')
                 ->references('id')->on('faktur_juals')
-                ->onDelete('cascade');
-
-          $table->unsignedInteger('pelanggan_id');
-          $table->foreign('pelanggan_id')
-                ->references('id')->on('pelanggans')
                 ->onDelete('cascade');
 
           $table->timestamps();

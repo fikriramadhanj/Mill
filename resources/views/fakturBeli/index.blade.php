@@ -30,16 +30,16 @@
         <tbody>
           @foreach($fakturBelis as $fakturBeli)
           <tr>
-            <td> {{$fakturBeli->no_fb}} </td>
-            <td> {{$fakturBeli->no_sj}} </td>
-            <td> {{$fakturBeli->no_pajak}} </td>
-            <td> {{$fakturBeli->nama_supplier}} </td>
-            <td>Rp.{{number_format($fakturBeli->uang_muka,2,".",",")}} </td>
-            <td> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
-            <td> {{date('j F Y', strtotime($fakturBeli->tgl_jatuh_tempo))}} </td>
-            <td> {{$fakturBeli->tempo_bayar}} hari </td>
-            <td> {{$fakturBeli->keterangan}} </td>
-            <td> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}"> Detil Pembelian  </a></td>
+            <td align="center"> {{$fakturBeli->no_fb}} </td>
+            <td align="center"> {{$fakturBeli->no_sj}} </td>
+            <td align="center"> {{$fakturBeli->no_pajak}} </td>
+            <td align="center"> {{$fakturBeli->nama_supplier}} </td>
+            <td align="center">Rp.{{number_format($fakturBeli->uang_muka,2,".",",")}} </td>
+            <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
+            <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_jatuh_tempo))}} </td>
+            <td align="center"> {{$fakturBeli->tempo_bayar}} hari </td>
+            <td align="center"> {{$fakturBeli->keterangan}} </td>
+            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}"> Detil Pembelian  </a></td>
           </tr>
           @endforeach
         </tbody>

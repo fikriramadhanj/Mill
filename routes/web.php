@@ -58,6 +58,9 @@ Route::group(
     Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
     Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
     Route::get('getid', 'FakturJualController@getId')->name('id');
+    Route::get('pdfFakturJual',  'FakturJualController@makePDF');
+    Route::get('pdf', 'PDFController@pdf');
+
 
 
 
@@ -88,7 +91,7 @@ Route::group(
       Route::get('','PelunasanPiutangController@index')->name('index');
       Route::get('create','PelunasanPiutangController@create')->name('create');
       Route::post('create','PelunasanPiutangController@store')->name('store');
-      Route::post('detail/{id}','PelunasanPiutangController@show')->name('show');
+      Route::get('detail/{id}','PelunasanPiutangController@show')->name('show');
   }
 );
 
@@ -102,7 +105,7 @@ Route::group(
       Route::get('','PembayaranHutangController@index')->name('index');
       Route::get('create','PembayaranHutangController@create')->name('create');
       Route::post('create','PembayaranHutangController@store')->name('store');
-      Route::post('detail/{id}','PembayaranHutangController@show')->name('show');
+      Route::get('detail/{id}','PembayaranHutangController@show')->name('show');
   }
 );
 

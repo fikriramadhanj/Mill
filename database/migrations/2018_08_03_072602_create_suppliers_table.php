@@ -15,7 +15,7 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode_supplier');
+            $table->string('kode_supplier')->unique();
             $table->string('nama_supplier');
             $table->string('nama_npwp');
             $table->string('alamat');
@@ -24,8 +24,6 @@ class CreateSuppliersTable extends Migration
             $table->string('no_telp');
             $table->string('fax');
             $table->string('kontak_person');
-            $table->bigInteger('limit_hutang');
-            $table->integer('tempo_bayar');
             $table->string('npwp');
             $table->string('nppkp');
 

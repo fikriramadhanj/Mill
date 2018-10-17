@@ -50,9 +50,18 @@ class FakturBeliController extends Controller
     {
         $suppliers = Supplier::all();
         $barangs = Barang::all();
+        $idFaktur= DB::table('faktur_belis')
+                   ->select('id')
+                   ->orderBy('id','DESC')
+                   ->limit(1)
+                   ->value('id');
+        $tgl=Date('my');
+        $newid = $idFaktur + 1;
+        $noFB="FB-0$newid";
 
         $result=['suppliers'=>$suppliers,
-                  'barangs'=>$barangs
+                  'barangs'=>$barangs,
+                  'idFakturBeli' => $noFB
 
         ];
         return view('fakturBeli.create',$result);
@@ -67,6 +76,7 @@ class FakturBeliController extends Controller
      */
     public function store(Request $request)
     {
+
         $fakturBelis = new FakturBeli();
         $fakturBelis->no_fb = $request->noFB;
         $fakturBelis->tgl_fb = $request->tglFB;
@@ -77,7 +87,15 @@ class FakturBeliController extends Controller
         $fakturBelis->uang_muka = $request->uangMuka;
         $fakturBelis->keterangan = $request->keterangan;
         $fakturBelis->supplier_id = $request->supplierId;
-
+        // $fakturBelis->total_faktur = $total;
+        $detilInputBeli = $request->detilBeli;
+        if (isset($detilInputBeli))
+        {
+            foreach($detilInputBeli as $inputBeli)
+            {
+                $fakturBelis->total_faktur += $inputBeli['subTotal'];
+            }
+        }
         $fakturBelis->save();
 
         $detilInputBeli = $request->detilBeli;
@@ -93,6 +111,11 @@ class FakturBeliController extends Controller
                 $detilBelis->save();
             }
         }
+
+
+
+
+
 
         return redirect()->action('FakturBeliController@index');
 
@@ -113,9 +136,15 @@ class FakturBeliController extends Controller
                           ->where('faktur_belis.id','=',$id)
                           ->get();
 
+        $total = DB::table('detil_pembelians')
+                ->select(DB::raw('SUM(sub_total) as Total'))
+                ->where('fb_id','=',$id)
+                ->value('sub_total');
+
                           return view('fakturBeli.show',
                               [
-                                  'detilPembelians' => $detilPembelians
+                                  'detilPembelians' => $detilPembelians,
+                                  'total' => $total
                               ]
                           );
 

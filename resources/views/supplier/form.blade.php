@@ -98,18 +98,7 @@
               <input type="text" name="nppkp" class="form-control" required value="{{ $supplier_nppkp }}" />
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Limit Hutang</label>
-            <div class="col-md-8">
-              <input type="text" name="limitHutang" class="form-control" required value="{{ $supplier_limit_hutang }}" >
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Tempo Bayar</label>
-            <div class="col-md-8">
-              <input type="text" name="tempoBayar" class="form-control" required value="{{ $supplier_tempo_bayar }}" />
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

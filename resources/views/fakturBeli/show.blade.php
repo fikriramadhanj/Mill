@@ -30,10 +30,12 @@
                 <td> {{$detilPembelian->nama}} </td>
                 <td> Rp. {{number_format($detilPembelian->harga_beli,2,".", ",")}} </td>
                 <td> {{$detilPembelian->qty}} </td>
-                <td> Rp. {{number_format($detilPembelian->sub_total,2,".",",")}} </td>
+                <td align="right"> Rp. {{number_format($detilPembelian->sub_total,2,".",",")}} </td>
               </tr>
             @endforeach
           @endif
+          <td colspan ="6" align="right" > <b >Total : Rp. {{number_format($total,2,".",",")}}</b> </td>
+
         </tbody>
       </table>
     </div>

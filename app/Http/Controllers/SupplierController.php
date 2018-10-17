@@ -60,8 +60,6 @@ class SupplierController extends Controller
         $supplier->no_telp=$request->noTelp;
         $supplier->fax=$request->fax;
         $supplier->kontak_person=$request->kontakPerson;
-        $supplier->limit_hutang=$request->limitHutang;
-        $supplier->tempo_bayar=$request->tempoBayar;
         $supplier->npwp=$request->npwp;
         $supplier->nppkp=$request->nppkp;
 
@@ -116,8 +114,6 @@ class SupplierController extends Controller
         $supplier->no_telp=$request->noTelp;
         $supplier->fax=$request->fax;
         $supplier->kontak_person=$request->kontakPerson;
-        $supplier->limit_hutang=$request->limitHutang;
-        $supplier->tempo_bayar=$request->tempoBayar;
         $supplier->npwp=$request->npwp;
         $supplier->nppkp=$request->nppkp;
         $supplier->save();

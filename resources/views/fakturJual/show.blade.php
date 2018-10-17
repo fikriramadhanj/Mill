@@ -36,7 +36,7 @@
               </tr>
             @endforeach
           @endif
-          <td colspan ="6" align="right" > <b >Total :Rp. {{number_format($total,2,".",",")}}</b> </td>
+          <td colspan ="6" align="right" > <b >Total : Rp. {{number_format($total,2,".",",")}}</b> </td>
         </tbody>
       </table>
     </div>

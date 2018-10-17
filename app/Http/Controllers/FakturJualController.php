@@ -50,9 +50,10 @@ class FakturJualController extends Controller
                    ->orderBy('id','DESC')
                    ->limit(1)
                    ->value('id');
+
         $tgl=Date('my');
         $newid = $idFaktur + 1;
-        $noFJ="FJ0$newid";
+        $noFJ="FJ-0$newid";
 
         $result = [
             'pelanggans' => $pelanggan,
@@ -122,6 +123,8 @@ class FakturJualController extends Controller
                      ->select(DB::raw('SUM(sub_total) as Total'))
                      ->where('fj_id','=',$id)
                      ->value('sub_total');
+
+
                     //  return response()->json($total);
 
         return view('fakturJual.show',
@@ -173,12 +176,19 @@ class FakturJualController extends Controller
         //
     }
 
-
-    public function getTotal($id)
-    {
-
-
-    }
+    // public function makePDF(){
+    //
+    //     $produk =  FakturJual:  :  join  (  'kategori'  ,  'kategori.  id  kategon',
+    //     '=',  'produk.id  kategori')
+    //     ->orderBy('produk.id produk',  'desc')->get();
+    //
+    //     $no=  O;
+    //     $pdf =  PDF:: loadView  (  'produk.pdf  •,  compact  (  •produk','no'))]
+    //
+    //     return $pdf->stream();
+    //     ]
+    //
+    // }
 
 
 }

@@ -8,6 +8,8 @@ use App\Models\Supplier;
 use App\Models\FakturBeli;
 use App\Models\PembayaranHutang;
 use App\Models\DetilPembayaranHutang;
+use App\Models\DetilPembelian;
+
 
 
 
@@ -21,18 +23,25 @@ class PembayaranHutangController extends Controller
     public function index()
     {
           $pembayaranHutangs = DB::table('pembayaran_hutangs')
-                               ->join('suppliers','pembayaran_hutangs.supplier_id','=','suppliers.id')
                                ->join('faktur_belis','pembayaran_hutangs.fb_id','=','faktur_belis.id')
-                               ->select('pembayaran_hutangs.no_pembayaran',
+                               ->select(
+                                        'pembayaran_hutangs.id',
+                                        'pembayaran_hutangs.no_pembayaran',
                                         'faktur_belis.no_fb',
                                         'pembayaran_hutangs.tgl_pembayaran',
                                         'pembayaran_hutangs.tempo_bayar',
-                                        'suppliers.nama_supplier',
                                         'pembayaran_hutangs.tgl_jatuh_tempo',
-                                        'pembayaran_hutangs.total_pembayaran')
+                                        'pembayaran_hutangs.total_pembayaran',
+                                        'pembayaran_hutangs.jenis_pembayaran')
                               ->get();
+
+
                               // return response()->json($pembayaranHutangs);
-                            return view('pembayaranHutang.index',['pembayaranHutangs'=> $pembayaranHutangs]);
+                            return view('pembayaranHutang.index',[
+
+                                        'pembayaranHutangs'=> $pembayaranHutangs
+
+                            ]);
     }
 
     /**
@@ -44,12 +53,20 @@ class PembayaranHutangController extends Controller
     {
           $suppliers = Supplier::all();
           $fakturBeli = FakturBeli::all();
-
+          $idBayar= DB::table('pembayaran_hutangs')
+                     ->select('id')
+                     ->orderBy('id','DESC')
+                     ->limit(1)
+                     ->value('id');
+          $tgl=Date('my');
+          $newid = $idBayar + 1;
+          $noBayar="FB-0$newid-$tgl";
 
           return view('pembayaranHutang.create',[
 
                       'suppliers'=>$suppliers,
-                      'fakturBelis' => $fakturBeli
+                      'fakturBelis' => $fakturBeli,
+                      'noBayar' => $noBayar
 
 
                       ]);
@@ -70,10 +87,9 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
-        $pembayaranHutangs->posted=$request->posted;
-        $pembayaranHutangs->supplier_id=$request->supplierId;
         $pembayaranHutangs->fb_id=$request->fbId;
-        $pembayaranHutangs->keterangan=$request->keterangan;
+        $pembayaranHutangs->jenis_pembayaran=$request->jenisBayar;
+
 
         $pembayaranHutangs->save();
         // return response()->json($pembayaranHutangs);
@@ -91,15 +107,38 @@ class PembayaranHutangController extends Controller
     public function show($id)
     {
         $detilPembayaranHutangs = DB::table('detil_pembayaran_hutangs')
-                                  ->join('faktur_belis','detil_pembayaran_hutangs.fb_id','=','faktur_belis.id')
-                                  ->select('faktur_belis.no_fb','faktur_belis.tgl_fb','faktur_belis.bayar','faktur_belis.discount',
-                                           'faktur_belis.hutang')
-                                  ->where('faktur_belis.id','=',$id)
+                                  ->join('pembayaran_hutangs','detil_pembayaran_hutangs.pembayaran_id','=','pembayaran_hutangs.id')
+                                  ->join('detil_pembelians','detil_pembayaran_hutangs.fb_id','=','detil_pembelians.id')
+
+                                  ->select('pembayaran_hutangs.no_pembayaran')
+                                  ->where('pembayaran_hutangs.id','=',$id)
                                   ->get();
 
+
+          $totalHutang = DB::table('detil_pembelians')
+                        ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
+                        ->select(DB::raw('SUM(detil_pembelians.sub_total) as total'))
+                        ->where('detil_pembelians.id',$id)
+                        ->value('detil_pembelians.sub_total');
+
+
+
+         $totalBayar = DB::table('pembayaran_hutangs')
+                      ->select('total_pembayaran')
+                      ->where('id','=',$id)
+                      ->value('total_pembayaran');
+
+
+
+
+          $sisaBayar = $totalHutang-$totalBayar;
+                        // return response()->json($totalHutang);
                                   return view('pembayaranHutang.show',
                                       [
-                                          'detilPembayaranHutangs' => $detilPembayaranHutangs
+                                          // 'detilPembayaranHutangs' => $detilPembayaranHutangs,
+                                          'totalHutang' => $totalHutang,
+                                          'totalBayar' => $totalBayar,
+                                          'sisaBayar' => $sisaBayar
                                       ]
                                   );
 
@@ -139,13 +178,5 @@ class PembayaranHutangController extends Controller
         //
     }
 
-    public function getFakturBeli()
-    {
-        $getFakturs = DB::table('faktur_belis')
-                     ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
-                     ->select('faktur_belis.no_fb')
-                     ->get();
-                    return view('pembayaranHutang.form',['getFakturs'=>$getFakturs]);
 
-    }
 }

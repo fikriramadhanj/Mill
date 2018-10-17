@@ -58,8 +58,6 @@ class PelangganController extends Controller
         $pelanggan->no_telp= $request->noTelp;
         $pelanggan->fax= $request->fax;
         $pelanggan->kontak_person= $request->kontakPerson;
-        $pelanggan->limit_hutang= $request->limitHutang;
-        $pelanggan->default_tempo= $request->defaultTempo;
         $pelanggan->npwp= $request->npwp;
         $pelanggan->nppkp= $request->nppkp;
 
@@ -112,8 +110,6 @@ class PelangganController extends Controller
         $pelanggan->no_telp= $request->noTelp;
         $pelanggan->fax= $request->fax;
         $pelanggan->kontak_person= $request->kontakPerson;
-        $pelanggan->limit_hutang= $request->limitHutang;
-        $pelanggan->default_tempo= $request->defaultTempo;
         $pelanggan->npwp= $request->npwp;
         $pelanggan->nppkp= $request->nppkp;
 

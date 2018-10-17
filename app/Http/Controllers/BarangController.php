@@ -63,7 +63,6 @@ class BarangController extends Controller
         $barang->tipe_id=$request->tipeId;
         $barang->tgl_beli=$request->tgl_beli;
         $barang->nama=$request->nama;
-        $barang->berat=$request->berat;
         $barang->harga_beli=$request->hargaBeli;
         $barang->harga_jual1=$request->hargaJual1;
         $barang->harga_jual2=$request->hargaJual2;
@@ -74,8 +73,8 @@ class BarangController extends Controller
         //$barang->keterangan=$request->keterangan;
         \Log::debug($request);
         $barang->save();
-        return response()->json($barang);
-        // return redirect()->action('BarangController@index');
+        // return response()->json($barang);
+        return redirect()->action('BarangController@index');
     }
 
     /**
@@ -117,7 +116,6 @@ class BarangController extends Controller
         $barang = Barang::find($request->id);
         $barang->kode_barang = $request->kode;
         $barang->nama = $request->nama;
-        $barang->berat = $request->berat;
         $barang->harga_beli = $request->hargaBeli;
         $barang->harga_jual1 = $request->hargaJual1;
         $barang->harga_jual2 = $request->hargaJual2;

@@ -10,7 +10,7 @@
           <div class="form-group row">
             <label class="col-form-label col-md-4">No. Faktur</label>
             <div class="col-md-8">
-              <input type="text" name="noFB" class="form-control" required />
+              <input type="text" name="noFB" class="form-control" required value="{{$idFakturBeli}}" readonly=""/>
             </div>
             </div>
 
@@ -34,7 +34,7 @@
               <input type="text" name="uangMuka" class="form-control" required />
             </div>
           </div>
-          
+
           <div class="form-group row">
             <label class="col-form-label col-md-4">Supplier</label>
             <div class="col-md-8">
@@ -138,6 +138,8 @@
                 <td colspan="6" align="right">Total</td>
                 <td id="faktur-beli-total-qty" align="right">0</td>
                 <td id="faktur-beli-total-subTotal" align="right">Rp. 0,00</td>
+
+                <?php echo "<script> document.writein(total); </script>"; ?>
               </tr>
             </tfoot>
           </table>

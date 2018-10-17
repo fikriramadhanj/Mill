@@ -22,18 +22,15 @@ class PelunasanPiutangController extends Controller
     public function index()
     {
         $pelunasanPiutangs = DB::table('pelunasan_piutangs')
-                            ->join('pelanggans','pelunasan_piutangs.pelanggan_id','=','pelanggans.id')
                             ->join('faktur_juals','pelunasan_piutangs.fj_id','=','faktur_juals.id')
                             ->select('pelunasan_piutangs.no_pembayaran',
+                            'pelunasan_piutangs.id',
                             'pelunasan_piutangs.tgl_pembayaran',
                             'pelunasan_piutangs.tgl_jatuh_tempo',
                             'pelunasan_piutangs.tempo_bayar',
                             'pelunasan_piutangs.keterangan',
                             'pelunasan_piutangs.total_pembayaran',
-                            'pelanggans.nama_pelanggan',
-                            'faktur_juals.no_fj',
-                            'pelanggans.nama_pelanggan',
-                            'pelunasan_piutangs.posted')
+                            'faktur_juals.no_fj')
                             ->get();
 
         return view('pelunasanPiutang.index',['pelunasanPiutangs'=> $pelunasanPiutangs]);
@@ -46,12 +43,19 @@ class PelunasanPiutangController extends Controller
      */
     public function create()
     {
-          $pelanggans = Pelanggan::all();
           $fakturJuals = FakturJual::all();
+          $idBayar= DB::table('pelunasan_piutangs')
+                     ->select('id')
+                     ->orderBy('id','DESC')
+                     ->limit(1)
+                     ->value('id');
+          $tgl=Date('my');
+          $newid = $idBayar + 1;
+          $noBayar="FJ-0$newid-$tgl";
           return view('pelunasanPiutang.create',[
 
-                    'pelanggans'=>$pelanggans,
-                    'fakturJuals'=>$fakturJuals
+                    'fakturJuals'=>$fakturJuals,
+                    'noBayar' => $noBayar
 
           ]);
     }
@@ -70,9 +74,7 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->tempo_bayar=$request->tempoBayar;
         $pelunasanPiutangs->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $pelunasanPiutangs->total_pembayaran=$request->totalBayar;
-        $pelunasanPiutangs->posted=$request->posted;
         $pelunasanPiutangs->keterangan=$request->keterangan;
-        $pelunasanPiutangs->pelanggan_id=$request->pelangganId;
         $pelunasanPiutangs->fj_id=$request->fjId;
         $pelunasanPiutangs->save();
 
@@ -91,18 +93,35 @@ class PelunasanPiutangController extends Controller
     public function show($id)
     {
 
-        $getFakturJuals = DB::table('faktur_juals')
-                     ->select('faktur_juals.no_fj', 'faktur_juals.sub_total')
-                     ->where('faktur_juals.pelanggan_id','=',$id)
-                     ->get();
 
-        $detilPelunasanPiutangs = DB::table('detil_pelunasan_piutangs')
-                                  ->join('faktur_juals','detil_pelunasan_piutangs.fj_id','=','faktur_juals.id')
-                                  ->select('faktur_juals.no_fj','faktur_juals.tgl_fj'
-                                          ,'detil_pelunasan_piutangs.bayar','detil_pelunasan_piutangs.piutang')
-                                  ->get();
+        // $detilPelunasanPiutangs = DB::table('detil_pelunasan_piutangs')
+        //                           ->join('faktur_juals','detil_pelunasan_piutangs.fj_id','=','faktur_juals.id')
+        //                           ->select('faktur_juals.no_fj','faktur_juals.tgl_fj'
+        //                                   ,'detil_pelunasan_piutangs.bayar','detil_pelunasan_piutangs.piutang')
+
+
+        $totalPiutang = DB::table('detil_penjualans')
+                      ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
+                      ->select(DB::raw('SUM(detil_penjualans.sub_total) as total'))
+                      ->where('detil_penjualans.fj_id',$id)
+                      ->value('detil_penjualans.sub_total');
+
+
+
+       $totalBayar = DB::table('pelunasan_piutangs')
+                    ->select('total_pembayaran')
+                    ->where('id','=',$id)
+                    ->value('total_pembayaran');
+
+      $sisaBayar = $totalPiutang-$totalBayar;
+
                                   return view('pelunasanPiutang.show',
-                                            ['detilPelunasanPiutangs'=>$detilPelunasanPiutangs]);
+                                            [
+                                              // 'detilPelunasanPiutangs'=>$detilPelunasanPiutangs,
+                                              'totalPiutang' => $totalPiutang,
+                                              'totalBayar' => $totalBayar,
+                                              'sisaBayar' => $sisaBayar
+                                            ]);
     }
 
     /**

@@ -29,6 +29,12 @@ class CreateDetilPembayaranHutangsTable extends Migration
           $table->foreign('fb_id')
                 ->references('id')->on('faktur_belis')
                 ->onDelete('cascade');
+
+          $table->unsignedInteger('pembayaran_id');
+          $table->foreign('pembayaran_id')
+                ->references('id')->on('pembayaran_hutangs')
+                ->onDelete('cascade');
+                
           $table->timestamps();
 
 

@@ -28,12 +28,12 @@
         <tbody>
           @foreach($fakturJuals as $fakturJual)
           <tr>
-            <td> {{$fakturJual->no_fj}} </td>
-            <td> {{$fakturJual->nama_pelanggan}} </td>
-            <td> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
-            <td> {{date('j F Y', strtotime($fakturJual->tgl_jatuh_tempo))}} </td>
-            <td> {{$fakturJual->tempo_bayar}} hari </td>
-            <td> {{$fakturJual->keterangan}} </td>
+            <td align="center"> {{$fakturJual->no_fj}} </td>
+            <td align="center"> {{$fakturJual->nama_pelanggan}} </td>
+            <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
+            <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_jatuh_tempo))}} </td>
+            <td align="center"> {{$fakturJual->tempo_bayar}} hari </td>
+            <td align="center"> {{$fakturJual->keterangan}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}"> Detil Penjualan  </a></td>
           </tr>
           @endforeach
