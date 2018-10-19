@@ -25,7 +25,7 @@ class CreateDetilPembeliansTable extends Migration
                 ->references('id')->on('barangs')
                 ->onDelete('cascade');
 
-          $table->unsignedInteger('fb_id')->nullable();
+          $table->unsignedInteger('fb_id');
           $table->foreign('fb_id')
                 ->references('id')->on('faktur_belis')
                 ->onDelete('cascade');

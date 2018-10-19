@@ -32,7 +32,7 @@ class PembayaranHutangController extends Controller
                                         'pembayaran_hutangs.tempo_bayar',
                                         'pembayaran_hutangs.tgl_jatuh_tempo',
                                         'pembayaran_hutangs.total_pembayaran',
-                                        'pembayaran_hutangs.jenis_pembayaran')
+                                        'pembayaran_hutangs.sisa_hutang')
                               ->get();
 
 
@@ -81,14 +81,47 @@ class PembayaranHutangController extends Controller
      */
     public function store(Request $request)
     {
+      $sisa_hutang = 0;
+      $fbId = $request->fbId;
+
+      $sisa_hutang= DB::table('pembayaran_hutangs')
+                 ->select('sisa_hutang')
+                 ->where('fb_id','=',$fbId)
+                 ->orderBy('id','DESC')
+                 ->limit(1)
+                 ->value('sisa_hutang');
+
+       $total_hutang= DB::table('faktur_belis')
+                  ->select('total_faktur')
+                  ->where('id','=',$fbId)
+                  ->value('total_faktur');
+
         $pembayaranHutangs = new PembayaranHutang();
         $pembayaranHutangs->no_pembayaran=$request->noBayar;
         $pembayaranHutangs->tgl_pembayaran=$request->tglBayar;
         $pembayaranHutangs->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
+
+        if($sisa_hutang > 0){
+          $pembayaranHutangs->sisa_hutang= $sisa_hutang - ($request->totalBayar) ;
+          $cekHutang = $sisa_hutang - ($request->totalBayar);
+          if($cekHutang == 0)
+          {
+            $fakturBelis = FakturBeli::find($fbId);
+            $fakturBelis->status= 'L';
+            $fakturBelis->save();
+          }
+        }
+        else {
+          $pembayaranHutangs->sisa_hutang=$total_hutang -$request->totalBayar;
+
+        }
+
+
         $pembayaranHutangs->fb_id=$request->fbId;
-        $pembayaranHutangs->jenis_pembayaran=$request->jenisBayar;
+        $pembayaranHutangs->supplier_id=$request->supplierId;
+
 
 
         $pembayaranHutangs->save();

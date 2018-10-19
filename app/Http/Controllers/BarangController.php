@@ -144,18 +144,6 @@ class BarangController extends Controller
         return redirect()->action('BarangController@index');
     }
 
-    public function idBarang()
-    {
-          $idBarang = DB::table('barangs')
-                      ->select('id')
-                      ->orderBy('id desc')
-                      ->get();
-          $kodeBarang=$idBarang+1;
-
-          return view('barang.form',['kode'=>$kodeBarang]);
-
-
-
-    }
+  
 
 }

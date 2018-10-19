@@ -24,8 +24,8 @@ class FakturJualController extends Controller
         $fakturJuals = DB::table('faktur_juals')
             ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
             ->select('faktur_juals.id','faktur_juals.no_fj','faktur_juals.tgl_fj',
-                    'faktur_juals.tempo_bayar','pelanggans.nama_pelanggan',
-                    'faktur_juals.tgl_jatuh_tempo','faktur_juals.keterangan')
+                    'pelanggans.nama_pelanggan',
+                    'faktur_juals.keterangan')
             ->get();
 
 
@@ -73,15 +73,26 @@ class FakturJualController extends Controller
      */
     public function store(Request $request)
     {
+        $status = "BL";
         $fakturJuals=new FakturJual();
         $fakturJuals->no_fj=$request->noFJ;
         $fakturJuals->tgl_fj=$request->tglFJ;
         $fakturJuals->pelanggan_id=$request->pelangganId;
-        $fakturJuals->tempo_bayar=$request->tempoBayar;
-        $fakturJuals->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $fakturJuals->keterangan=$request->keterangan;
-        $fakturJuals->save();
+        $fakturJuals->status=$status;
 
+        $detilInputJual = $request->detilJual;
+        if (isset($detilInputJual))
+        {
+            foreach($detilInputJual as $inputJual)
+            {
+
+                $fakturJuals->total_faktur=$inputJual['subTotal'];
+
+
+            }
+        }
+        $fakturJuals->save();
         $detilInputJual = $request->detilJual;
         if (isset($detilInputJual))
         {
@@ -93,10 +104,16 @@ class FakturJualController extends Controller
                 $detilJuals->barang_id=$inputJual['barangId'];
                 $detilJuals->fj_id = $fakturJuals->id;
 
-
                 $detilJuals->save();
             }
         }
+
+        $barang = Barang::find($detilJuals->barang_id);
+        $barang->qty= $barang->qty-$detilJuals->qty;
+
+        $barang->save();
+        echo <script>alert('faktur berhasil disimpan'); </script>
+
 
         return redirect()->action('FakturJualController@index');
     }
@@ -189,6 +206,17 @@ class FakturJualController extends Controller
     //     ]
     //
     // }
+
+    public function laporanPenjualan()
+    {
+        $laporanPenjualan = DB::table('faktur_juals')
+                            ->join('pelanggans','faktur_juals.fj_id')
+                            ->select('faktur_juals.no_fj','pelanggans.nama_pelanggan',
+                                    'faktur_juals.tgl_fj','faktur_juals.total_faktur')
+                            ->groupBy('faktur_juals.id')
+                            ->get();
+
+    }
 
 
 }

@@ -19,10 +19,8 @@
             <th>No Surat Jalan </th>
             <th>No Pajak </th>
             <th>Nama Supplier </th>
-            <th>Uang Muka </th>
             <th>Tanggal Faktur Beli </th>
-            <th>Tanggal Jatuh Tempo </th>
-            <th>Tempo Bayar </th>
+            <th>Status </th>
             <th>Keterangan </th>
             <th colspan="3">Action </th>
           </tr  >
@@ -34,10 +32,9 @@
             <td align="center"> {{$fakturBeli->no_sj}} </td>
             <td align="center"> {{$fakturBeli->no_pajak}} </td>
             <td align="center"> {{$fakturBeli->nama_supplier}} </td>
-            <td align="center">Rp.{{number_format($fakturBeli->uang_muka,2,".",",")}} </td>
+
             <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
-            <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_jatuh_tempo))}} </td>
-            <td align="center"> {{$fakturBeli->tempo_bayar}} hari </td>
+            <td align="center"> {{$fakturBeli->status}} </td>
             <td align="center"> {{$fakturBeli->keterangan}} </td>
             <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}"> Detil Pembelian  </a></td>
           </tr>

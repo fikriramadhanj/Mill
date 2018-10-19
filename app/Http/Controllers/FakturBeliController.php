@@ -25,12 +25,10 @@ class FakturBeliController extends Controller
                           'faktur_belis.id',
                           'faktur_belis.no_fb',
                           'faktur_belis.tgl_fb',
-                          'faktur_belis.tempo_bayar',
-                          'faktur_belis.tgl_jatuh_tempo',
-                          'faktur_belis.uang_muka',
                           'suppliers.nama_supplier',
                           'faktur_belis.no_sj',
                           'faktur_belis.no_pajak',
+                          'faktur_belis.status',
                           'faktur_belis.keterangan')
                         ->get();
 
@@ -76,18 +74,16 @@ class FakturBeliController extends Controller
      */
     public function store(Request $request)
     {
-
+        $status = "BL";
         $fakturBelis = new FakturBeli();
         $fakturBelis->no_fb = $request->noFB;
         $fakturBelis->tgl_fb = $request->tglFB;
-        $fakturBelis->tgl_jatuh_tempo = $request->tglJatuhTempo;
         $fakturBelis->no_sj = $request->noSJ;
-        $fakturBelis->tempo_bayar = $request->tempoBayar;
         $fakturBelis->no_pajak = $request->noPajak;
-        $fakturBelis->uang_muka = $request->uangMuka;
         $fakturBelis->keterangan = $request->keterangan;
         $fakturBelis->supplier_id = $request->supplierId;
-        // $fakturBelis->total_faktur = $total;
+        $fakturBelis->status=$status;
+
         $detilInputBeli = $request->detilBeli;
         if (isset($detilInputBeli))
         {
@@ -110,11 +106,10 @@ class FakturBeliController extends Controller
                 $detilBelis->fb_id = $fakturBelis->id;
                 $detilBelis->save();
             }
+            $barang = Barang::find($detilBelis->barang_id);
+            $barang->qty= $barang->qty + $detilBelis->qty;
+            $barang->save();
         }
-
-
-
-
 
 
         return redirect()->action('FakturBeliController@index');
