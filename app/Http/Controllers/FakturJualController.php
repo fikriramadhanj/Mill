@@ -87,7 +87,7 @@ class FakturJualController extends Controller
             foreach($detilInputJual as $inputJual)
             {
 
-                $fakturJuals->total_faktur=$inputJual['subTotal'];
+                $fakturJuals->total_faktur+=$inputJual['subTotal'];
 
 
             }
@@ -112,7 +112,6 @@ class FakturJualController extends Controller
         $barang->qty= $barang->qty-$detilJuals->qty;
 
         $barang->save();
-        echo <script>alert('faktur berhasil disimpan'); </script>
 
 
         return redirect()->action('FakturJualController@index');
@@ -207,14 +206,19 @@ class FakturJualController extends Controller
     //
     // }
 
-    public function laporanPenjualan()
+    public function laporanPenjualan(Request $request)
     {
+        $tglAwal = $request->tglAwal;
+        $tglAkhir = $request->tglAkhir;
         $laporanPenjualan = DB::table('faktur_juals')
-                            ->join('pelanggans','faktur_juals.fj_id')
+                            ->join('pelanggans','faktur_juals.pelanggan_id','pelanggans.id')
                             ->select('faktur_juals.no_fj','pelanggans.nama_pelanggan',
                                     'faktur_juals.tgl_fj','faktur_juals.total_faktur')
-                            ->groupBy('faktur_juals.id')
+                            ->whereDate('faktur_juals.tgl_fj',$tglAwal) 
+                            ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
                             ->get();
+
+        return view('fakturJual.ShowLaporan',['laporanPenjualans'=> $laporanPenjualan]);
 
     }
 

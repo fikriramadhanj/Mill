@@ -5,6 +5,10 @@
         'supplier.index' => 'Supplier',
         'pelanggan.index' => 'Pelanggan',
         'tipe-barang.index' => 'Tipe Barang',
+        'faktur-jual.laporan' => 'Laporan Penjualan',
+        'faktur-beli.laporan' => 'Laporan Pembelian',
+        'mutasi-stok.mutasi' => 'Mutasi Stok'
+
 
 
     ];

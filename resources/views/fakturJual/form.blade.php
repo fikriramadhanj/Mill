@@ -30,7 +30,7 @@
               <input type="text" name="tglFJ" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
             </div>
           </div>
-        
+
           <div class="form-group row">
             <label class="col-form-label col-md-4">Keterangan</label>
             <div class="col-md-8">

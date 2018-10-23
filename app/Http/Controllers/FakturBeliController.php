@@ -178,4 +178,20 @@ class FakturBeliController extends Controller
     {
         //
     }
+
+    public function laporanPembelian(Request $request)
+    {
+        $tglAwal = $request->tglAwal;
+        $tglAkhir = $request->tglAkhir;
+        $laporanPembelians = DB::table('faktur_belis')
+                            ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
+                            ->select('faktur_belis.no_fb','suppliers.nama_supplier',
+                                    'faktur_belis.tgl_fb','faktur_belis.total_faktur')
+                            // ->where('faktur_juals.tgl_fj','>=',$tglAwal)
+                            // ->where('faktur_juals.tgl_fj','<=',$tglAkhir)
+                            ->get();
+
+        return view('fakturBeli.ShowLaporan',['laporanPembelians'=> $laporanPembelians]);
+
+    }
 }

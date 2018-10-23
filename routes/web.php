@@ -60,6 +60,8 @@ Route::group(
     Route::get('getid', 'FakturJualController@getId')->name('id');
     Route::get('pdfFakturJual',  'FakturJualController@makePDF');
     Route::get('pdf', 'PDFController@pdf');
+    Route::get('laporan', 'FakturJualController@laporanPenjualan')->name('laporan');
+
 
 
 
@@ -77,6 +79,8 @@ Route::group(
     Route::get('create', 'FakturBeliController@create')->name('create');
     Route::post('create', 'FakturBeliController@store')->name('store');
     Route::get('detail/{id}', 'FakturBeliController@show')->name('show');
+    Route::get('laporan', 'FakturBeliController@laporanPembelian')->name('laporan');
+
   }
 );
 
@@ -137,5 +141,18 @@ Route::group(
     Route::get('edit/{id}', 'SupplierController@edit')->name('edit');
     Route::post('edit/{id}', 'SupplierController@update')->name('update');
     Route::post('delete/{id}', 'SupplierController@destroy')->name('destroy');
+  }
+);
+
+//* Mutasi Stock
+
+Route::group(
+  [
+    'prefix' => 'mutasi-stok',
+    'as' => 'mutasi-stok.'
+  ], function () {
+
+    Route::get('', 'MutasiStokController@index')->name('mutasi');
+
   }
 );

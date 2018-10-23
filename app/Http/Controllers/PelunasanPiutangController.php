@@ -29,7 +29,8 @@ class PelunasanPiutangController extends Controller
                             'pembayaran_piutangs.tgl_jatuh_tempo',
                             'pembayaran_piutangs.tempo_bayar',
                             'pembayaran_piutangs.total_pembayaran',
-                            'faktur_juals.no_fj')
+                            'faktur_juals.no_fj',
+                            'pembayaran_piutangs.sisa_hutang')
                             ->get();
 
         return view('pelunasanPiutang.index',['pelunasanPiutangs'=> $pelunasanPiutangs]);
@@ -146,13 +147,14 @@ class PelunasanPiutangController extends Controller
 
       $sisaBayar = $totalPiutang-$totalBayar;
 
-                                  return view('pelunasanPiutang.show',
-                                            [
-                                              // 'detilPelunasanPiutangs'=>$detilPelunasanPiutangs,
-                                              'totalPiutang' => $totalPiutang,
-                                              'totalBayar' => $totalBayar,
-                                              'sisaBayar' => $sisaBayar
-                                            ]);
+        return view('pelunasanPiutang.show',
+                  [
+                              // 'detilPelunasanPiutangs'=>$detilPelunasanPiutangs,
+                    'totalPiutang' => $totalPiutang,
+                    'totalBayar' => $totalBayar,
+                    'sisaBayar' => $sisaBayar
+
+                  ]);
     }
 
     /**
