@@ -1,6 +1,7 @@
-<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
+
 
 @section('content')
+<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
 <div class="container">
   <div class="row">
       <div class="form-group row">

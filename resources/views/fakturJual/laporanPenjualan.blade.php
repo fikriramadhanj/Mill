@@ -1,6 +1,6 @@
-<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
 
 @section('content')
+<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
 <div class="container">
   <div class="row">
       <div class="form-group row">
@@ -18,6 +18,7 @@
   <div class="text-center">
     <button type="submit" class="btn btn-primary">proses</button>
   </div>
+</form>
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
@@ -43,11 +44,4 @@
     </div>
   </div>
 </div>
-@endsection
-@section('scripts')
-  <script src="/js/bootstrap-datepicker.min.js"></script>
-  <script src="/js/moment.min.js"></script>
-  <script src="/js/numeral.min.js"></script>
-  <script src="/js/numeral-config.js"></script>
-  <script src="/js/app/faktur-jual.js"></script>
 @endsection

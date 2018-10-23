@@ -210,12 +210,15 @@ class FakturJualController extends Controller
     {
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
+        // $tglAwal = "2018-10-01";
+        // $tglAkhir = "2018-12-30";
         $laporanPenjualan = DB::table('faktur_juals')
-                            ->join('pelanggans','faktur_juals.pelanggan_id','pelanggans.id')
+                            ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
                             ->select('faktur_juals.no_fj','pelanggans.nama_pelanggan',
                                     'faktur_juals.tgl_fj','faktur_juals.total_faktur')
-                            ->whereDate('faktur_juals.tgl_fj',$tglAwal) 
-                            ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
+                            ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
+                            // ->whereDate('faktur_juals.tgl_fj',$tglAwal)
+                            // ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
                             ->get();
 
         return view('fakturJual.ShowLaporan',['laporanPenjualans'=> $laporanPenjualan]);

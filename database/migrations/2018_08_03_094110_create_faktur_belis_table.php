@@ -16,7 +16,7 @@ class CreateFakturBelisTable extends Migration
         Schema::create('faktur_belis', function (Blueprint $table) {
           $table->increments('id');
           $table->string('no_fb')->unique();
-          $table->dateTime('tgl_fb');
+          $table->date('tgl_fb');
           $table->string('no_sj');
           $table->string('no_pajak');
           $table->string('keterangan');

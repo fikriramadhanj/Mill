@@ -187,6 +187,9 @@ class FakturBeliController extends Controller
                             ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
                             ->select('faktur_belis.no_fb','suppliers.nama_supplier',
                                     'faktur_belis.tgl_fb','faktur_belis.total_faktur')
+
+                            ->whereBetween('faktur_belis.tgl_fb', [$tglAwal, $tglAkhir])
+
                             // ->where('faktur_juals.tgl_fj','>=',$tglAwal)
                             // ->where('faktur_juals.tgl_fj','<=',$tglAkhir)
                             ->get();
