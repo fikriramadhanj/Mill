@@ -1,0 +1,77 @@
+<form id="form-pembayaran-hutang" method="POST" action="{{ $formAction }}">
+  @csrf
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="card-title mb-0">Informasi Umum</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Nomor Pembayaran</label>
+            <div class="col-md-8">
+              <input type="text" name="noBayar" class="form-control" value="{{$noBayar}}" readonly="" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Faktur Beli</label>
+            <div class="col-md-8">
+              <select class="custom-select" name="fbId" required>
+                <option selected disabled>-- Pilih Faktur Beli --</option>
+                @foreach($fakturBelis as $fakturBeli)
+                  <option value="{{$fakturBeli->id}}">{{$fakturBeli->no_fb}} </option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Supplier</label>
+            <div class="col-md-8">
+              <select class="custom-select" name="supplierId" required>
+                <option selected disabled>-- Pilih Supplier --</option>
+                @foreach($suppliers as $supplier)
+                  <option value="{{$supplier->id}}">{{$supplier->nama_supplier}} </option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Tanggal Pembayaran</label>
+            <div class="col-md-8">
+              <input type="text" name="tglBayar" class="form-control datepicker fb-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Tanggal Jatuh Tempo</label>
+            <div class="col-md-8">
+              <input type="text" name="tglJatuhTempo" class="form-control datepicker fb-tanggal-jatuh-tempo" value="{{ date('Y-m-d') }}" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Tempo Pembayaran</label>
+            <div class="col-md-8">
+              <div class="input-group">
+                <input type="number" name="tempoBayar" class="form-control" min="0" value="0" readonly id="fb-tempo-bayar" required />
+                <div class="input-group-append">
+                  <span class="input-group-text" >Hari</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-md-4">Total Pembayaran</label>
+            <div class="col-md-8">
+              <input type="text" name="totalBayar" class="form-control" required />
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary">Simpan Pembayaran Hutang</button>
+  </div>
+</form>
