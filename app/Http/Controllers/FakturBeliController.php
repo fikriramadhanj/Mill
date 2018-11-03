@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use App\Models\Barang;
 use App\Models\FakturBeli;
 use App\Models\DetilPembelian;
+use Alert;
 
 
 class FakturBeliController extends Controller
@@ -74,7 +75,7 @@ class FakturBeliController extends Controller
      */
     public function store(Request $request)
     {
-        $status = "BL";
+        $status = "Belum Lunas";
         $fakturBelis = new FakturBeli();
         $fakturBelis->no_fb = $request->noFB;
         $fakturBelis->tgl_fb = $request->tglFB;
@@ -111,7 +112,7 @@ class FakturBeliController extends Controller
             $barang->save();
         }
 
-
+        Alert::success('Transaksi pembelian berhasil dilakukan');
         return redirect()->action('FakturBeliController@index');
 
     }

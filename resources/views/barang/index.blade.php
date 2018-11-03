@@ -49,6 +49,13 @@
             </td>
           </tr>
           @endforeach
+
+          <div class = "col-md-6">
+
+                 {{$barangs->links()}}
+
+          </div>
+
         </tbody>
       </table>
     </div>

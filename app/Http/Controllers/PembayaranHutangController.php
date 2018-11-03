@@ -9,6 +9,7 @@ use App\Models\FakturBeli;
 use App\Models\PembayaranHutang;
 use App\Models\DetilPembayaranHutang;
 use App\Models\DetilPembelian;
+use Alert;
 
 
 
@@ -109,7 +110,7 @@ class PembayaranHutangController extends Controller
           if($cekHutang == 0)
           {
             $fakturBelis = FakturBeli::find($fbId);
-            $fakturBelis->status= 'L';
+            $fakturBelis->status= 'Lunas';
             $fakturBelis->save();
           }
         }
@@ -125,6 +126,7 @@ class PembayaranHutangController extends Controller
 
 
         $pembayaranHutangs->save();
+        Alert::success('Berhasil melakukan pembayaran hutang');
         // return response()->json($pembayaranHutangs);
         return redirect()->action('PembayaranHutangController@index');
 

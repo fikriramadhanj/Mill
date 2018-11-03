@@ -3,18 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FakturJual;
-use App\Models\FakturBeli;
-use App\Models\DetilPenjualan;
-use App\Models\Barang;
+use Admin;
 
-use DB;
-
-
-
-
-
-class MutasiStokController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,14 +14,7 @@ class MutasiStokController extends Controller
      */
     public function index()
     {
-
-        $stock = DB::table('barangs')
-                 ->join('detil_penjualans','detil_penjualans.barang_id','=','barangs.id')
-                 ->select('barangs.kode_barang','barangs.nama','detil_penjualans.qty')
-                 ->get();
-
-
-        return view('MutasiStok.mutasi',['stocks' => $stock]);
+        //
     }
 
     /**
@@ -51,7 +35,11 @@ class MutasiStokController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $admin = new Admin();
+        $admin->id = $request->id;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = $request->password;
     }
 
     /**

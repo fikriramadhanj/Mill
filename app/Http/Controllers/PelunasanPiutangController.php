@@ -8,6 +8,7 @@ use App\Models\Pelanggan;
 use App\Models\FakturJual;
 use App\Models\PembayaranPiutang;
 use App\Models\DetilPelunasanPiutang;
+use Alert;
 
 
 
@@ -98,7 +99,7 @@ class PelunasanPiutangController extends Controller
           if($cekHutang == 0)
           {
             $fakturJuals = fakturJuals::find($fjId);
-            $fakturJuals->status= 'L';
+            $fakturJuals->status= 'Lunas';
             $fakturJuals->save();
           }
         }
@@ -109,7 +110,7 @@ class PelunasanPiutangController extends Controller
 
 
         $pelunasanPiutangs->save();
-
+        Alert::success('Pembayaran hutang berhasil dilakukan');
         // return response()->json($pelunasanPiutangs);
         return redirect()->action('PelunasanPiutangController@index');
 

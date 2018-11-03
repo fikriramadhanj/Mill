@@ -13,13 +13,18 @@
 
 Route::get('/', 'HomeController@index')->name('homepage');
 
+
 /* Barang */
 Route::group(
   [
     'prefix' => 'barang',
     'as' => 'barang.'
   ], function () {
-    Route::get('', 'BarangController@index')->name('index');
+
+
+    Route::get('', 'BarangController@index',function () {
+            return App\Models\Barang::paginate(15);  })->name('index');
+
     Route::get('create', 'BarangController@create')->name('create');
     Route::post('create', 'BarangController@store')->name('store');
     Route::get('edit/{id}', 'BarangController@edit')->name('edit');
@@ -54,6 +59,12 @@ Route::group(
     Route::get('', 'FakturJualController@index')->name('index');
     Route::get('create', 'FakturJualController@create')->name('create');
     Route::post('create', 'FakturJualController@store')->name('store');
+    Route::get('edit/{id}', 'FakturJualController@edit')->name('edit');
+    Route::post('edit/{id}', 'FakturJualController@update')->name('update');
+    Route::post('delete/{id}', 'FakturJualController@destroy')->name('destroy');
+
+
+
     Route::get('detail/{id}', 'FakturJualController@show')->name('show');
     Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
     Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
@@ -156,3 +167,7 @@ Route::group(
 
   }
 );
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

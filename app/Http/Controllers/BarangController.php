@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\TipeBarang;
 use DB;
+use Alert;
 
 class BarangController extends Controller
 {
@@ -17,10 +18,12 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barangs = Barang::all();
+        $barangs = DB::table('barangs')->paginate(5);
+
         return view('barang.index',
             [
                 'barangs' => $barangs
+
             ]
         );
     }
@@ -70,10 +73,10 @@ class BarangController extends Controller
         $barang->harga_jual4=$request->hargaJual4;
         $barang->harga_jual5=$request->hargaJual5;
         $barang->qty=$request->qty;
-        //$barang->keterangan=$request->keterangan;
-        \Log::debug($request);
         $barang->save();
         // return response()->json($barang);
+        Alert::success('Data barang berhasil ditambahkan');
+
         return redirect()->action('BarangController@index');
     }
 
@@ -126,6 +129,7 @@ class BarangController extends Controller
         $barang->save();
 
         //$barang->keterangan=$request->keterangan;
+        Alert::success('Data barang berhasil diubah');
 
         return redirect()->action('BarangController@index');
     }
@@ -140,10 +144,11 @@ class BarangController extends Controller
     {
         $barang = Barang::find($id);
         $barang->delete();
+        Alert::success('Data barang berhasil dihapus');
 
         return redirect()->action('BarangController@index');
     }
 
-  
+
 
 }

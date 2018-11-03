@@ -11,7 +11,8 @@
 @section('content')
 <div class="container">
   <div class="my-3">
-  @include('barang.formEdit', [ 'formAction' => route('barang.update', ['id' => $update->id]), 'barang' => $update ])
+  @include('barang.formEdit', [ 'formAction' => route('barang.update', ['id' => $update->id]),
+                                                                        'barang' => $update ])
   </div>
 </div>
 @endsection

@@ -37,6 +37,8 @@
             <td align="center"> {{$laporanPenjualan->nama_pelanggan}} </td>
             <td align="center"> {{date('j F Y', strtotime($laporanPenjualan->tgl_fj))}} </td>
             <td align="center"> Rp. {{number_format($laporanPenjualan->total_faktur,2, ".", ",")}} </td>
+            <td> <a href="{{ route('faktur-jual.show', ['id' => $laporanPenjualan->id ])}}"> Detil Penjualan  </a></td>
+
           </tr>
           @endforeach
         </tbody>

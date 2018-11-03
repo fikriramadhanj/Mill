@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Supplier;
 use DB;
+use Alert;
 
 class SupplierController extends Controller
 {
@@ -65,6 +66,8 @@ class SupplierController extends Controller
 
         $supplier->save();
 
+        Alert::success('Data supplier berhasil ditambah');
+
         return redirect()->action('SupplierController@index');
     }
 
@@ -118,6 +121,7 @@ class SupplierController extends Controller
         $supplier->nppkp=$request->nppkp;
         $supplier->save();
 
+        Alert::success('Data supplier berhasil diubah');
         return redirect()->action('SupplierController@index');
     }
 
@@ -131,7 +135,7 @@ class SupplierController extends Controller
     {
         $supplier = Supplier::find($id);
         $supplier->delete();
-
+        Alert::success('Data supplier berhasil diubah');
         return redirect()->action('SupplierController@index');
     }
 }

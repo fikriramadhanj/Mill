@@ -35,12 +35,36 @@
             </tr>
           </thead>
           <tbody>
+            @foreach($stocks as $stock)
+
+            <tr>
+                  <td> {{ $stock->kode_barang }} </td>
+                  <td> {{  $stock->nama }}</td>
+                  <td>   </td>
+                  <td>   </td>
+                  <td> {{ $stock->qty }} </td>
+                  <td>           </td>
+
+
+            </tr>
 
 
           </tbody>
+          @endforeach
         </table>
       </div>
     </div>
   </div>
 </div>
+@endsection
+@section('styles')
+  <link rel="stylesheet" href="/css/datepicker.css">
+@endsection
+
+@section('scripts')
+  <script src="/js/bootstrap-datepicker.min.js"></script>
+  <script src="/js/moment.min.js"></script>
+  <script src="/js/numeral.min.js"></script>
+  <script src="/js/numeral-config.js"></script>
+  <script src="/js/app/faktur-jual.js"></script>
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Pelanggan;
 use DB;
+use Alert;
 
 class PelangganController extends Controller
 {
@@ -62,7 +63,9 @@ class PelangganController extends Controller
         $pelanggan->nppkp= $request->nppkp;
 
         $pelanggan->save();
+        Alert::success('Data pelanggan berhasil ditambahkan');
         return redirect()->action('PelangganController@index');
+
     }
 
     /**
@@ -114,7 +117,9 @@ class PelangganController extends Controller
         $pelanggan->nppkp= $request->nppkp;
 
         $pelanggan->save();
+        Alert::success('Data pelanggan berhasil diubah');
         return redirect()->action('PelangganController@index');
+
     }
 
     /**
@@ -127,7 +132,8 @@ class PelangganController extends Controller
     {
         $pelanggan = Pelanggan::find($id);
         $pelanggan->delete();
-
+        Alert::success('Data pelanggan berhasil dihapus');
         return redirect()->action('PelangganController@index');
+
     }
 }

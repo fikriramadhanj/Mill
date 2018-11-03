@@ -20,7 +20,7 @@
             <th>Tanggal Faktur Jual </th>
             <th>Keterangan </th>
 
-            <th colspan="3">Action </th>
+            <th colspan="4">Action </th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +31,8 @@
             <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
             <td align="center"> {{$fakturJual->keterangan}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}"> Detil Penjualan  </a></td>
+            <td> <a href="{{ route('faktur-jual.edit', ['id' => $fakturJual->id ])}}"> Edit Penjualan  </a></td>
+
           </tr>
           @endforeach
         </tbody>

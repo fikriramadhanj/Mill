@@ -10,6 +10,7 @@ use App\Models\Barang;
 use App\Models\FakturJual;
 use App\Models\DetilPenjualan;
 use App\Models\DetilPembelian;
+use Alert;
 
 
 class FakturJualController extends Controller
@@ -27,7 +28,6 @@ class FakturJualController extends Controller
                     'pelanggans.nama_pelanggan',
                     'faktur_juals.keterangan')
             ->get();
-
 
         return view('fakturJual.index',
             [
@@ -73,7 +73,7 @@ class FakturJualController extends Controller
      */
     public function store(Request $request)
     {
-        $status = "BL";
+        $status = "Belum Lunas";
         $fakturJuals=new FakturJual();
         $fakturJuals->no_fj=$request->noFJ;
         $fakturJuals->tgl_fj=$request->tglFJ;
@@ -88,11 +88,8 @@ class FakturJualController extends Controller
             {
 
                 $fakturJuals->total_faktur+=$inputJual['subTotal'];
-
-
             }
         }
-        $fakturJuals->save();
         $detilInputJual = $request->detilJual;
         if (isset($detilInputJual))
         {
@@ -102,16 +99,28 @@ class FakturJualController extends Controller
                 $detilJuals->qty=$inputJual['qty'];
                 $detilJuals->sub_total=$inputJual['subTotal'];
                 $detilJuals->barang_id=$inputJual['barangId'];
-                $detilJuals->fj_id = $fakturJuals->id;
+                $barang = Barang::find($detilJuals->barang_id);
+                if($detilJuals->qty > $barang->qty){
 
-                $detilJuals->save();
+                    Alert::error('stock barang tidak mencukupi');
+                    return redirect()->action('FakturJualController@create');
+
+
+                }
+                else {
+                      $fakturJuals->save();
+                      $detilJuals->fj_id = $fakturJuals->id;
+                      $detilJuals->save();
+                      $barang->qty= $barang->qty-$detilJuals->qty;
+                      $barang->save();
+                      Alert::success('Data Transaksi Penjualan Berhasil ditambahkan');
+
+                }
+
+
+
             }
         }
-
-        $barang = Barang::find($detilJuals->barang_id);
-        $barang->qty= $barang->qty-$detilJuals->qty;
-
-        $barang->save();
 
 
         return redirect()->action('FakturJualController@index');
@@ -151,12 +160,6 @@ class FakturJualController extends Controller
         );
     }
 
-    public function getBarang()
-    {
-        $barangs = Barang::all();
-        return view('fakturJual.DataBarang',['barangs'=>$barangs]);
-
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -166,7 +169,19 @@ class FakturJualController extends Controller
      */
     public function edit($id)
     {
-        //
+        $fakturJual = FakturJual::find($id);
+        $pelanggan = Pelanggan::all();
+        $barang = Barang::all();
+
+
+        return view('fakturJual.update',[
+                'fakturJual' => $fakturJual,
+                'pelanggans' => $pelanggan,
+                'barangs' => $barang
+
+
+                ]);
+
     }
 
     /**
@@ -178,7 +193,49 @@ class FakturJualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fakturJual = FakturJual::find($request->id);
+        $fakturJuals->no_fj=$request->noFJ;
+        $fakturJuals->tgl_fj=$request->tglFJ;
+        $fakturJuals->pelanggan_id=$request->pelangganId;
+        $fakturJuals->keterangan=$request->keterangan;
+        $fakturJuals->status=$status;
+        $status = "Belum Lunas";
+
+        $detilInputJual = $request->detilJual;
+        if (isset($detilInputJual))
+        {
+            foreach($detilInputJual as $inputJual)
+            {
+
+                $fakturJuals->total_faktur+=$inputJual['subTotal'];
+
+
+            }
+        }
+        $fakturJuals->save();
+        $detilInputJual = $request->detilJual;
+        if (isset($detilInputJual))
+        {
+            foreach($detilInputJual as $inputJual)
+            {
+                $detilJuals=DetilPenjualan::find($id);
+                $detilJuals->qty=$inputJual['qty'];
+                $detilJuals->sub_total=$inputJual['subTotal'];
+                $detilJuals->barang_id=$inputJual['barangId'];
+                $detilJuals->fj_id = $fakturJuals->id;
+
+                $detilJuals->save();
+            }
+        }
+
+        $barang = Barang::find($detilJuals->barang_id);
+        $barang->qty= $barang->qty-$detilJuals->qty;
+
+        $barang->save();
+        Alert::success('Data Transaksi Penjualan Berhasil diubah');
+
+        return redirect()->action('FakturJualController@index');
+
     }
 
     /**
@@ -210,18 +267,25 @@ class FakturJualController extends Controller
     {
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
-        // $tglAwal = "2018-10-01";
-        // $tglAkhir = "2018-12-30";
+
+      //  $detil = $request->show($id);
         $laporanPenjualan = DB::table('faktur_juals')
                             ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
-                            ->select('faktur_juals.no_fj','pelanggans.nama_pelanggan',
+                            ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan',
                                     'faktur_juals.tgl_fj','faktur_juals.total_faktur')
                             ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
                             // ->whereDate('faktur_juals.tgl_fj',$tglAwal)
                             // ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
                             ->get();
 
-        return view('fakturJual.ShowLaporan',['laporanPenjualans'=> $laporanPenjualan]);
+        return view('fakturJual.ShowLaporan',[
+
+                    'laporanPenjualans'=> $laporanPenjualan
+
+
+
+
+        ]);
 
     }
 
