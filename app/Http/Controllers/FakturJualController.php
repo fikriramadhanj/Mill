@@ -11,6 +11,7 @@ use App\Models\FakturJual;
 use App\Models\DetilPenjualan;
 use App\Models\DetilPembelian;
 use Alert;
+use PDF;
 
 
 class FakturJualController extends Controller
@@ -25,6 +26,7 @@ class FakturJualController extends Controller
         $fakturJuals = DB::table('faktur_juals')
             ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
             ->select('faktur_juals.id','faktur_juals.no_fj','faktur_juals.tgl_fj',
+                    'faktur_juals.status',
                     'pelanggans.nama_pelanggan',
                     'faktur_juals.keterangan')
             ->get();
@@ -138,7 +140,7 @@ class FakturJualController extends Controller
 
             ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
             ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
-            ->select('detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
+            ->select('detil_penjualans.id','detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
                     'barangs.harga_jual1','faktur_juals.no_fj')
             ->where('faktur_juals.id',"=",$id)
             ->get();
@@ -249,19 +251,28 @@ class FakturJualController extends Controller
         //
     }
 
-    // public function makePDF(){
-    //
-    //     $produk =  FakturJual:  :  join  (  'kategori'  ,  'kategori.  id  kategon',
-    //     '=',  'produk.id  kategori')
-    //     ->orderBy('produk.id produk',  'desc')->get();
-    //
-    //     $no=  O;
-    //     $pdf =  PDF:: loadView  (  'produk.pdf  •,  compact  (  •produk','no'))]
-    //
-    //     return $pdf->stream();
-    //     ]
-    //
-    // }
+    public function downloadPDF($id){
+
+        $detilJuals=DB::table('detil_penjualans')
+
+            ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
+            ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
+            ->select('detil_penjualans.id','detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
+                    'barangs.harga_jual1','faktur_juals.no_fj')
+            ->where('faktur_juals.id',"=",$id)
+            ->get();
+
+            $total = DB::table('detil_penjualans')
+                     ->select(DB::raw('SUM(sub_total) as Total'))
+                     ->where('fj_id','=',$id)
+                     ->value('sub_total');
+
+
+
+        $pdf = PDF::loadView('fakturJual.Pdf', compact('detilJuals','total'));
+        return $pdf->download('FakturJual.pdf');
+
+      }
 
     public function laporanPenjualan(Request $request)
     {

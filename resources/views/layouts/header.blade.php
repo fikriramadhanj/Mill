@@ -1,7 +1,7 @@
 @php
     $navbar = [
 
-        'homepage' => 'Home',
+        'barang.index' => 'Home',
         'faktur-jual.laporan' => 'Laporan Penjualan',
         'faktur-beli.laporan' => 'Laporan Pembelian',
         'mutasi-stok.mutasi' => 'Mutasi Stok'
@@ -33,7 +33,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('homepage') }}">Mill</a>
+            <a class="navbar-brand" href="{{ route('login') }}">Mill</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -18,6 +18,7 @@
             <th>No Faktur Jual </th>
             <th>Nama Pelanggan </th>
             <th>Tanggal Faktur Jual </th>
+            <th> Status </th>
             <th>Keterangan </th>
 
             <th colspan="4">Action </th>
@@ -29,9 +30,12 @@
             <td align="center"> {{$fakturJual->no_fj}} </td>
             <td align="center"> {{$fakturJual->nama_pelanggan}} </td>
             <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
+            <td align="center"> {{$fakturJual->status}} </td>
             <td align="center"> {{$fakturJual->keterangan}} </td>
-            <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}"> Detil Penjualan  </a></td>
-            <td> <a href="{{ route('faktur-jual.edit', ['id' => $fakturJual->id ])}}"> Edit Penjualan  </a></td>
+            <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Detil Faktur</a></td>
+            <td> <a href="{{ route('faktur-jual.edit', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Edit Faktur</a></td>
+
+
 
           </tr>
           @endforeach

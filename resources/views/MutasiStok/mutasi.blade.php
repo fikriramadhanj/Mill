@@ -1,14 +1,8 @@
-@extends('layouts.index')
-
-@section('pageTitle')
-<h3>Mutasi Stok</h3>
-@endsection
-
 
 @section('content')
-<div class="container-fluid">
+<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
+<div class="container">
   <div class="row">
-    <div class="col-lg-4">
       <div class="form-group row">
       <label class="col-form-label col-md-4">Periode</label>
       <div class="col-md-8">
@@ -21,50 +15,38 @@
       <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
     </div>
   </div>
-      <div class="table-responsive">
-        <table class="table table-bordered mt-3">
-          <thead>
-            <tr>
-              <th>Kode Barang </th>
-              <th>Nama Barang </th>
-              <th>Saldo Awal </th>
-              <th>Masuk </th>
-              <th>Keluar </th>
-              <th>Saldo Akhir </th>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary">proses</button>
+  </div>
+</form>
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Kode Barang </th>
+            <th>Nama Barang </th>
+            <th>Saldo Awal </th>
+            <th>Masuk </th>
+            <th>Keluar </th>
+            <th>Saldo Akhir </th>
 
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($stocks as $stock)
+            <th colspan="3">Action </th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($stockKeluars as $stockKeluar)
+          <tr>
+                <td> {{ $stocKeluar->kode_barang }} </td>
+                <td> {{  $stockKeluar->nama }}</td>
+                <td> {{  $stockKeluar->qty }}  </td>
+                <td>   </td>
 
-            <tr>
-                  <td> {{ $stock->kode_barang }} </td>
-                  <td> {{  $stock->nama }}</td>
-                  <td>   </td>
-                  <td>   </td>
-                  <td> {{ $stock->qty }} </td>
-                  <td>           </td>
+                <td>    </td>
 
-
-            </tr>
-
-
-          </tbody>
+          </tr>
           @endforeach
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-@endsection
-@section('styles')
-  <link rel="stylesheet" href="/css/datepicker.css">
-@endsection
-
-@section('scripts')
-  <script src="/js/bootstrap-datepicker.min.js"></script>
-  <script src="/js/moment.min.js"></script>
-  <script src="/js/numeral.min.js"></script>
-  <script src="/js/numeral-config.js"></script>
-  <script src="/js/app/faktur-jual.js"></script>
 @endsection

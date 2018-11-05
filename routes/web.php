@@ -11,7 +11,20 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('homepage');
+Route::get('/', 'HomeController@index')->name('index');
+
+/* login */
+Route::group(
+  [
+    'prefix' => 'login',
+    'as' => 'login.'
+  ], function () {
+
+
+    Route::get('/', 'AuthControllerController@index')->name('index');
+    Route::post('create', 'BarangController@store')->name('store');
+  }
+);
 
 
 /* Barang */
@@ -69,8 +82,7 @@ Route::group(
     Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
     Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
     Route::get('getid', 'FakturJualController@getId')->name('id');
-    Route::get('pdfFakturJual',  'FakturJualController@makePDF');
-    Route::get('pdf', 'PDFController@pdf');
+    Route::get('pdf/{id}', 'FakturJualController@downloadPDF')->name('pdf');
     Route::get('laporan', 'FakturJualController@laporanPenjualan')->name('laporan');
 
 
@@ -90,6 +102,7 @@ Route::group(
     Route::get('create', 'FakturBeliController@create')->name('create');
     Route::post('create', 'FakturBeliController@store')->name('store');
     Route::get('detail/{id}', 'FakturBeliController@show')->name('show');
+    Route::get('pdf/{id}', 'FakturBeliController@downloadPDF')->name('pdf');
     Route::get('laporan', 'FakturBeliController@laporanPembelian')->name('laporan');
 
   }

@@ -36,7 +36,8 @@
             <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
             <td align="center"> {{$fakturBeli->status}} </td>
             <td align="center"> {{$fakturBeli->keterangan}} </td>
-            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}"> Detil Pembelian  </a></td>
+            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}" class="btn btn-primary">Detil Pembelian</a> </td>
+
           </tr>
           @endforeach
         </tbody>

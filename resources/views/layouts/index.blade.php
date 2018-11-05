@@ -30,5 +30,8 @@
         @yield('scripts')
         <script src="/pathto/js/sweetalert.js"></script>
         @include('sweet::alert')
+
     </body>
+    @include('layouts.footer')
+
 </html>

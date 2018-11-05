@@ -9,6 +9,7 @@ use App\Models\Barang;
 use App\Models\FakturBeli;
 use App\Models\DetilPembelian;
 use Alert;
+use PDF;
 
 
 class FakturBeliController extends Controller
@@ -128,7 +129,7 @@ class FakturBeliController extends Controller
         $detilPembelians = DB::table('detil_pembelians')
                           ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
                           ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
-                          ->select('barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
+                          ->select('detil_pembelians.id','barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
                           ->where('faktur_belis.id','=',$id)
                           ->get();
 
@@ -179,6 +180,27 @@ class FakturBeliController extends Controller
     {
         //
     }
+
+    public function downloadPDF($id){
+
+            $detilBelis = DB::table('detil_pembelians')
+                              ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
+                              ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
+                              ->select('detil_pembelians.id','barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
+                              ->where('faktur_belis.id','=',$id)
+                              ->get();
+
+            $total = DB::table('detil_pembelians')
+                    ->select(DB::raw('SUM(sub_total) as Total'))
+                    ->where('fb_id','=',$id)
+                    ->value('sub_total');
+
+
+        $pdf = PDF::loadView('fakturBeli.pdf', compact('detilBelis','total'));
+        return $pdf->download('FakturBeli.pdf');
+
+      }
+
 
     public function laporanPembelian(Request $request)
     {

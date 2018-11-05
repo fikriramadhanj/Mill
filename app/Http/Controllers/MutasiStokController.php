@@ -21,16 +21,46 @@ class MutasiStokController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //
+        // $stock = DB::table('barangs')
+        //          ->leftJoin('detil_penjualans','detil_penjualans.barang_id','=','barangs.id')
+        //          ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(SUM(detil_penjualans.qty),0) as qty'))
+        //          ->groupBy('barangs.kode_barang')
+        //          ->get();
 
-        $stock = DB::table('barangs')
-                 ->join('detil_penjualans','detil_penjualans.barang_id','=','barangs.id')
-                 ->select('barangs.kode_barang','barangs.nama','detil_penjualans.qty')
+        $tglAwal = $request->tglAwal;
+        $tglAkhir = $request->tglAkhir;
+        $barangs = Barang::all();
+       $stockKeluar = DB::table('barangs')
+                ->leftJoin('detil_penjualans','detil_penjualans.barang_id','=','barangs.id')
+                ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(SUM(detil_penjualans.qty),0) as qty'))
+                ->whereBetween('detil_penjualans.created_at', [$tglAwal, $tglAkhir])
+                ->groupBy('barangs.id')
+                ->get();
+
+        $stockKMasuk = DB::table('barangs')
+                 ->leftJoin('detil_pembelians','detil_pembelians.barang_id','=','barangs.id')
+                 ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(SUM(detil_pembelians.qty),0) as qty'))
+                 ->whereBetween('detil_pembelians.created_at', [$tglAwal, $tglAkhir])
+                 ->groupBy('barangs.kode_barang')
                  ->get();
 
+       $saldoAwal = DB::table('barangs')
+                ->leftJoin('detil_pembelians','detil_pembelians.barang_id','=','barangs.id')
+                ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(SUM(detil_pembelians.qty),0) as qty'))
+                ->groupBy('barangs.kode_barang')
+                ->get();
 
-        return view('MutasiStok.mutasi',['stocks' => $stock]);
+
+      // $mutasiStock = DB::table('barangs')
+      //               ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(detil_pembelians.saldo),0) as saldoAwal',
+      //                                                             DB::raw('COALESCE(detil_Pembelians.masuk),0) as masuk',
+      //                                                             DB::raw('COALESCE(detil_Penjualans.keluar),0) as keluar')
+      //               ->leftJoin()
+
+        return view('MutasiStok.showMutasi',['stockKeluars' => $stockKeluar,'barangs' => $barangs]);
     }
 
     /**

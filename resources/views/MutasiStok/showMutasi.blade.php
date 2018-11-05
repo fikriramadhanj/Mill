@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3 align="right">Laporan Penjualan</h3>
+<h3 align="center">Laporan Mutasi Stock</h3>
 @endsection
 
 
@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
   <div class="my-3">
-    @include('fakturJual.laporanPenjualan', ['formAction' => route('faktur-jual.laporan')])
+    @include('MutasiStok.mutasi',['formAction' => route('mutasi-stok.mutasi')])
   </div>
 </div>
 @endsection

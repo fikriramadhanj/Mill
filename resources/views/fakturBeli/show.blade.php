@@ -38,6 +38,8 @@
 
         </tbody>
       </table>
+      <a href="{{ route('faktur-beli.pdf', ['id' => $detilPembelian->id ])}}" class="btn btn-primary">Cetak Faktur</a>
+
     </div>
   </div>
 </div>
