@@ -1,14 +1,14 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>List Pelanggan</h3>
-@endsection
+
 
 @section('pageOptions')
 <a href={{ route('pelanggan.create')}} class="btn btn-primary">Tambah Pelanggan</a>
 @endsection
 
 @section('content')
+<h3 align="center">List Pelanggan</h3>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
@@ -48,8 +48,14 @@
               </td>
             </tr>
             @endforeach
+
           </tbody>
         </table>
+        <div class = "col-md-6">
+
+              <p align="center"> {{$pelanggans->links()}} </p>
+
+        </div>
       </div>
     </div>
   </div>

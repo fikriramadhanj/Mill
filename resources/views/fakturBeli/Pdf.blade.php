@@ -1,15 +1,15 @@
 
-<H3>Faktur Pembelian </h3>
+<h3 align="center">Faktur Pembelian </h3>
 
 
       <table border="1">
         <thead>
           <tr>
-            <th> Kode Barang </th>
-            <th> Nama Barang </th>
-            <th> Harga Barang </th>
-            <th> Qty </th>
-            <th> Subtotal </th>
+            <th align="center"> Kode Barang </th>
+            <th align="center"> Nama Barang </th>
+            <th align="center"> Harga Barang </th>
+            <th align="center"> Qty </th>
+            <th align="center"> Subtotal </th>
 
           </tr>
         </thead>
@@ -17,10 +17,10 @@
           @if (isset($detilBelis))
             @foreach($detilBelis as $detilBeli)
               <tr>
-                <td> {{$detilBeli->kode_barang}} </td>
-                <td> {{$detilBeli->nama}} </td>
-                <td> Rp. {{number_format($detilBeli->harga_beli,2, ".", ",")}} </td>
-                <td> {{$detilBeli->qty}} </td>
+                <td align="center"> {{$detilBeli->kode_barang}} </td>
+                <td align="center"> {{$detilBeli->nama}} </td>
+                <td align="center"> Rp. {{number_format($detilBeli->harga_beli,2, ".", ",")}} </td>
+                <td align="center"> {{$detilBeli->qty}} </td>
                 <td align="right"> Rp. {{number_format($detilBeli->sub_total,2, ".", ",")}} </td>
 
               </tr>

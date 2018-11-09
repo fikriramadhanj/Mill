@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3 align="center">Laporan Mutasi Stock</h3>
+
 @endsection
 
 

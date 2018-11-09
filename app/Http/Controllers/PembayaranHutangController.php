@@ -53,7 +53,10 @@ class PembayaranHutangController extends Controller
     public function create()
     {
           $suppliers = Supplier::all();
-          $fakturBeli = FakturBeli::all();
+          $fakturBeli = DB::table('faktur_belis')
+                        ->join('suppliers','suppliers.id','=','faktur_belis.supplier_id')
+                        ->select('faktur_belis.id','faktur_belis.no_fb','suppliers.nama_supplier','faktur_belis.total_faktur')
+                        ->get();
           $idBayar= DB::table('pembayaran_hutangs')
                      ->select('id')
                      ->orderBy('id','DESC')
@@ -104,6 +107,13 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
 
+        if($total_hutang==$request->totalBayar){
+
+            $fakturJuals = FakturBeli::find($fbId);
+            $fakturJuals->status= 'Lunas';
+            $fakturJuals->save();
+
+        }
         if($sisa_hutang > 0){
           $pembayaranHutangs->sisa_hutang= $sisa_hutang - ($request->totalBayar) ;
           $cekHutang = $sisa_hutang - ($request->totalBayar);

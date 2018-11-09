@@ -1,6 +1,8 @@
 
 @section('content')
-<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
+<h3 align="center">Laporan Mutasi Stock</h3>
+<h5 align="center">{{$tglAwal}} S/D {{$tglAkhir}}</h5>
+<form id="form-faktur-jual" method="GET" action="{{ $formAction }}"></br>
 <div class="container">
   <div class="row">
       <div class="form-group row">
@@ -10,7 +12,7 @@
       </div>
     </div>
     <div class="form-group row">
-    <label class="col-form-label col-md-4">S/D</label>
+    <label class="col-form-label col-md-4 center">S/D</label>
     <div class="col-md-8">
       <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
     </div>
@@ -18,29 +20,31 @@
   <div class="text-center">
     <button type="submit" class="btn btn-primary">proses</button>
   </div>
+  <div class="text-center">
+
+     </div>
 </form>
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
-            <th>Kode Barang </th>
-            <th>Nama Barang </th>
-            <th>Saldo Awal </th>
-            <th>Masuk </th>
-            <th>Keluar </th>
-            <th>Saldo Akhir </th>
+            <th align="center">Kode Barang </th>
+            <th align="center">Nama Barang </th>
+            <th align="center">Saldo Awal </th>
+            <th align="center">Masuk </th>
+            <th align="center">Keluar </th>
+            <th align="center">Saldo Akhir </th>
 
-            <th colspan="3">Action </th>
           </tr>
         </thead>
         <tbody>
-          @foreach($stockKeluars as $stockKeluar)
+          @foreach($stocks as $stock)
           <tr>
-                <td> {{ $stocKeluar->kode_barang }} </td>
-                <td> {{  $stockKeluar->nama }}</td>
-                <td> {{  $stockKeluar->qty }}  </td>
-                <td>   </td>
-
-                <td>    </td>
+                <td align="center"> {{ $stock->kode_barang }} </td>
+                <td align="center"> {{  $stock->nama }}</td>
+                <td align="center">  {{ 0 }} </td>
+                <td align="center">  {{ $stock->masuk }} </td>
+                <td align="center"> {{  $stock->keluar }} </td>
+                <td align="center">  {{  0 }} </td>
 
           </tr>
           @endforeach

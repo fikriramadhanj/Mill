@@ -32,6 +32,5 @@
         @include('sweet::alert')
 
     </body>
-    @include('layouts.footer')
 
 </html>

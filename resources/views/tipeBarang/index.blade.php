@@ -1,14 +1,13 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>List Tipe Barang</h3>
-@endsection
 
 @section('pageOptions')
 <a href={{ route('tipe-barang.create')}} class="btn btn-primary">Tambah Tipe Barang</a>
 @endsection
 
 @section('content')
+<h3 align="center">List Tipe Barang</h3>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">

@@ -1,5 +1,8 @@
 
 @section('content')
+<h3 align="center">Laporan Penjualan</h3>
+<h5 align="center">{{$tglAwal}} S/D {{$tglAkhir}}</h5>
+<br> <br>
 <form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
 <div class="container">
   <div class="row">
@@ -25,6 +28,7 @@
             <th>No Faktur Jual </th>
             <th>Nama Pelanggan </th>
             <th>Tanggal Faktur Jual </th>
+            <th>Status </th>
             <th>total Faktur </th>
 
             <th colspan="3">Action </th>
@@ -36,6 +40,7 @@
             <td align="center"> {{$laporanPenjualan->no_fj}} </td>
             <td align="center"> {{$laporanPenjualan->nama_pelanggan}} </td>
             <td align="center"> {{date('j F Y', strtotime($laporanPenjualan->tgl_fj))}} </td>
+            <td align="center"> {{$laporanPenjualan->status}} </td>
             <td align="center"> Rp. {{number_format($laporanPenjualan->total_faktur,2, ".", ",")}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $laporanPenjualan->id ])}}"> Detil Penjualan  </a></td>
 

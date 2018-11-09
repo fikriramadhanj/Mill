@@ -31,7 +31,9 @@ class FakturBeliController extends Controller
                           'faktur_belis.no_sj',
                           'faktur_belis.no_pajak',
                           'faktur_belis.status',
-                          'faktur_belis.keterangan')
+                          'faktur_belis.keterangan',
+                          'faktur_belis.total_faktur')
+
                         ->get();
 
         return view('fakturBeli.index',
@@ -178,7 +180,12 @@ class FakturBeliController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $fakturBeli = FakturBeli::find($id);
+
+      $fakturBeli->delete();
+      Alert::success('Data Faktur Beli berhasil dihapus');
+
+      return redirect()->action('FakturBeliController@index');
     }
 
     public function downloadPDF($id){
@@ -209,8 +216,8 @@ class FakturBeliController extends Controller
         $laporanPembelians = DB::table('faktur_belis')
                             ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
                             ->select('faktur_belis.no_fb','suppliers.nama_supplier',
-                                    'faktur_belis.tgl_fb','faktur_belis.total_faktur')
-
+                                    'faktur_belis.tgl_fb','faktur_belis.status','faktur_belis.total_faktur')
+                            ->where('faktur_belis.status','=','Lunas')
                             ->whereBetween('faktur_belis.tgl_fb', [$tglAwal, $tglAkhir])
 
                             // ->where('faktur_juals.tgl_fj','>=',$tglAwal)

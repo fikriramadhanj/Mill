@@ -1,14 +1,14 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>Tambah Faktur Beli</h3>
-@endsection
+
 
 @section('pageOptions')
 <a href={{ route('faktur-beli.index')}} class="btn btn-primary">Kembali ke List Pembelian</a>
 @endsection
 
 @section('content')
+<h3 align="center">Tambah Faktur Beli</h3>
+
 <div class="container">
   <div class="my-3">
     @include('fakturBeli.form', ['formAction' => route('faktur-beli.store')])

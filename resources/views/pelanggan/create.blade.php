@@ -1,14 +1,13 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>Tambah Pelanggan</h3>
-@endsection
 
 @section('pageOptions')
 <a href={{ route('pelanggan.index')}} class="btn btn-primary">Kembali ke List Pelanggan</a>
 @endsection
 
 @section('content')
+<h3 align="center">Tambah Pelanggan</h3>
+
 <div class="container">
   <div class="my-3">
     @include('pelanggan.form', ['formAction' => route('pelanggan.store'), 'pelanggan' => ''])

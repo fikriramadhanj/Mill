@@ -20,7 +20,8 @@
               <select class="custom-select" name="fbId" required>
                 <option selected disabled>-- Pilih Faktur Beli --</option>
                 @foreach($fakturBelis as $fakturBeli)
-                  <option value="{{$fakturBeli->id}}">{{$fakturBeli->no_fb}} </option>
+                  <option value="{{$fakturBeli->id}}">{{$fakturBeli->no_fb}} {{'-'}}  {{$fakturBeli->nama_supplier}}  {{'-'}}
+                  Rp. {{number_format($fakturBeli->total_faktur,2, ".", ",")}} </option>
                 @endforeach
               </select>
             </div>

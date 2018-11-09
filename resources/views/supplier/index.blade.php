@@ -1,14 +1,13 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>List Supplier</h3>
-@endsection
 
 @section('pageOptions')
 <a href={{ route('supplier.create')}} class="btn btn-primary">Tambah Supplier</a>
 @endsection
 
 @section('content')
+<h3 align="center">List Supplier</h3>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">

@@ -1,11 +1,5 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>Laporan Pembelian</h3>
-@endsection
-
-
-
 @section('content')
 <div class="container">
   <div class="my-3">

@@ -1,10 +1,5 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3 align="right">Laporan Penjualan</h3>
-@endsection
-
-
 
 @section('content')
 <div class="container">

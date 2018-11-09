@@ -1,14 +1,14 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>Tambah Tipe Barang</h3>
-@endsection
+
 
 @section('pageOptions')
 <a href={{ route('tipe-barang.index')}} class="btn btn-primary">Kembali ke List Tipe Barang</a>
 @endsection
 
 @section('content')
+<h3 align="center">Tambah Tipe Barang</h3>
+
 <div class="container">
   <div class="my-3">
     @include('tipeBarang.form', ['formAction' => route('tipe-barang.store')])

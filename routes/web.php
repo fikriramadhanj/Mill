@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('index');
+Route::get('welcome', 'HomeController@index')->name('index');
 
 /* login */
 Route::group(
@@ -35,8 +35,7 @@ Route::group(
   ], function () {
 
 
-    Route::get('', 'BarangController@index',function () {
-            return App\Models\Barang::paginate(15);  })->name('index');
+    Route::get('', 'BarangController@index')->name('index');
 
     Route::get('create', 'BarangController@create')->name('create');
     Route::post('create', 'BarangController@store')->name('store');
@@ -104,6 +103,8 @@ Route::group(
     Route::get('detail/{id}', 'FakturBeliController@show')->name('show');
     Route::get('pdf/{id}', 'FakturBeliController@downloadPDF')->name('pdf');
     Route::get('laporan', 'FakturBeliController@laporanPembelian')->name('laporan');
+    Route::post('delete/{id}', 'FakturBeliController@destroy')->name('destroy');
+
 
   }
 );

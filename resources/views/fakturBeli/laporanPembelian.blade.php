@@ -1,6 +1,9 @@
 
 
 @section('content')
+<h3 align="center">Laporan Pembelian</h3>
+<br> <br>
+
 <form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
 <div class="container">
   <div class="row">
@@ -25,6 +28,7 @@
             <th>No Faktur Beli </th>
             <th>Nama Supplier </th>
             <th>Tanggal Faktur Beli </th>
+            <th>Status </th>
             <th>total Faktur </th>
 
           </tr>
@@ -35,6 +39,7 @@
             <td align="center"> {{$laporanPembelian->no_fb}} </td>
             <td align="center"> {{$laporanPembelian->nama_supplier}} </td>
             <td align="center"> {{date('j F Y', strtotime($laporanPembelian->tgl_fb))}} </td>
+            <td align="center"> {{$laporanPembelian->status}} </td>
             <td align="center"> Rp. {{number_format($laporanPembelian->total_faktur,2, ".", ",")}} </td>
           </tr>
           @endforeach

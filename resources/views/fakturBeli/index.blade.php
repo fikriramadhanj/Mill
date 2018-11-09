@@ -1,14 +1,12 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>List Pembelian</h3>
-@endsection
-
 @section('pageOptions')
 <a href={{ route('faktur-beli.create')}} class="btn btn-primary">Tambah Pembelian</a>
 @endsection
 
 @section('content')
+<h3 align="center">List Pembelian</h3>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -22,6 +20,7 @@
             <th>Tanggal Faktur Beli </th>
             <th>Status </th>
             <th>Keterangan </th>
+            <th>Total Faktur </th>
             <th colspan="3">Action </th>
           </tr  >
         </thead>
@@ -36,7 +35,10 @@
             <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
             <td align="center"> {{$fakturBeli->status}} </td>
             <td align="center"> {{$fakturBeli->keterangan}} </td>
+            <td align="center">Rp. {{number_format($fakturBeli->total_faktur,2,".",",")}} </td>
             <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}" class="btn btn-primary">Detil Pembelian</a> </td>
+            <td>  @include('fakturBeli.Delete')</td>
+
 
           </tr>
           @endforeach

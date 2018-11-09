@@ -1,5 +1,5 @@
 
-<H3>Faktur Penjualan </h3>
+<h3 align="Center">Faktur Penjualan </h3>
 
 
       <table border="1">

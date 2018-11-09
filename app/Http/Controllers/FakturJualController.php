@@ -28,7 +28,9 @@ class FakturJualController extends Controller
             ->select('faktur_juals.id','faktur_juals.no_fj','faktur_juals.tgl_fj',
                     'faktur_juals.status',
                     'pelanggans.nama_pelanggan',
-                    'faktur_juals.keterangan')
+                    'faktur_juals.keterangan',
+                    'faktur_juals.total_faktur')
+
             ->get();
 
         return view('fakturJual.index',
@@ -174,12 +176,14 @@ class FakturJualController extends Controller
         $fakturJual = FakturJual::find($id);
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
+        $detilJuals= DetilPenjualan::find($id);
 
 
         return view('fakturJual.update',[
                 'fakturJual' => $fakturJual,
                 'pelanggans' => $pelanggan,
-                'barangs' => $barang
+                'barangs' => $barang,
+                'detilJuals' => $detilJuals
 
 
                 ]);
@@ -195,13 +199,14 @@ class FakturJualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fakturJual = FakturJual::find($request->id);
-        $fakturJuals->no_fj=$request->noFJ;
-        $fakturJuals->tgl_fj=$request->tglFJ;
-        $fakturJuals->pelanggan_id=$request->pelangganId;
-        $fakturJuals->keterangan=$request->keterangan;
-        $fakturJuals->status=$status;
-        $status = "Belum Lunas";
+          $status = "Belum Lunas";
+
+        $fakturJual = FakturJual::find($id);
+        $fakturJual->no_fj=$request->noFJ;
+        $fakturJual->tgl_fj=$request->tglFJ;
+        $fakturJual->pelanggan_id=$request->pelangganId;
+        $fakturJual->keterangan=$request->keterangan;
+        $fakturJual->status=$status;
 
         $detilInputJual = $request->detilJual;
         if (isset($detilInputJual))
@@ -209,12 +214,12 @@ class FakturJualController extends Controller
             foreach($detilInputJual as $inputJual)
             {
 
-                $fakturJuals->total_faktur+=$inputJual['subTotal'];
+                $fakturJual->total_faktur+=$inputJual['subTotal'];
 
 
             }
         }
-        $fakturJuals->save();
+        $fakturJual->save();
         $detilInputJual = $request->detilJual;
         if (isset($detilInputJual))
         {
@@ -224,7 +229,7 @@ class FakturJualController extends Controller
                 $detilJuals->qty=$inputJual['qty'];
                 $detilJuals->sub_total=$inputJual['subTotal'];
                 $detilJuals->barang_id=$inputJual['barangId'];
-                $detilJuals->fj_id = $fakturJuals->id;
+                $detilJuals->fj_id = $fakturJual->id;
 
                 $detilJuals->save();
             }
@@ -248,7 +253,15 @@ class FakturJualController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fakturJual = FakturJual::find($id);
+        // $detilJual = DetilPenjualan::find($id);
+
+        $fakturJual->delete();
+        // $detilJual->delete();
+        Alert::success('Data Faktur Jual berhasil dihapus');
+
+        return redirect()->action('FakturJualController@index');
+
     }
 
     public function downloadPDF($id){
@@ -283,7 +296,8 @@ class FakturJualController extends Controller
         $laporanPenjualan = DB::table('faktur_juals')
                             ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
                             ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan',
-                                    'faktur_juals.tgl_fj','faktur_juals.total_faktur')
+                                    'faktur_juals.tgl_fj','faktur_juals.status','faktur_juals.total_faktur')
+                            ->where('faktur_juals.status','=','Lunas')
                             ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
                             // ->whereDate('faktur_juals.tgl_fj',$tglAwal)
                             // ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
@@ -291,10 +305,9 @@ class FakturJualController extends Controller
 
         return view('fakturJual.ShowLaporan',[
 
-                    'laporanPenjualans'=> $laporanPenjualan
-
-
-
+                    'laporanPenjualans'=> $laporanPenjualan,
+                    'tglAwal' => $tglAwal,
+                    'tglAkhir' => $tglAkhir
 
         ]);
 

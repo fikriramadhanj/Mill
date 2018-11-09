@@ -1,14 +1,13 @@
 @extends('layouts.index')
 
-@section('pageTitle')
-<h3>Tambah Faktur Jual</h3>
-@endsection
 
 @section('pageOptions')
 <a href={{ route('faktur-jual.index')}} class="btn btn-primary">Kembali ke List Penjualan</a>
 @endsection
 
 @section('content')
+<h3 align="center">Tambah Faktur Jual</h3>
+
 <div class="container">
   <div class="my-3">
     @include('fakturJual.form', ['formAction' => route('faktur-jual.store')])

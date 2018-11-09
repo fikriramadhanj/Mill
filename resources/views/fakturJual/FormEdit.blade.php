@@ -90,8 +90,8 @@
                 <td class="barang-harga" align="right">
                   Rp. 0,00
                 </td>
-                <td class="barang-qty"><input type="number" name="detilJual[0][qty]" min="1" value="1" class="form-control barang-qty-input" required /> </td>
-                <td class="barang-subtotal" align="right">
+                <td class="barang-qty"><input type="number" name="detilJual[0][qty]" value="{{ $detilJuals->qty}}" min="1" value="1" class="form-control barang-qty-input" required /> </td>
+                <td class="barang-subtotal" align="right"  value="{{ $detilJuals->sub_total}}">
                   Rp. 0,00
                 </td>
               </tr>

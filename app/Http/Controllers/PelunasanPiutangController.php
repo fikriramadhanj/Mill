@@ -44,7 +44,10 @@ class PelunasanPiutangController extends Controller
      */
     public function create()
     {
-          $fakturJuals = FakturJual::all();
+          $fakturJuals = DB::table('faktur_juals')
+                         ->join('pelanggans','pelanggans.id','=','faktur_juals.pelanggan_id')
+                         ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan','faktur_juals.total_faktur')
+                         ->get();
           $pelanggans = Pelanggan::all();
 
           $idBayar= DB::table('pembayaran_piutangs')
@@ -72,7 +75,6 @@ class PelunasanPiutangController extends Controller
      */
     public function store(Request $request)
     {
-        $sisa_piutang = 0;
         $fjId = $request->fjId;
         $sisa_piutang= DB::table('pembayaran_piutangs')
                    ->select('sisa_hutang')
@@ -93,15 +95,25 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->total_pembayaran=$request->totalBayar;
         $pelunasanPiutangs->fj_id=$request->fjId;
         $pelunasanPiutangs->pelanggan_id=$request->pelangganId;
+
+        if($total_piutang==$request->totalBayar){
+
+            $fakturJuals = FakturJual::find($fjId);
+            $fakturJuals->status= 'Lunas';
+            $fakturJuals->save();
+            
+        }
         if($sisa_piutang > 0){
           $pelunasanPiutangs->sisa_hutang= $sisa_piutang - ($request->totalBayar) ;
           $cekHutang = $sisa_piutang - ($request->totalBayar);
+
           if($cekHutang == 0)
           {
-            $fakturJuals = fakturJuals::find($fjId);
+            $fakturJuals = FakturJual::find($fjId);
             $fakturJuals->status= 'Lunas';
             $fakturJuals->save();
           }
+
         }
         else {
           $pelunasanPiutangs->sisa_hutang=$total_piutang -$request->totalBayar;

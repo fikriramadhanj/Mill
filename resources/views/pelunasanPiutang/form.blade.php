@@ -20,7 +20,8 @@
               <select class="custom-select" name="fjId" required>
                 <option selected disabled>-- Pilih Faktur Jual --</option>
                 @foreach($fakturJuals as $fakturJual)
-                  <option value="{{$fakturJual->id}}">{{$fakturJual->no_fj}} </option>
+                  <option value="{{$fakturJual->id}}">{{$fakturJual->no_fj}} {{'-'}} {{$fakturJual->nama_pelanggan}} {{'-'}}
+                  Rp. {{number_format($fakturJual->total_faktur,2, ".", ",")}}</option>
                 @endforeach
               </select>
             </div>
