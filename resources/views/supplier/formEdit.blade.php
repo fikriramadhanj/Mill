@@ -87,18 +87,18 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-md-4">Nomor NPWP</label>
+            <label class="col-form-label col-md-4">NPWP</label>
             <div class="col-md-8">
               <input type="text" name="npwp" class="form-control" required value="{{ $supplier_npwp }}" />
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-form-label col-md-4">Nomor NPPKP</label>
+            <label class="col-form-label col-md-4">NPPKP</label>
             <div class="col-md-8">
               <input type="text" name="nppkp" class="form-control" required value="{{ $supplier_nppkp }}" />
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>

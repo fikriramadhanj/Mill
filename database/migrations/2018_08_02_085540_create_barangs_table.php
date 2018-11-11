@@ -19,13 +19,10 @@ class CreateBarangsTable extends Migration
             $table->string('kode_barang')->unique();
             $table->string('nama');
             $table->bigInteger('harga_beli');
-            $table->bigInteger('harga_jual1');
-            $table->bigInteger('harga_jual2');
-            $table->bigInteger('harga_jual3');
-            $table->bigInteger('harga_jual4');
-            $table->bigInteger('harga_jual5');
+            $table->bigInteger('harga_jual');
             $table->integer('qty');
-
+            $table->integer('min_stok');
+            $table->integer('maks_stok');
             $table->unsignedInteger('tipe_id');
             $table->foreign('tipe_id')
                   ->references('id')->on('tipe_barangs')

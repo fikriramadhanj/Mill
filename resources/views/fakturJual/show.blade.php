@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Detail Penjualan</h3>
+<h3>Detil Penjualan</h3>
 @endsection
 
 @section('pageOptions')
@@ -29,7 +29,7 @@
               <tr>
                 <td align="center"> {{$detilPenjualan->kode_barang}} </td>
                 <td align="center"> {{$detilPenjualan->nama}} </td>
-                <td align="center"> Rp. {{number_format($detilPenjualan->harga_jual1,2, ".", ",")}} </td>
+                <td align="right"> Rp. {{number_format($detilPenjualan->harga_jual,2, ".", ",")}} </td>
                 <td align="center"> {{$detilPenjualan->qty}} </td>
                 <td align="right"> Rp. {{number_format($detilPenjualan->sub_total,2, ".", ",")}} </td>
 

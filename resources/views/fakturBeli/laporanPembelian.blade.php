@@ -1,27 +1,41 @@
 
-
 @section('content')
 <h3 align="center">Laporan Pembelian</h3>
+<h5 align="center">{{$tglAwal}} S/D {{$tglAkhir}}</h5>
 <br> <br>
-
-<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
+<form id="form-faktur-beli" method="GET" action="{{ $formAction }}">
 <div class="container">
-  <div class="row">
+  <div class="form-group row">
+    <label class="col-form-label col-md-2">Supplier</label>
+    <div class="col-md-6">
+      <select class="custom-select" name="supplierId" required>
+        <option selected disabled>-- Pilih supplier --</option>
+        @foreach($suppliers as $supplier)
+          <option value="{{$supplier->id}}">{{$supplier->nama_supplier}} </option>
+        @endforeach
+      </select>
+    </div>
+  </div>
+
       <div class="form-group row">
-      <label class="col-form-label col-md-4">Periode</label>
-      <div class="col-md-8">
+      <label class="col-form-label col-md-2">Periode</label>
+      <div class="col-md-3">
         <input type="text" name="tglAwal" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
+      </div> S/D
+      <div class="col-md-3">
+        <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
       </div>
     </div>
     <div class="form-group row">
-    <label class="col-form-label col-md-4">S/D</label>
-    <div class="col-md-8">
-      <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
+        <label class="col-form-label col-md-2">Status</label>
+        <div class="text-center">
+            <input type="radio"  name="status" value="all" checked="checked"/>All </label> &nbsp
+           <input type="radio"  name="status" value="Lunas"/>Lunas </label> &nbsp
+           <input type="radio" name="status" value="Belum Lunas"/>Belum Lunas </label> &nbsp
+        <button type="submit"  class="btn btn-primary">proses</button>
+      </div>
     </div>
-  </div>
-  <div class="text-center">
-    <button type="submit" class="btn btn-primary">proses</button>
-  </div>
+</form>
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
@@ -31,16 +45,20 @@
             <th>Status </th>
             <th>total Faktur </th>
 
+            <th colspan="3">Action </th>
           </tr>
         </thead>
         <tbody>
-          @foreach($laporanPembelians as $laporanPembelian)
+
+          @foreach($statuss as $status)
           <tr>
-            <td align="center"> {{$laporanPembelian->no_fb}} </td>
-            <td align="center"> {{$laporanPembelian->nama_supplier}} </td>
-            <td align="center"> {{date('j F Y', strtotime($laporanPembelian->tgl_fb))}} </td>
-            <td align="center"> {{$laporanPembelian->status}} </td>
-            <td align="center"> Rp. {{number_format($laporanPembelian->total_faktur,2, ".", ",")}} </td>
+            <td align="center"> {{$status->no_fb}} </td>
+            <td align="center"> {{$status->nama_supplier}} </td>
+            <td align="center"> {{date('j F Y', strtotime($status->tgl_fb))}} </td>
+            <td align="center"> {{$status->status}} </td>
+            <td align="right"> Rp. {{number_format($status->total_faktur,2, ".", ",")}} </td>
+            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $status->id ])}}"> Detil Pembelian  </a></td>
+
           </tr>
           @endforeach
         </tbody>
@@ -48,11 +66,4 @@
     </div>
   </div>
 </div>
-@endsection
-@section('scripts')
-  <script src="/js/bootstrap-datepicker.min.js"></script>
-  <script src="/js/moment.min.js"></script>
-  <script src="/js/numeral.min.js"></script>
-  <script src="/js/numeral-config.js"></script>
-  <script src="/js/app/faktur-beli.js"></script>
 @endsection

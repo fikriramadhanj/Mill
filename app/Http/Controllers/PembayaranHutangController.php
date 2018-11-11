@@ -87,6 +87,7 @@ class PembayaranHutangController extends Controller
     {
       $sisa_hutang = 0;
       $fbId = $request->fbId;
+      $totalBayar = $request->totalBayar;
 
       $sisa_hutang= DB::table('pembayaran_hutangs')
                  ->select('sisa_hutang')
@@ -107,6 +108,15 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
 
+        if($totalBayar > $total_hutang)
+        {
+            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+            return redirect()->action('PembayaranHutangController@create');
+
+        }
+
+        //bayar tunai
+        
         if($total_hutang==$request->totalBayar){
 
             $fakturJuals = FakturBeli::find($fbId);
@@ -114,6 +124,9 @@ class PembayaranHutangController extends Controller
             $fakturJuals->save();
 
         }
+
+        //bayar angsuran
+
         if($sisa_hutang > 0){
           $pembayaranHutangs->sisa_hutang= $sisa_hutang - ($request->totalBayar) ;
           $cekHutang = $sisa_hutang - ($request->totalBayar);
@@ -123,9 +136,16 @@ class PembayaranHutangController extends Controller
             $fakturBelis->status= 'Lunas';
             $fakturBelis->save();
           }
+          elseif ($totalBayar > $cekHutang) {
+            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+            return redirect()->action('PembayaranHutangController@create');
+          }
         }
         else {
+
           $pembayaranHutangs->sisa_hutang=$total_hutang -$request->totalBayar;
+          $sisaHutang = $pembayaranHutangs->sisa_hutang;
+
 
         }
 

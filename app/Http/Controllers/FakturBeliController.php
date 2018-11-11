@@ -28,8 +28,6 @@ class FakturBeliController extends Controller
                           'faktur_belis.no_fb',
                           'faktur_belis.tgl_fb',
                           'suppliers.nama_supplier',
-                          'faktur_belis.no_sj',
-                          'faktur_belis.no_pajak',
                           'faktur_belis.status',
                           'faktur_belis.keterangan',
                           'faktur_belis.total_faktur')
@@ -82,8 +80,6 @@ class FakturBeliController extends Controller
         $fakturBelis = new FakturBeli();
         $fakturBelis->no_fb = $request->noFB;
         $fakturBelis->tgl_fb = $request->tglFB;
-        $fakturBelis->no_sj = $request->noSJ;
-        $fakturBelis->no_pajak = $request->noPajak;
         $fakturBelis->keterangan = $request->keterangan;
         $fakturBelis->supplier_id = $request->supplierId;
         $fakturBelis->status=$status;
@@ -211,20 +207,38 @@ class FakturBeliController extends Controller
 
     public function laporanPembelian(Request $request)
     {
+        $suppliers = Supplier::all();
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
-        $laporanPembelians = DB::table('faktur_belis')
-                            ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
-                            ->select('faktur_belis.no_fb','suppliers.nama_supplier',
-                                    'faktur_belis.tgl_fb','faktur_belis.status','faktur_belis.total_faktur')
-                            ->where('faktur_belis.status','=','Lunas')
-                            ->whereBetween('faktur_belis.tgl_fb', [$tglAwal, $tglAkhir])
 
-                            // ->where('faktur_juals.tgl_fj','>=',$tglAwal)
-                            // ->where('faktur_juals.tgl_fj','<=',$tglAkhir)
+          $supplier = $request->supplierId;
+          $status = $request->status;
+          if($status == 'all'){
+
+                $statusLunas = DB::table('faktur_belis')
+                               ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
+                               ->select('faktur_belis.id','faktur_belis.no_fb','suppliers.nama_supplier',
+                                         'faktur_belis.tgl_fb','faktur_belis.status','faktur_belis.total_faktur')
+                               ->where('suppliers.id','=',$supplier)
+                               ->whereBetween('faktur_belis.tgl_fb', [$tglAwal, $tglAkhir])
+                                ->get();
+          }else {
+            $statusLunas = DB::table('faktur_belis')
+                           ->join('suppliers','faktur_belis.supplier_id','suppliers.id')
+                           ->select('faktur_belis.id','faktur_belis.no_fb','suppliers.nama_supplier',
+                                     'faktur_belis.tgl_fb','faktur_belis.status','faktur_belis.total_faktur')
+                           ->where('faktur_belis.status',$status)
+                           ->where('suppliers.id','=',$supplier)
+                           ->whereBetween('faktur_belis.tgl_fb', [$tglAwal, $tglAkhir])
                             ->get();
+            }
 
-        return view('fakturBeli.ShowLaporan',['laporanPembelians'=> $laporanPembelians]);
+
+        return view('fakturBeli.ShowLaporan',['suppliers'=> $suppliers,
+                                              'tglAwal' => $tglAwal,
+                                              'tglAkhir' => $tglAkhir,
+                                              'statuss' => $statusLunas
+                    ]);
 
     }
 }

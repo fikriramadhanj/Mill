@@ -54,7 +54,7 @@ class SupplierController extends Controller
         $supplier= new Supplier();
         $supplier->kode_supplier=$request->kode;
         $supplier->nama_supplier=$request->nama;
-        $supplier->nama_npwp=$request->npwp;
+        $supplier->nama_npwp=$request->namaNpwp;
         $supplier->alamat=$request->alamat;
         $supplier->kota=$request->kota;
         $supplier->kode_pos=$request->kodePos;
@@ -110,7 +110,7 @@ class SupplierController extends Controller
         $supplier = Supplier::find($request->id);
         $supplier->kode_supplier=$request->kode;
         $supplier->nama_supplier=$request->nama;
-        $supplier->nama_npwp=$request->npwp;
+        $supplier->nama_npwp=$request->namaNpwp;
         $supplier->alamat=$request->alamat;
         $supplier->kota=$request->kota;
         $supplier->kode_pos=$request->kodePos;

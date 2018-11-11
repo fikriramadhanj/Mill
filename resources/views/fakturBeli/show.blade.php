@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Detail Pembelian</h3>
+<h3>Detil Pembelian</h3>
 @endsection
 
 @section('pageOptions')
@@ -26,10 +26,10 @@
           @if (isset($detilPembelians))
             @foreach($detilPembelians as $detilPembelian)
               <tr>
-                <td> {{$detilPembelian->kode_barang}} </td>
-                <td> {{$detilPembelian->nama}} </td>
-                <td> Rp. {{number_format($detilPembelian->harga_beli,2,".", ",")}} </td>
-                <td> {{$detilPembelian->qty}} </td>
+                <td align="center"> {{$detilPembelian->kode_barang}} </td>
+                <td align="center"> {{$detilPembelian->nama}} </td>
+                <td align="right"> Rp. {{number_format($detilPembelian->harga_beli,2,".", ",")}} </td>
+                <td align="center"> {{$detilPembelian->qty}} </td>
                 <td align="right"> Rp. {{number_format($detilPembelian->sub_total,2,".",",")}} </td>
               </tr>
             @endforeach

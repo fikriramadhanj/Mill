@@ -78,9 +78,7 @@ Route::group(
 
 
     Route::get('detail/{id}', 'FakturJualController@show')->name('show');
-    Route::get('dataBarang', 'FakturJualController@getBarang')->name('createBarang');
     Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
-    Route::get('getid', 'FakturJualController@getId')->name('id');
     Route::get('pdf/{id}', 'FakturJualController@downloadPDF')->name('pdf');
     Route::get('laporan', 'FakturJualController@laporanPenjualan')->name('laporan');
 

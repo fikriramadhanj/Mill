@@ -43,9 +43,7 @@
             <td align="center"> {{$supplier->npwp}} </td>
             <td align="center"> {{$supplier->nppkp}} </td>
             <td><a href="{{ route('supplier.edit', [ 'id' => $supplier->id ])}}" class="btn btn-secondary"> Update </a></td>
-            <td>
-              @include('supplier.delete')
-            </td>
+            
           </tr>
           @endforeach
         </tbody>

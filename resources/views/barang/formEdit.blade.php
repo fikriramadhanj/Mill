@@ -4,13 +4,11 @@
   $barang_tglbeli = !empty($barang) ? date('Y-m-d', strtotime($barang->tgl_beli)) : date('Y-m-d');
   $barang_nama = !empty($barang) ? $barang->nama : '';
   $barang_hargabeli = !empty($barang) ? $barang->harga_beli : '';
-  $barang_hargajual1 = !empty($barang) ? $barang->harga_jual1 : '';
-  $barang_hargajual2 = !empty($barang) ? $barang->harga_jual2 : '';
-  $barang_hargajual3 = !empty($barang) ? $barang->harga_jual3 : '';
-  $barang_hargajual4 = !empty($barang) ? $barang->harga_jual4 : '';
-  $barang_hargajual5 = !empty($barang) ? $barang->harga_jual5 : '';
-
+  $barang_hargajual = !empty($barang) ? $barang->harga_jual : '';
   $barang_qty = !empty($barang) ? $barang->qty : '';
+  $barang_min_stok = !empty($barang) ? $barang->min_stok : '';
+  $barang_maks_stok = !empty($barang) ? $barang->maks_stok : '';
+
 @endphp
 
 <form id="form-barang" method="POST" action="{{ $formAction }}">
@@ -64,6 +62,18 @@
                 </div>
               </div>
               <div class="form-group row">
+                <label class="col-form-label col-md-4">Min Stok</label>
+                <div class="col-md-8">
+                  <input type="number" name="minStok" class="form-control" required value="{{ $barang_min_stok }}"  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-form-label col-md-4">Maks Stok</label>
+                <div class="col-md-8">
+                  <input type="number" name="maksStok" class="form-control" required value="{{ $barang_maks_stok }}"  />
+                </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-form-label col-md-4">Harga Beli</label>
                 <div class="col-md-8">
                   <div class="input-group">
@@ -75,64 +85,16 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-form-label col-md-4">Harga Jual 1</label>
+                <label class="col-form-label col-md-4">Harga Jual </label>
                 <div class="col-md-8">
                   <div class="input-group">
-                    <input type="number" name="hargaJual1" class="form-control" required value="{{ $barang_hargajual1 }}"  />
+                    <input type="number" name="hargaJual" class="form-control" required value="{{ $barang_hargajual }}"  />
                     <div class="input-group-append">
                       <span class="input-group-text" >IDR / kg</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
-                  <label class="col-form-label col-md-4">Harga Jual 2</label>
-                  <div class="col-md-8">
-                    <div class="input-group">
-                      <input type="number" name="hargaJual2" class="form-control" required value="{{ $barang_hargajual2 }}"  />
-                      <div class="input-group-append">
-                        <span class="input-group-text" >IDR / kg</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-form-label col-md-4">Harga Jual 3</label>
-                    <div class="col-md-8">
-                      <div class="input-group">
-                        <input type="number" name="hargaJual3" class="form-control" required value="{{ $barang_hargajual3 }}"  />
-                        <div class="input-group-append">
-                          <span class="input-group-text" >IDR / kg</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                  <label class="col-form-label col-md-4">Harga Jual 4</label>
-                  <div class="col-md-8">
-                    <div class="input-group">
-                      <input type="number" name="hargaJual4" class="form-control" required value="{{ $barang_hargajual4 }}"  />
-                      <div class="input-group-append">
-                        <span class="input-group-text" >IDR / kg</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                <label class="col-form-label col-md-4">Harga Jual 5</label>
-                <div class="col-md-8">
-                  <div class="input-group">
-                    <input type="number" name="hargaJual5" class="form-control" required value="{{ $barang_hargajual5 }}"  />
-                    <div class="input-group-append">
-                      <span class="input-group-text" >IDR / kg</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
 
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Simpan Barang</button>

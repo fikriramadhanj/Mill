@@ -19,7 +19,7 @@
             <th> Status </th>
             <th>Keterangan </th>
             <th>Total Faktur </th>
-            <th colspan="4">Action </th>
+            <th colspan="3">Action </th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,6 @@
             <td align="center"> {{$fakturJual->keterangan}} </td>
             <td align="center">Rp. {{number_format($fakturJual->total_faktur,2,".",",")}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Detil Faktur</a></td>
-            <td>  @include('fakturJual.Delete')</td>
 
 
 

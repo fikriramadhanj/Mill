@@ -17,8 +17,6 @@ class CreateFakturBelisTable extends Migration
           $table->increments('id');
           $table->string('no_fb')->unique();
           $table->date('tgl_fb');
-          $table->string('no_sj');
-          $table->string('no_pajak');
           $table->string('keterangan');
           $table->bigInteger('total_faktur');
           $table->string('status');

@@ -76,6 +76,8 @@ class PelunasanPiutangController extends Controller
     public function store(Request $request)
     {
         $fjId = $request->fjId;
+        $totalBayar = $request->totalBayar;
+
         $sisa_piutang= DB::table('pembayaran_piutangs')
                    ->select('sisa_hutang')
                    ->where('fj_id','=',$fjId)
@@ -96,13 +98,21 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->fj_id=$request->fjId;
         $pelunasanPiutangs->pelanggan_id=$request->pelangganId;
 
+        if($totalBayar > $total_piutang)
+        {
+            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+            return redirect()->action('PelunasanPiutangController@create');
+
+        }
+        //bayar tunai
         if($total_piutang==$request->totalBayar){
 
             $fakturJuals = FakturJual::find($fjId);
             $fakturJuals->status= 'Lunas';
             $fakturJuals->save();
-            
+
         }
+        //bayar angsuran
         if($sisa_piutang > 0){
           $pelunasanPiutangs->sisa_hutang= $sisa_piutang - ($request->totalBayar) ;
           $cekHutang = $sisa_piutang - ($request->totalBayar);
@@ -112,6 +122,10 @@ class PelunasanPiutangController extends Controller
             $fakturJuals = FakturJual::find($fjId);
             $fakturJuals->status= 'Lunas';
             $fakturJuals->save();
+          }
+          elseif ($totalBayar > $cekHutang) {
+            Alert::error('total pembayaran lebih besar, tidak dapat melakukan pembayaran');
+            return redirect()->action('PelunasanPiutangController@create');
           }
 
         }

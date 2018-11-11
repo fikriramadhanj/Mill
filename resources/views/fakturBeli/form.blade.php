@@ -14,20 +14,6 @@
             </div>
             </div>
 
-            <div class="form-group row">
-            <label class="col-form-label col-md-4">No Surat Jalan</label>
-            <div class="col-md-8">
-              <input type="text" name="noSJ" class="form-control" required />
-            </div>
-            </div>
-
-            <div class="form-group row">
-            <label class="col-form-label col-md-4">No Pajak</label>
-            <div class="col-md-8">
-              <input type="text" name="noPajak" class="form-control" required />
-            </div>
-            </div>
-
           <div class="form-group row">
             <label class="col-form-label col-md-4">Supplier</label>
             <div class="col-md-8">

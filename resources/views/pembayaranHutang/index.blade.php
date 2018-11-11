@@ -30,13 +30,13 @@
         <tbody>
           @foreach($pembayaranHutangs as $pembayaranHutang)
           <tr>
-            <td> {{$pembayaranHutang->no_pembayaran}} </td>
-            <td> {{$pembayaranHutang->no_fb}} </td>
-            <td> {{date('j F Y', strtotime($pembayaranHutang->tgl_pembayaran))}} </td>
-            <td> {{date('j F Y', strtotime($pembayaranHutang->tgl_jatuh_tempo))}} </td>
+            <td  align="center"> {{$pembayaranHutang->no_pembayaran}} </td>
+            <td  align="center"> {{$pembayaranHutang->no_fb}} </td>
+            <td  align="center"> {{date('j F Y', strtotime($pembayaranHutang->tgl_pembayaran))}} </td>
+            <td  align="center"> {{date('j F Y', strtotime($pembayaranHutang->tgl_jatuh_tempo))}} </td>
             <td align="center"> {{$pembayaranHutang->tempo_bayar}} hari </td>
-            <td> Rp. {{number_format($pembayaranHutang->total_pembayaran,2, ".", ",")}} </td>
-            <td> Rp. {{number_format($pembayaranHutang->sisa_hutang,2, ".", ",")}} </td>
+            <td align="right"> Rp. {{number_format($pembayaranHutang->total_pembayaran,2, ".", ",")}} </td>
+            <td  align="right"> Rp. {{number_format($pembayaranHutang->sisa_hutang,2, ".", ",")}} </td>
 
 
 

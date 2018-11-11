@@ -43,19 +43,19 @@
               <td align="center"> {{$pelanggan->npwp}} </td>
               <td align="center"> {{$pelanggan->nppkp}} </td>
               <td><a href="{{ route('pelanggan.edit', [ 'id' => $pelanggan->id ])}}" class="btn btn-secondary"> Update </a></td>
-              <td>
-                @include('pelanggan.delete')
-              </td>
+
             </tr>
             @endforeach
 
+            <div class = "col-md-6">
+
+                  <p align="center"> {{$pelanggans->links()}} </p>
+
+            </div>
+
           </tbody>
         </table>
-        <div class = "col-md-6">
 
-              <p align="center"> {{$pelanggans->links()}} </p>
-
-        </div>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@
               <tr>
                 <td> {{$detilJual->kode_barang}} </td>
                 <td> {{$detilJual->nama}} </td>
-                <td> Rp. {{number_format($detilJual->harga_jual1,2, ".", ",")}} </td>
+                <td> Rp. {{number_format($detilJual->harga_jual,2, ".", ",")}} </td>
                 <td> {{$detilJual->qty}} </td>
                 <td align="right"> Rp. {{number_format($detilJual->sub_total,2, ".", ",")}} </td>
 

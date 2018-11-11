@@ -14,8 +14,6 @@
         <thead>
           <tr>
             <th>No Faktur Beli </th>
-            <th>No Surat Jalan </th>
-            <th>No Pajak </th>
             <th>Nama Supplier </th>
             <th>Tanggal Faktur Beli </th>
             <th>Status </th>
@@ -28,16 +26,12 @@
           @foreach($fakturBelis as $fakturBeli)
           <tr>
             <td align="center"> {{$fakturBeli->no_fb}} </td>
-            <td align="center"> {{$fakturBeli->no_sj}} </td>
-            <td align="center"> {{$fakturBeli->no_pajak}} </td>
             <td align="center"> {{$fakturBeli->nama_supplier}} </td>
-
             <td align="center"> {{date('j F Y', strtotime($fakturBeli->tgl_fb))}} </td>
             <td align="center"> {{$fakturBeli->status}} </td>
             <td align="center"> {{$fakturBeli->keterangan}} </td>
-            <td align="center">Rp. {{number_format($fakturBeli->total_faktur,2,".",",")}} </td>
-            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}" class="btn btn-primary">Detil Pembelian</a> </td>
-            <td>  @include('fakturBeli.Delete')</td>
+            <td align="right">Rp. {{number_format($fakturBeli->total_faktur,2,".",",")}} </td>
+            <td align="center"> <a href="{{ route('faktur-beli.show', ['id' => $fakturBeli->id ])}}" class="btn btn-primary">Detail </a> </td>
 
 
           </tr>

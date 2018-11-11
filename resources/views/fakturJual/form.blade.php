@@ -79,7 +79,7 @@
                       <option
                           value="{{$barang->id}}"
                           data-nama="{{$barang->nama}}"
-                          data-harga="{{$barang->harga_jual1}}"
+                          data-harga="{{$barang->harga_jual}}"
                           data-kode="{{$barang->kode_barang}}"
                       >{{$barang->nama}}</option>
                     @endforeach

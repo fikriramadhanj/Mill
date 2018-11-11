@@ -67,13 +67,12 @@ class BarangController extends Controller
         $barang->tgl_beli=$request->tgl_beli;
         $barang->nama=$request->nama;
         $barang->harga_beli=$request->hargaBeli;
-        $barang->harga_jual1=$request->hargaJual1;
-        $barang->harga_jual2=$request->hargaJual2;
-        $barang->harga_jual3=$request->hargaJual3;
-        $barang->harga_jual4=$request->hargaJual4;
-        $barang->harga_jual5=$request->hargaJual5;
+        $barang->harga_jual=$request->hargaJual;
         $barang->qty=$request->qty;
+        $barang->min_stok=$request->minStok;
+        $barang->maks_stok=$request->maksStok;
         $barang->save();
+        \Log::debug($barang);
         // return response()->json($barang);
         Alert::success('Data barang berhasil ditambahkan');
 
@@ -120,12 +119,10 @@ class BarangController extends Controller
         $barang->kode_barang = $request->kode;
         $barang->nama = $request->nama;
         $barang->harga_beli = $request->hargaBeli;
-        $barang->harga_jual1 = $request->hargaJual1;
-        $barang->harga_jual2 = $request->hargaJual2;
-        $barang->harga_jual3 = $request->hargaJual3;
-        $barang->harga_jual4 = $request->hargaJual4;
-        $barang->harga_jual5 = $request->hargaJual5;
+        $barang->harga_jual = $request->hargaJual;
         $barang->qty = $request->qty;
+        $barang->min_stok = $request->minStok;
+        $barang->maks_stok = $request->maksStok;
         $barang->save();
 
         //$barang->keterangan=$request->keterangan;
@@ -149,6 +146,30 @@ class BarangController extends Controller
         return redirect()->action('BarangController@index');
     }
 
+    public function laporanBarangKekurangan()
+    {
+          $barangOrder = DB::table('barangs')
+                         ->select('kode_barang', 'nama', 'qty','harga_jual','harga_beli')
+                         ->where('qty','<','min_stok')
+                         ->get();
+
+         return view(
+
+       );
+
+    }
+
+    public function laporanBarangKelebihan()
+    {
+          $barangOrder = DB::table('barangs')
+                         ->select('kode_barang', 'nama', 'qty','harga_jual','harga_beli')
+                         ->where('qty','>','maks_stok')
+                         ->get();
+
+         return view(
+
+       );
+    }
 
 
 }

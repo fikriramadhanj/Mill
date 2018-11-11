@@ -106,7 +106,7 @@ class FakturJualController extends Controller
                 $barang = Barang::find($detilJuals->barang_id);
                 if($detilJuals->qty > $barang->qty){
 
-                    Alert::error('stock barang tidak mencukupi');
+                    Alert::error('stock barang tidak mencukupi, transaksi penjualan tidak bisa dilakukan');
                     return redirect()->action('FakturJualController@create');
 
 
@@ -117,7 +117,7 @@ class FakturJualController extends Controller
                       $detilJuals->save();
                       $barang->qty= $barang->qty-$detilJuals->qty;
                       $barang->save();
-                      Alert::success('Data Transaksi Penjualan Berhasil ditambahkan');
+                      Alert::success('Transaksi Penjualan Berhasil dilakukan');
 
                 }
 
@@ -143,7 +143,7 @@ class FakturJualController extends Controller
             ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
             ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
             ->select('detil_penjualans.id','detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
-                    'barangs.harga_jual1','faktur_juals.no_fj')
+                    'barangs.harga_jual','faktur_juals.no_fj')
             ->where('faktur_juals.id',"=",$id)
             ->get();
 
@@ -253,14 +253,7 @@ class FakturJualController extends Controller
      */
     public function destroy($id)
     {
-        $fakturJual = FakturJual::find($id);
-        // $detilJual = DetilPenjualan::find($id);
 
-        $fakturJual->delete();
-        // $detilJual->delete();
-        Alert::success('Data Faktur Jual berhasil dihapus');
-
-        return redirect()->action('FakturJualController@index');
 
     }
 
@@ -271,7 +264,7 @@ class FakturJualController extends Controller
             ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
             ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
             ->select('detil_penjualans.id','detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
-                    'barangs.harga_jual1','faktur_juals.no_fj')
+                    'barangs.harga_jual','faktur_juals.no_fj')
             ->where('faktur_juals.id',"=",$id)
             ->get();
 
@@ -279,6 +272,8 @@ class FakturJualController extends Controller
                      ->select(DB::raw('SUM(sub_total) as Total'))
                      ->where('fj_id','=',$id)
                      ->value('sub_total');
+
+          $detilJual= $this->show($id);
 
 
 
@@ -289,10 +284,10 @@ class FakturJualController extends Controller
 
     public function laporanPenjualan(Request $request)
     {
+        $pelanggans = Pelanggan::all();
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
 
-      //  $detil = $request->show($id);
         $laporanPenjualan = DB::table('faktur_juals')
                             ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
                             ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan',
@@ -303,11 +298,35 @@ class FakturJualController extends Controller
                             // ->whereDate('faktur_juals.tgl_fj',$tglAkhir)
                             ->get();
 
-        return view('fakturJual.ShowLaporan',[
+          $pelanggan = $request->pelangganId;
+          $status = $request->status;
+          if($status == 'all'){
 
-                    'laporanPenjualans'=> $laporanPenjualan,
-                    'tglAwal' => $tglAwal,
-                    'tglAkhir' => $tglAkhir
+                $statusLunas = DB::table('faktur_juals')
+                      ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
+                      ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan',
+                              'faktur_juals.tgl_fj','faktur_juals.status','faktur_juals.total_faktur')
+                      ->where('pelanggans.id','=',$pelanggan)
+                      ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
+                      ->get();
+           }else {
+             $statusLunas = DB::table('faktur_juals')
+                   ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
+                   ->select('faktur_juals.id','faktur_juals.no_fj','pelanggans.nama_pelanggan',
+                           'faktur_juals.tgl_fj','faktur_juals.status','faktur_juals.total_faktur')
+                   ->where('faktur_juals.status','=',$status)
+                   ->where('pelanggans.id','=',$pelanggan)
+                   ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
+                   ->get();
+           }
+
+            return view('fakturJual.ShowLaporan',[
+
+                        'pelanggans' =>  $pelanggans,
+                        'tglAwal' => $tglAwal,
+                        'tglAkhir' => $tglAkhir,
+                        'statuss' => $statusLunas
+
 
         ]);
 
