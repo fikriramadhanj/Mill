@@ -24,8 +24,10 @@ class PelunasanPiutangController extends Controller
     {
         $pelunasanPiutangs = DB::table('pembayaran_piutangs')
                             ->join('faktur_juals','pembayaran_piutangs.fj_id','=','faktur_juals.id')
+                            ->join('pelanggans','pembayaran_piutangs.pelanggan_id','=','pelanggans.id')
                             ->select('pembayaran_piutangs.no_pembayaran',
                             'pembayaran_piutangs.id',
+                            'pelanggans.nama_pelanggan',
                             'pembayaran_piutangs.tgl_pembayaran',
                             'pembayaran_piutangs.tgl_jatuh_tempo',
                             'pembayaran_piutangs.tempo_bayar',
@@ -78,6 +80,12 @@ class PelunasanPiutangController extends Controller
         $fjId = $request->fjId;
         $totalBayar = $request->totalBayar;
 
+        $pelangganId = DB::table('faktur_juals')
+                            ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
+                            ->select('pelanggans.id')
+                            ->where('faktur_juals.id','=',$fjId)
+                            ->value('pelanggans.id');
+
         $sisa_piutang= DB::table('pembayaran_piutangs')
                    ->select('sisa_hutang')
                    ->where('fj_id','=',$fjId)
@@ -96,7 +104,7 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->tgl_jatuh_tempo=$request->tglJatuhTempo;
         $pelunasanPiutangs->total_pembayaran=$request->totalBayar;
         $pelunasanPiutangs->fj_id=$request->fjId;
-        $pelunasanPiutangs->pelanggan_id=$request->pelangganId;
+        $pelunasanPiutangs->pelanggan_id=$pelangganId;
 
         if($totalBayar > $total_piutang)
         {

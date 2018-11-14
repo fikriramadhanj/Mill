@@ -57,12 +57,6 @@
 
               <div class="col-md-8">
               <div class="form-group row">
-                <label class="col-form-label col-md-4">Qty</label>
-                <div class="col-md-8">
-                  <input type="number" name="qty" class="form-control" required value="{{ $barang_qty }}"  />
-                </div>
-              </div>
-              <div class="form-group row">
                 <label class="col-form-label col-md-4">Min Stok</label>
                 <div class="col-md-8">
                   <input type="number" name="minStok" class="form-control" required value="{{ $barang_min_stok}}"  />
@@ -96,7 +90,7 @@
                   </div>
                 </div>
               </div>
-              
+
 
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Simpan Barang</button>

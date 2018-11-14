@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Barang;
+use App\Models\SaldoAwalBarang;
 use App\Models\TipeBarang;
 use DB;
 use Alert;
@@ -68,10 +69,13 @@ class BarangController extends Controller
         $barang->nama=$request->nama;
         $barang->harga_beli=$request->hargaBeli;
         $barang->harga_jual=$request->hargaJual;
-        $barang->qty=$request->qty;
+        $barang->qty=0;
         $barang->min_stok=$request->minStok;
         $barang->maks_stok=$request->maksStok;
         $barang->save();
+
+
+
         \Log::debug($barang);
         // return response()->json($barang);
         Alert::success('Data barang berhasil ditambahkan');
@@ -148,27 +152,25 @@ class BarangController extends Controller
 
     public function laporanBarangKekurangan()
     {
-          $barangOrder = DB::table('barangs')
-                         ->select('kode_barang', 'nama', 'qty','harga_jual','harga_beli')
-                         ->where('qty','<','min_stok')
-                         ->get();
+          $barangs = DB::table('barangs')
+                     ->select('tgl_beli','kode_barang','nama','qty','min_stok')
+                     ->where('qty','<','min_stok')
+                     ->get();
 
-         return view(
+         return view('barang.LaporanBarangKekurangan',['barangs' => $barangs]);
 
-       );
 
     }
 
     public function laporanBarangKelebihan()
     {
-          $barangOrder = DB::table('barangs')
-                         ->select('kode_barang', 'nama', 'qty','harga_jual','harga_beli')
+          $barangs = DB::table('barangs')
+                         ->select('tgl_beli','kode_barang', 'nama', 'qty','maks_stok')
                          ->where('qty','>','maks_stok')
                          ->get();
 
-         return view(
+          return view('barang.LaporanBarangKelebihan',['barangs' => $barangs]);
 
-       );
     }
 
 

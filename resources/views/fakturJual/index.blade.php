@@ -30,13 +30,14 @@
             <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
             <td align="center"> {{$fakturJual->status}} </td>
             <td align="center"> {{$fakturJual->keterangan}} </td>
-            <td align="center">Rp. {{number_format($fakturJual->total_faktur,2,".",",")}} </td>
+            <td align="right">Rp. {{number_format($fakturJual->total_faktur,2,".",",")}} </td>
             <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Detil Faktur</a></td>
 
 
 
           </tr>
           @endforeach
+          
         </tbody>
       </table>
     </div>

@@ -26,17 +26,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Supplier</label>
-            <div class="col-md-8">
-              <select class="custom-select" name="supplierId" required>
-                <option selected disabled>-- Pilih Supplier --</option>
-                @foreach($suppliers as $supplier)
-                  <option value="{{$supplier->id}}">{{$supplier->nama_supplier}} </option>
-                @endforeach
-              </select>
-            </div>
-          </div>
+        
           <div class="form-group row">
             <label class="col-form-label col-md-4">Tanggal Pembayaran</label>
             <div class="col-md-8">

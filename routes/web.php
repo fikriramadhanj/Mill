@@ -42,6 +42,8 @@ Route::group(
     Route::get('edit/{id}', 'BarangController@edit')->name('edit');
     Route::post('edit/{id}', 'BarangController@update')->name('update');
     Route::post('delete/{id}', 'BarangController@destroy')->name('destroy');
+    Route::get('barang-kurang', 'BarangController@laporanBarangKekurangan')->name('kurang');
+    Route::get('barang-lebih', 'BarangController@laporanBarangKelebihan')->name('lebih');
 
   }
 );

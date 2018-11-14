@@ -26,17 +26,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-form-label col-md-4">Pelanggan</label>
-            <div class="col-md-8">
-              <select class="custom-select" name="pelangganId" required>
-                <option selected disabled>-- Pilih pelanggan --</option>
-                @foreach($pelanggans as $pelanggan)
-                  <option value="{{$pelanggan->id}}">{{$pelanggan->nama_pelanggan}} </option>
-                @endforeach
-              </select>
-            </div>
-          </div>
+          
           <div class="form-group row">
             <label class="col-form-label col-md-4">Tanggal Pembayaran</label>
             <div class="col-md-8">

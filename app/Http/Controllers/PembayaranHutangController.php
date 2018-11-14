@@ -25,9 +25,11 @@ class PembayaranHutangController extends Controller
     {
           $pembayaranHutangs = DB::table('pembayaran_hutangs')
                                ->join('faktur_belis','pembayaran_hutangs.fb_id','=','faktur_belis.id')
+                               ->join('suppliers','pembayaran_hutangs.supplier_id','=','suppliers.id')
                                ->select(
                                         'pembayaran_hutangs.id',
                                         'pembayaran_hutangs.no_pembayaran',
+                                        'suppliers.nama_supplier',
                                         'faktur_belis.no_fb',
                                         'pembayaran_hutangs.tgl_pembayaran',
                                         'pembayaran_hutangs.tempo_bayar',
@@ -89,6 +91,15 @@ class PembayaranHutangController extends Controller
       $fbId = $request->fbId;
       $totalBayar = $request->totalBayar;
 
+      //get supplier id from faktur_belis
+      $supplierId = DB::table('faktur_belis')
+                    ->join('suppliers','suppliers.id','=','faktur_belis.supplier_id')
+                    ->select('faktur_belis.supplier_id')
+                    ->where('faktur_belis.id','=',$fbId)
+                    ->value('faktur_belis.supplier_id');
+
+                    \Log::debug($supplierId);
+
       $sisa_hutang= DB::table('pembayaran_hutangs')
                  ->select('sisa_hutang')
                  ->where('fb_id','=',$fbId)
@@ -116,7 +127,7 @@ class PembayaranHutangController extends Controller
         }
 
         //bayar tunai
-        
+
         if($total_hutang==$request->totalBayar){
 
             $fakturJuals = FakturBeli::find($fbId);
@@ -151,7 +162,7 @@ class PembayaranHutangController extends Controller
 
 
         $pembayaranHutangs->fb_id=$request->fbId;
-        $pembayaranHutangs->supplier_id=$request->supplierId;
+        $pembayaranHutangs->supplier_id=$supplierId;
 
 
 

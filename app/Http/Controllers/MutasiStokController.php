@@ -33,22 +33,22 @@ class MutasiStokController extends Controller
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
         $barangs = Barang::all();
-$stocks=DB::select("select nama, kode_barang,id,
-COALESCE(db.masuk,0) as masuk,COALESCE(dj.keluar,0) as keluar
-from barangs b
-LEFT  JOIN (
-	select barang_id,sum(qty)as masuk
-	from detil_pembelians
-	where (created_at between '".$tglAwal."' and '".$tglAkhir."')
-	group by barang_id
-	) db on db.barang_id=b.id
-LEFT JOIN  (
-	select barang_id,sum(qty) as keluar
-	from detil_penjualans
-	where (created_at between '".$tglAwal."' and '".$tglAkhir."')
-	group by barang_id
-	)dj on dj.barang_id=b.id
-group by id");
+        $stocks=DB::select("select nama, kode_barang,id,
+        COALESCE(db.masuk,0) as masuk,COALESCE(dj.keluar,0) as keluar
+        from barangs b
+        LEFT  JOIN (
+        	select barang_id,sum(qty)as masuk
+        	from detil_pembelians
+        	where (created_at between '".$tglAwal."' and '".$tglAkhir."')
+        	group by barang_id
+        	) db on db.barang_id=b.id
+        LEFT JOIN  (
+        	select barang_id,sum(qty) as keluar
+        	from detil_penjualans
+        	where (created_at between '".$tglAwal."' and '".$tglAkhir."')
+        	group by barang_id
+        	)dj on dj.barang_id=b.id
+        group by id");
 
 $bulan = substr($tglAkhir, 5, 2) - 1;
 if ($bulan==0) {

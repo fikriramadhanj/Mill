@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Supplier;
 use App\Models\Barang;
+use App\Models\SaldoAwalBarang;
 use App\Models\FakturBeli;
 use App\Models\DetilPembelian;
 use Alert;
@@ -105,10 +106,44 @@ class FakturBeliController extends Controller
                 $detilBelis->barang_id=$inputBeli['barangId'];
                 $detilBelis->fb_id = $fakturBelis->id;
                 $detilBelis->save();
+
+                $stokBarang = Barang::find($inputBeli['barangId']);
+                $stokBarang->qty = $stokBarang->qty + $inputBeli['qty'];
+                $stokBarang->save();
+
+
             }
-            $barang = Barang::find($detilBelis->barang_id);
-            $barang->qty= $barang->qty + $detilBelis->qty;
-            $barang->save();
+
+            // $barang = Barang::find($detilBelis->barang_id);
+            // $barang->qty= $barang->qty + $detilBelis->qty;
+            // $barang->save();
+            //
+            // $barangId=$detilBelis->barang_id;
+            // $kodeBarang = DB::table('detil_pembelians')
+            //               ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
+            //               ->select('barangs.kode_barang')
+            //               ->where('detil_pembelians.barang_id','=',$barangId);
+            //
+            // $tgl_beli=strtotime($request->tglFb);
+            // $tahun = date('Y',$tgl_beli);
+            // $bulan = date('m',$tgl_beli);
+            //
+            // $saldoAwalBarang = DB::table('saldo_awal_barangs')
+            //                     ->where('kode_barang', $detilBelis->barang_id)
+            //                     ->where('tahun', date('Y',$tgl_beli))
+            //                     ->where('bulan', date('m',$tgl_beli))
+            //                     ->first();
+            //
+            // $saldoAwalBarang = new SaldoAwalBarang();
+            // $saldoAwalBarang->kode_barang  = $kodeBarang;
+            // $saldoAwalBarang->qty = $saldoAwalBarang->qty + $detilBelis->qty;
+            // $saldoAwalBarang->bulan = $bulan;
+            // $saldoAwalBarang->tahun = $tahun;
+            //
+            //
+            // $saldoAwalBarang->save();
+
+
         }
 
         Alert::success('Transaksi pembelian berhasil dilakukan');

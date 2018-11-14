@@ -30,7 +30,7 @@ class FakturJualController extends Controller
                     'pelanggans.nama_pelanggan',
                     'faktur_juals.keterangan',
                     'faktur_juals.total_faktur')
-
+                    
             ->get();
 
         return view('fakturJual.index',

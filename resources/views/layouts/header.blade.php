@@ -2,11 +2,6 @@
     $navbar = [
 
         'barang.index' => 'Home',
-        'faktur-jual.laporan' => 'Laporan Penjualan',
-        'faktur-beli.laporan' => 'Laporan Pembelian',
-        'mutasi-stok.mutasi' => 'Mutasi Stok'
-
-
 
     ];
 
@@ -25,6 +20,16 @@
             'faktur-beli.index' => 'Pembelian',
             'pembayaran-hutang.index' => 'Pembayaran Hutang',
             'pelunasan-piutang.index' => 'Pelunasan piutang'
+
+
+        ],
+
+        'Laporan' => [
+            'faktur-jual.laporan' => 'Laporan Penjualan',
+            'faktur-beli.laporan' => 'Laporan Pembelian',
+            'mutasi-stok.mutasi' => 'Laporan Mutasi Stok',
+            'barang.kurang' => 'Laporan Barang Kurang',
+            'barang.lebih' => 'Laporan Barang Lebih'
 
 
         ]
