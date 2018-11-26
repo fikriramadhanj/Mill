@@ -44,6 +44,11 @@ Route::group(
     Route::post('delete/{id}', 'BarangController@destroy')->name('destroy');
     Route::get('barang-kurang', 'BarangController@laporanBarangKekurangan')->name('kurang');
     Route::get('barang-lebih', 'BarangController@laporanBarangKelebihan')->name('lebih');
+    Route::get('saldo', 'BarangController@showAwalBarang')->name('saldo');
+    Route::post('edit-saldo/{id}', 'BarangController@updateSaldoBarang')->name('update-saldo');
+    Route::get('edit-saldo/{id}', 'BarangController@editSaldoBarang')->name('edit-saldo');
+
+
 
   }
 );
@@ -81,8 +86,8 @@ Route::group(
 
     Route::get('detail/{id}', 'FakturJualController@show')->name('show');
     Route::get('total/{id}', 'FakturJualController@getTotal')->name('total');
-    Route::get('pdf/{id}', 'FakturJualController@downloadPDF')->name('pdf');
     Route::get('laporan', 'FakturJualController@laporanPenjualan')->name('laporan');
+    Route::get('pdf/{id}', 'FakturJualController@cetakFaktur')->name('cetak');
 
 
 
@@ -178,6 +183,11 @@ Route::group(
   ], function () {
 
     Route::get('', 'MutasiStokController@index')->name('mutasi');
+    Route::get('create', 'MutasiStokController@store')->name('store');
+    Route::get('show', 'MutasiStokController@show')->name('show');
+
+
+
 
   }
 );

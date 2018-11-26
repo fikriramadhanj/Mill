@@ -25,19 +25,18 @@
         <tbody>
           @foreach($fakturJuals as $fakturJual)
           <tr>
-            <td align="center"> {{$fakturJual->no_fj}} </td>
-            <td align="center"> {{$fakturJual->nama_pelanggan}} </td>
-            <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
-            <td align="center"> {{$fakturJual->status}} </td>
-            <td align="center"> {{$fakturJual->keterangan}} </td>
-            <td align="right">Rp. {{number_format($fakturJual->total_faktur,2,".",",")}} </td>
-            <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Detil Faktur</a></td>
-
+              <td align="center"> {{$fakturJual->no_fj}} </td>
+              <td align="center"> {{$fakturJual->nama_pelanggan}} </td>
+              <td align="center"> {{date('j F Y', strtotime($fakturJual->tgl_fj))}} </td>
+              <td align="center"> {{$fakturJual->status}} </td>
+              <td align="center"> {{$fakturJual->keterangan}} </td>
+              <td align="right">Rp. {{number_format($fakturJual->total_faktur,2,".",",")}} </td>
+              <td> <a href="{{ route('faktur-jual.show', ['id' => $fakturJual->id ])}}" class="btn btn-primary">Detil Faktur</a></td>
 
 
           </tr>
           @endforeach
-          
+
         </tbody>
       </table>
     </div>

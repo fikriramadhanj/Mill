@@ -17,10 +17,10 @@
           @if (isset($detilJuals))
             @foreach($detilJuals as $detilJual)
               <tr>
-                <td> {{$detilJual->kode_barang}} </td>
-                <td> {{$detilJual->nama}} </td>
-                <td> Rp. {{number_format($detilJual->harga_jual,2, ".", ",")}} </td>
-                <td> {{$detilJual->qty}} </td>
+                <td align="center"> {{$detilJual->kode_barang}} </td>
+                <td align="center"> {{$detilJual->nama}} </td>
+                <td align="right"> Rp. {{number_format($detilJual->harga_jual,2, ".", ",")}} </td>
+                <td align="center"> {{$detilJual->qty}} </td>
                 <td align="right"> Rp. {{number_format($detilJual->sub_total,2, ".", ",")}} </td>
 
               </tr>

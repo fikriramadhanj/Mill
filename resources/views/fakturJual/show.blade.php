@@ -41,7 +41,7 @@
 
         </tbody>
       </table>
-      <a href="{{ route('faktur-jual.pdf', ['id' => $detilPenjualan->id ])}}" class="btn btn-primary">Cetak Faktur</a>
+      <a href="{{ route('faktur-jual.cetak', ['id' => $detilPenjualan->id ])}}" class="btn btn-primary">Cetak Faktur</a>
 
     </div>
   </div>

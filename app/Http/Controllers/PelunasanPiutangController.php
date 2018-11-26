@@ -12,7 +12,6 @@ use Alert;
 
 
 
-
 class PelunasanPiutangController extends Controller
 {
     /**
@@ -106,12 +105,12 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->fj_id=$request->fjId;
         $pelunasanPiutangs->pelanggan_id=$pelangganId;
 
-        if($totalBayar > $total_piutang)
-        {
-            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
-            return redirect()->action('PelunasanPiutangController@create');
-
-        }
+        // if($totalBayar > $sisa_piutang)
+        // {
+        //     Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+        //     return redirect()->action('PelunasanPiutangController@create');
+        //
+        // }
         //bayar tunai
         if($total_piutang==$request->totalBayar){
 
@@ -131,14 +130,10 @@ class PelunasanPiutangController extends Controller
             $fakturJuals->status= 'Lunas';
             $fakturJuals->save();
           }
-          elseif ($totalBayar > $cekHutang) {
-            Alert::error('total pembayaran lebih besar, tidak dapat melakukan pembayaran');
-            return redirect()->action('PelunasanPiutangController@create');
-          }
 
         }
         else {
-          $pelunasanPiutangs->sisa_hutang=$total_piutang -$request->totalBayar;
+          $pelunasanPiutangs->sisa_hutang=$total_piutang-$request->totalBayar;
 
         }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\FakturJual;
 use App\Models\FakturBeli;
 use App\Models\DetilPenjualan;
+use App\Models\SaldoAwalBarang;
 use App\Models\Barang;
 
 use DB;
@@ -24,12 +25,6 @@ class MutasiStokController extends Controller
     public function index(Request $request)
     {
 
-        // $stock = DB::table('barangs')
-        //          ->leftJoin('detil_penjualans','detil_penjualans.barang_id','=','barangs.id')
-        //          ->select('barangs.kode_barang','barangs.nama',DB::raw('COALESCE(SUM(detil_penjualans.qty),0) as qty'))
-        //          ->groupBy('barangs.kode_barang')
-        //          ->get();
-        //
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
         $barangs = Barang::all();
@@ -48,7 +43,7 @@ class MutasiStokController extends Controller
         	where (created_at between '".$tglAwal."' and '".$tglAkhir."')
         	group by barang_id
         	)dj on dj.barang_id=b.id
-        group by id");
+          group by id");
 
 $bulan = substr($tglAkhir, 5, 2) - 1;
 if ($bulan==0) {
@@ -140,20 +135,24 @@ if ($bulan==0) {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+  
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show()
+      {
+          $bulan=11;
+          $mutasiStok = DB::table('detil_penjualans')
+                        ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
+                        ->select(DB::raw('SUM(detil_penjualans.qty) as Total'))
+                        // ->select('detil_penjualans.qty')
+                        ->where(date('m',strtotime('faktur_juals.tgl_fj')),'=',$bulan)
+                        ->get();
+                        \Log::debug($mutasiStok);
+
     }
 
     /**

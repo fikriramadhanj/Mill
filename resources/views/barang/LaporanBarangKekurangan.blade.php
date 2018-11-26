@@ -13,9 +13,8 @@
             <th>Tanggal Pembelian </th>
             <th>Kode Barang </th>
             <th>Nama Barang </th>
-            <th>Harga Beli </th>
-            <th>Harga Jual </th>
-            <th>Qty(kg) </th>
+            <th>Qty </th>
+            <th>Min Stok</th>
 
           </tr>
         </thead>

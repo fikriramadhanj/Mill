@@ -75,13 +75,89 @@ class BarangController extends Controller
         $barang->save();
 
 
+        //Penambahan barang ke Saldo Awal Barang
+        $tglBeli = $request->tgl_beli;
 
-        \Log::debug($barang);
-        // return response()->json($barang);
+        $bulan = date('m',strtotime($tglBeli));
+        $tahun = date('Y',strtotime($tglBeli));
+        // \Log::debug($bulan);
+        $saldoAwal = new SaldoAwalBarang();
+        $saldoAwal->kode_barang = $request->kode;
+        $saldoAwal->bulan = $bulan;
+        $saldoAwal->tahun = $tahun;
+        $saldoAwal->qty= $barang->qty;
+        $saldoAwal->save();
+
         Alert::success('Data barang berhasil ditambahkan');
+
+
+
+
+
 
         return redirect()->action('BarangController@index');
     }
+
+    public function showAwalBarang()
+    {
+
+          $saldoAwals = SaldoAwalBarang::all();
+          return view('barang.ShowSaldoAwalBarang',['saldoAwals'=> $saldoAwals]);
+
+    }
+
+    public function editSaldoBarang($id){
+
+
+          $saldoAwal = SaldoAwalBarang::find($id);
+          return view('barang.updateSaldo',[
+            'update'=>$saldoAwal,
+            'saldoAwal' =>$saldoAwal
+            ]);
+    }
+    public function storeSaldoAwalBarang()
+    {
+        $barangs = Barang::all();
+        \Log::debug($barangs);
+
+            foreach($barangs as $barang)
+            {
+                $tglBeli = $barang->tgl_beli;
+
+                $bulan = date('m',strtotime($tglBeli));
+                $tahun = date('Y',strtotime($tglBeli));
+                // \Log::debug($bulan);
+                $saldoAwal = new SaldoAwalBarang();
+                $saldoAwal->kode_barang = $barang->kode_barang;
+                $saldoAwal->bulan = $bulan;
+                $saldoAwal->tahun = $tahun;
+
+                $saldoAwal->qty= $barang->qty;
+                if($saldoAwal!=null)
+                {
+                  $saldoAwal->save();
+                }
+
+
+            }
+
+        return redirect()->action('BarangController@showAwalBarang');
+
+
+
+    }
+    public function updateSaldoBarang(Request $request, $id){
+
+        $saldoAwal = SaldoAwalBarang::find($id);
+        $saldoAwal->kode_barang = $request->kodeBarang;
+        $saldoAwal->bulan=$request->bulan;
+        $saldoAwal->tahun = $request->tahun;
+        $saldoAwal->qty= $request->qty;
+        $saldoAwal->save();
+        return redirect()->action('BarangController@showAwalBarang');
+
+    }
+
 
     /**
      * Display the specified resource.
@@ -152,10 +228,13 @@ class BarangController extends Controller
 
     public function laporanBarangKekurangan()
     {
-          $barangs = DB::table('barangs')
-                     ->select('tgl_beli','kode_barang','nama','qty','min_stok')
-                     ->where('qty','<','min_stok')
-                     ->get();
+          // $barangs = DB::table('barangs')
+          //            ->select('tgl_beli','kode_barang','nama','qty','min_stok')
+          //            ->where('qty','<','min_stok')
+          //            ->get();
+
+          $barangs=DB::select("select tgl_beli, kode_barang, nama, qty, min_stok
+                      from barangs where qty < min_stok");
 
          return view('barang.LaporanBarangKekurangan',['barangs' => $barangs]);
 
@@ -164,10 +243,13 @@ class BarangController extends Controller
 
     public function laporanBarangKelebihan()
     {
-          $barangs = DB::table('barangs')
-                         ->select('tgl_beli','kode_barang', 'nama', 'qty','maks_stok')
-                         ->where('qty','>','maks_stok')
-                         ->get();
+          // $barangs = DB::table('barangs')
+          //                ->select('tgl_beli','kode_barang', 'nama', 'qty','maks_stok')
+          //                ->where('qty','>','maks_stok')
+          //                ->get();
+
+          $barangs=DB::select("select tgl_beli, kode_barang, nama, qty, maks_stok
+                      from barangs where qty > maks_stok");
 
           return view('barang.LaporanBarangKelebihan',['barangs' => $barangs]);
 

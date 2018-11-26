@@ -54,7 +54,6 @@ class PembayaranHutangController extends Controller
      */
     public function create()
     {
-          $suppliers = Supplier::all();
           $fakturBeli = DB::table('faktur_belis')
                         ->join('suppliers','suppliers.id','=','faktur_belis.supplier_id')
                         ->select('faktur_belis.id','faktur_belis.no_fb','suppliers.nama_supplier','faktur_belis.total_faktur')
@@ -70,7 +69,6 @@ class PembayaranHutangController extends Controller
 
           return view('pembayaranHutang.create',[
 
-                      'suppliers'=>$suppliers,
                       'fakturBelis' => $fakturBeli,
                       'noBayar' => $noBayar
 
@@ -119,7 +117,7 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
 
-        if($totalBayar > $total_hutang)
+        if($totalBayar > $sisa_hutang)
         {
             Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
             return redirect()->action('PembayaranHutangController@create');
@@ -147,10 +145,7 @@ class PembayaranHutangController extends Controller
             $fakturBelis->status= 'Lunas';
             $fakturBelis->save();
           }
-          elseif ($totalBayar > $cekHutang) {
-            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
-            return redirect()->action('PembayaranHutangController@create');
-          }
+
         }
         else {
 

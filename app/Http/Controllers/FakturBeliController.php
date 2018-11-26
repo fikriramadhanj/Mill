@@ -114,35 +114,6 @@ class FakturBeliController extends Controller
 
             }
 
-            // $barang = Barang::find($detilBelis->barang_id);
-            // $barang->qty= $barang->qty + $detilBelis->qty;
-            // $barang->save();
-            //
-            // $barangId=$detilBelis->barang_id;
-            // $kodeBarang = DB::table('detil_pembelians')
-            //               ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
-            //               ->select('barangs.kode_barang')
-            //               ->where('detil_pembelians.barang_id','=',$barangId);
-            //
-            // $tgl_beli=strtotime($request->tglFb);
-            // $tahun = date('Y',$tgl_beli);
-            // $bulan = date('m',$tgl_beli);
-            //
-            // $saldoAwalBarang = DB::table('saldo_awal_barangs')
-            //                     ->where('kode_barang', $detilBelis->barang_id)
-            //                     ->where('tahun', date('Y',$tgl_beli))
-            //                     ->where('bulan', date('m',$tgl_beli))
-            //                     ->first();
-            //
-            // $saldoAwalBarang = new SaldoAwalBarang();
-            // $saldoAwalBarang->kode_barang  = $kodeBarang;
-            // $saldoAwalBarang->qty = $saldoAwalBarang->qty + $detilBelis->qty;
-            // $saldoAwalBarang->bulan = $bulan;
-            // $saldoAwalBarang->tahun = $tahun;
-            //
-            //
-            // $saldoAwalBarang->save();
-
 
         }
 
@@ -162,7 +133,7 @@ class FakturBeliController extends Controller
         $detilPembelians = DB::table('detil_pembelians')
                           ->join('barangs','detil_pembelians.barang_id','=','barangs.id')
                           ->join('faktur_belis','detil_pembelians.fb_id','=','faktur_belis.id')
-                          ->select('detil_pembelians.id','barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
+                          ->select('faktur_belis.id','barangs.kode_barang','barangs.nama','barangs.harga_beli','faktur_belis.no_fb','detil_pembelians.qty','detil_pembelians.sub_total')
                           ->where('faktur_belis.id','=',$id)
                           ->get();
 
