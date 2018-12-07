@@ -199,13 +199,19 @@ class FakturBeliController extends Controller
                               ->where('faktur_belis.id','=',$id)
                               ->get();
 
+            $supplier = DB::table('faktur_belis')
+                            ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
+                            ->select('suppliers.nama_supplier','faktur_belis.tgl_fb','faktur_belis.no_fb')
+                            ->where('faktur_belis.id','=',$id)
+                            ->first();
+
             $total = DB::table('detil_pembelians')
                     ->select(DB::raw('SUM(sub_total) as Total'))
                     ->where('fb_id','=',$id)
                     ->value('sub_total');
 
 
-        $pdf = PDF::loadView('fakturBeli.pdf', compact('detilBelis','total'));
+        $pdf = PDF::loadView('fakturBeli.pdf', compact('detilBelis','total','supplier'));
         return $pdf->download('FakturBeli.pdf');
 
       }
@@ -243,7 +249,9 @@ class FakturBeliController extends Controller
         return view('fakturBeli.ShowLaporan',['suppliers'=> $suppliers,
                                               'tglAwal' => $tglAwal,
                                               'tglAkhir' => $tglAkhir,
-                                              'statuss' => $statusLunas
+                                              'statuss' => $statusLunas,
+                                              'status' => $status
+
                     ]);
 
     }

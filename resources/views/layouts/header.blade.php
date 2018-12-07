@@ -27,7 +27,7 @@
         'Laporan' => [
             'faktur-jual.laporan' => 'Laporan Penjualan',
             'faktur-beli.laporan' => 'Laporan Pembelian',
-            'mutasi-stok.mutasi' => 'Laporan Mutasi Stok',
+
             'barang.kurang' => 'Laporan Barang Kurang',
             'barang.lebih' => 'Laporan Barang Lebih'
 
@@ -42,7 +42,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+<!-- 'mutasi-stok.mutasi' => 'Laporan Mutasi Stok', -->
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav mr-auto">
                     @foreach ($navbar as $routeKey => $label)

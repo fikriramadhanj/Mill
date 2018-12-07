@@ -1,6 +1,10 @@
 
 <h3 align="Center">Faktur Penjualan </h3>
 
+{{"Tanggal Faktur : ".date('j F Y', strtotime($pelanggan->tgl_fj))}} <br>
+{{"Nomor Faktur : ".$pelanggan->no_fj}} <br>
+{{"Nama Pelanggan : ".$pelanggan->nama_pelanggan}} <br>
+
 
       <table border="1">
         <thead>

@@ -91,10 +91,6 @@ class BarangController extends Controller
         Alert::success('Data barang berhasil ditambahkan');
 
 
-
-
-
-
         return redirect()->action('BarangController@index');
     }
 

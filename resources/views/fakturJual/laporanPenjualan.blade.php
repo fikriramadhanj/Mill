@@ -8,10 +8,11 @@
   <div class="form-group row">
     <label class="col-form-label col-md-2">Pelanggan</label>
     <div class="col-md-6">
-      <select class="custom-select" name="pelangganId" required>
-        <option selected disabled>-- Pilih pelanggan --</option>
+      <select class="custom-select" name="pelangganId">
+        <option selected  disabled>-- Pilih pelanggan --</option>
         @foreach($pelanggans as $pelanggan)
-          <option value="{{$pelanggan->id}}">{{$pelanggan->nama_pelanggan}} </option>
+          <option value="{{$pelanggan->id}}" selected="$pelanggan->id">{{$pelanggan->nama_pelanggan }} </option>
+
         @endforeach
       </select>
     </div>
@@ -20,18 +21,18 @@
       <div class="form-group row">
       <label class="col-form-label col-md-2">Periode</label>
       <div class="col-md-3">
-        <input type="text" name="tglAwal" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
+        <input type="text" name="tglAwal" class="form-control datepicker fj-tanggal-faktur" value="{{$tglAwal }}" required />
       </div> S/D
       <div class="col-md-3">
-        <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{ date('Y-m-d') }}" required />
+        <input type="text" name="tglAkhir" class="form-control datepicker fj-tanggal-faktur" value="{{$tglAkhir}}" required />
       </div>
     </div>
     <div class="form-group row">
         <label class="col-form-label col-md-2">Status</label>
         <div class="text-center">
-            <input type="radio"  name="status" value="all" checked="checked"/>All </label> &nbsp
-           <input type="radio"  name="status" value="Lunas"/>Lunas </label> &nbsp
-           <input type="radio" name="status" value="Belum Lunas"/>Belum Lunas </label> &nbsp
+            <input type="radio"  name="status" value="all"checked="" <?php if($status=='all') echo 'checked';  ?>/>All </label> &nbsp
+           <input type="radio"  name="status" value="Lunas" <?php if($status=='Lunas') echo 'checked';  ?> />Lunas </label> &nbsp
+           <input type="radio" name="status" value="Belum Lunas" <?php if($status=='Belum Lunas') echo 'checked';  ?> />Belum Lunas </label> &nbsp
         <button type="submit"  class="btn btn-primary">proses</button>
       </div>
     </div>
@@ -50,7 +51,7 @@
         </thead>
         <tbody>
 
-          @foreach($statuss as $status)
+          @foreach($statusLunas as $status)
           <tr>
             <td align="center"> {{$status->no_fj}} </td>
             <td align="center"> {{$status->nama_pelanggan}} </td>

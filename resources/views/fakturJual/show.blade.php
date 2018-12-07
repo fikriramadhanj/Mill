@@ -3,7 +3,6 @@
 @section('pageTitle')
 <h3>Detil Penjualan</h3>
 @endsection
-
 @section('pageOptions')
 <a href={{ route('faktur-jual.index')}} class="btn btn-primary">Kembali ke List Penjualan</a>
 @endsection

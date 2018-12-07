@@ -117,20 +117,28 @@ class PembayaranHutangController extends Controller
         $pembayaranHutangs->tempo_bayar=$request->tempoBayar;
         $pembayaranHutangs->total_pembayaran=$request->totalBayar;
 
-        if($totalBayar > $sisa_hutang)
+        if($totalBayar > $total_hutang)
         {
             Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
             return redirect()->action('PembayaranHutangController@create');
-
         }
+
+        // if($totalBayar > $sisa_hutang)
+        // {
+        //     Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+        //     return redirect()->action('PembayaranHutangController@create');
+        //
+        // }
 
         //bayar tunai
 
         if($total_hutang==$request->totalBayar){
 
-            $fakturJuals = FakturBeli::find($fbId);
-            $fakturJuals->status= 'Lunas';
-            $fakturJuals->save();
+            $fakturBelis = FakturBeli::find($fbId);
+            $fakturBelis->status= 'Lunas';
+            $fakturBelis->save();
+
+
 
         }
 

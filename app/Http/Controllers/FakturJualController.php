@@ -142,11 +142,17 @@ class FakturJualController extends Controller
 
             ->join('barangs','detil_penjualans.barang_id','=','barangs.id')
             ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
+
             ->select('faktur_juals.id','detil_penjualans.qty','detil_penjualans.sub_total','barangs.nama','barangs.kode_barang',
                     'barangs.harga_jual','faktur_juals.no_fj')
             ->where('faktur_juals.id',"=",$id)
             ->get();
 
+        $pelanggan = DB::table('faktur_juals')
+                    ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
+                    ->select('pelanggans.nama_pelanggan')
+                    ->where('faktur_juals.id',"=",$id)
+                    ->first();
 
             $total = DB::table('detil_penjualans')
                      ->select(DB::raw('SUM(sub_total) as Total'))
@@ -162,6 +168,7 @@ class FakturJualController extends Controller
             [
                 'detilPenjualans' => $detilPenjualans,
                 'total' => $total,
+                'pelanggan' => $pelanggan
             ]
         );
     }
@@ -272,18 +279,26 @@ class FakturJualController extends Controller
             ->get();
 
 
+            $pelanggan = DB::table('faktur_juals')
+                        ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
+                        ->select('pelanggans.nama_pelanggan','faktur_juals.tgl_fj','faktur_juals.no_fj')
+                        ->where('faktur_juals.id','=',$id)
+                        ->first();
+                        // \Log::debug($pelanggan);
+
             $total = DB::table('detil_penjualans')
                      ->select(DB::raw('SUM(sub_total) as Total'))
                      ->where('fj_id','=',$id)
                      ->value('sub_total');
 
-            $pdf = PDF::loadView('fakturJual.Pdf', compact('detilJuals','total'));
+            $pdf = PDF::loadView('fakturJual.Pdf', compact('detilJuals','total','pelanggan'));
             return $pdf->download('FakturJual.pdf');
 
     }
 
     public function laporanPenjualan(Request $request)
     {
+
         $pelanggans = Pelanggan::all();
         $tglAwal = $request->tglAwal;
         $tglAkhir = $request->tglAkhir;
@@ -318,17 +333,17 @@ class FakturJualController extends Controller
                    ->whereBetween('faktur_juals.tgl_fj', [$tglAwal, $tglAkhir])
                    ->get();
            }
-
-            return view('fakturJual.ShowLaporan',[
-
-                        'pelanggans' =>  $pelanggans,
-                        'tglAwal' => $tglAwal,
-                        'tglAkhir' => $tglAkhir,
-                        'statuss' => $statusLunas
-
-
-        ]);
-
+        //  return $tglAwal; 2018-12-01
+        //     return view('fakturJual.ShowLaporan',[
+        //
+        //                 'pelanggans' =>  $pelanggans,
+        //                 'tglAwal' => $tglAwal,
+        //                 'tglAkhir' => $tglAkhir,
+        //                 'statuss' => $statusLunas
+        //
+        //
+        // ]);
+        return view('fakturJual.ShowLaporan',compact('pelanggans','tglAwal','tglAkhir','statusLunas','status','pelanggan'));
     }
 
 

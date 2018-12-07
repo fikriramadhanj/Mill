@@ -105,12 +105,7 @@ class PelunasanPiutangController extends Controller
         $pelunasanPiutangs->fj_id=$request->fjId;
         $pelunasanPiutangs->pelanggan_id=$pelangganId;
 
-        // if($totalBayar > $sisa_piutang)
-        // {
-        //     Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
-        //     return redirect()->action('PelunasanPiutangController@create');
-        //
-        // }
+
         //bayar tunai
         if($total_piutang==$request->totalBayar){
 
@@ -119,9 +114,18 @@ class PelunasanPiutangController extends Controller
             $fakturJuals->save();
 
         }
+
+        //total bayar melebihi total piutang
+        if($totalBayar > $total_piutang)
+        {
+            Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+            return redirect()->action('PelunasanPiutangController@create');
+
+        }
+
         //bayar angsuran
         if($sisa_piutang > 0){
-          $pelunasanPiutangs->sisa_hutang= $sisa_piutang - ($request->totalBayar) ;
+          $pelunasanPiutangs->sisa_piutang= $sisa_piutang - ($request->totalBayar) ;
           $cekHutang = $sisa_piutang - ($request->totalBayar);
 
           if($cekHutang == 0)
@@ -132,6 +136,11 @@ class PelunasanPiutangController extends Controller
           }
 
         }
+        // if($totalBayar > $sisa_piutang){
+        //   Alert::error('jumlah pembayaran lebih besar, tidak dapat melakukan pembayaran');
+        //   return redirect()->action('PelunasanPiutangController@create');
+        //
+        // }
         else {
           $pelunasanPiutangs->sisa_hutang=$total_piutang-$request->totalBayar;
 
@@ -156,35 +165,6 @@ class PelunasanPiutangController extends Controller
     {
 
 
-        // $detilPelunasanPiutangs = DB::table('detil_pelunasan_piutangs')
-        //                           ->join('faktur_juals','detil_pelunasan_piutangs.fj_id','=','faktur_juals.id')
-        //                           ->select('faktur_juals.no_fj','faktur_juals.tgl_fj'
-        //                                   ,'detil_pelunasan_piutangs.bayar','detil_pelunasan_piutangs.piutang')
-
-
-        $totalPiutang = DB::table('detil_penjualans')
-                      ->join('faktur_juals','detil_penjualans.fj_id','=','faktur_juals.id')
-                      ->select(DB::raw('SUM(detil_penjualans.sub_total) as total'))
-                      ->where('detil_penjualans.fj_id',$id)
-                      ->value('detil_penjualans.sub_total');
-
-
-
-       $totalBayar = DB::table('pembayaran_piutangs')
-                    ->select('total_pembayaran')
-                    ->where('id','=',$id)
-                    ->value('total_pembayaran');
-
-      $sisaBayar = $totalPiutang-$totalBayar;
-
-        return view('pelunasanPiutang.show',
-                  [
-                              // 'detilPelunasanPiutangs'=>$detilPelunasanPiutangs,
-                    'totalPiutang' => $totalPiutang,
-                    'totalBayar' => $totalBayar,
-                    'sisaBayar' => $sisaBayar
-
-                  ]);
     }
 
     /**

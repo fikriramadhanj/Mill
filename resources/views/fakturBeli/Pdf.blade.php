@@ -1,6 +1,10 @@
 
 <h3 align="center">Faktur Pembelian </h3>
 
+{{"Tanggal Faktur : ".date('j F Y', strtotime($supplier->tgl_fb))}} <br>
+{{"Nomor Faktur : ".$supplier->no_fb}} <br>
+{{"Nama Supplier : ".$supplier->nama_supplier}} <br>
+
 
       <table border="1">
         <thead>
