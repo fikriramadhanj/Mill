@@ -9,9 +9,9 @@
     <label class="col-form-label col-md-2">Supplier</label>
     <div class="col-md-6">
       <select class="custom-select" name="supplierId" required>
-        <option selected disabled>-- Pilih supplier --</option>
+        <option selected>-- Pilih supplier --</option>
         @foreach($suppliers as $supplier)
-          <option value="{{$supplier->id}}">{{$supplier->nama_supplier}} </option>
+          <option value="{{$supplier->id}}" selected="selected">{{$supplier->nama_supplier}} </option>
         @endforeach
       </select>
     </div>
@@ -39,11 +39,11 @@
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
-            <th>No Faktur Beli </th>
+            <th>Nomor Faktur</th>
             <th>Nama Supplier </th>
-            <th>Tanggal Faktur Beli </th>
+            <th>Tanggal Faktur</th>
             <th>Status </th>
-            <th>total Faktur </th>
+            <th>Total Faktur </th>
 
             <th colspan="3">Action </th>
           </tr>

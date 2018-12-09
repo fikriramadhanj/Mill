@@ -3,7 +3,7 @@
 <h3 align="center">Laporan Penjualan</h3>
 <h5 align="center">{{$tglAwal}} S/D {{$tglAkhir}}</h5>
 <br> <br>
-<form id="form-faktur-jual" method="GET" action="{{ $formAction }}">
+<form id="form-faktur-jual" method="GET" action="{{ $formAction }}" onsubmit="">
 <div class="container">
   <div class="form-group row">
     <label class="col-form-label col-md-2">Pelanggan</label>
@@ -11,7 +11,7 @@
       <select class="custom-select" name="pelangganId">
         <option selected  disabled>-- Pilih pelanggan --</option>
         @foreach($pelanggans as $pelanggan)
-          <option value="{{$pelanggan->id}}" selected="$pelanggan->id">{{$pelanggan->nama_pelanggan }} </option>
+          <option value="{{$pelanggan->id}}">{{$pelanggan->nama_pelanggan }} </option>
 
         @endforeach
       </select>
@@ -40,11 +40,11 @@
       <table class="table table-bordered mt-3">
         <thead>
           <tr>
-            <th>No Faktur Jual </th>
+            <th>No Faktur</th>
             <th>Nama Pelanggan </th>
-            <th>Tanggal Faktur Jual </th>
+            <th>Tanggal Faktur</th>
             <th>Status </th>
-            <th>total Faktur </th>
+            <th>Total Faktur </th>
 
             <th colspan="3">Action </th>
           </tr>

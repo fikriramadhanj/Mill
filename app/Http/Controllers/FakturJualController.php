@@ -150,7 +150,7 @@ class FakturJualController extends Controller
 
         $pelanggan = DB::table('faktur_juals')
                     ->join('pelanggans','faktur_juals.pelanggan_id','=','pelanggans.id')
-                    ->select('pelanggans.nama_pelanggan')
+                    ->select('pelanggans.nama_pelanggan','faktur_juals.no_fj','faktur_juals.tgl_fj')
                     ->where('faktur_juals.id',"=",$id)
                     ->first();
 

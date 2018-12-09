@@ -1,7 +1,6 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>List Pembayaran Piutang</h3>
 @endsection
 
 @section('pageOptions')
@@ -9,6 +8,8 @@
 @endsection
 
 @section('content')
+<h3 align="center">List Pembayaran Piutang</h3>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-15">

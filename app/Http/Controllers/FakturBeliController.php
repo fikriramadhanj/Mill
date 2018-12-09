@@ -137,6 +137,12 @@ class FakturBeliController extends Controller
                           ->where('faktur_belis.id','=',$id)
                           ->get();
 
+        $supplier =  DB::table('faktur_belis')
+                    ->join('suppliers','faktur_belis.supplier_id','=','suppliers.id')
+                    ->select('suppliers.nama_supplier','faktur_belis.no_fb','faktur_belis.tgl_fb')
+                    ->where('faktur_belis.id',"=",$id)
+                    ->first();
+
         $total = DB::table('detil_pembelians')
                 ->select(DB::raw('SUM(sub_total) as Total'))
                 ->where('fb_id','=',$id)
@@ -145,6 +151,7 @@ class FakturBeliController extends Controller
                           return view('fakturBeli.show',
                               [
                                   'detilPembelians' => $detilPembelians,
+                                  'supplier' => $supplier,
                                   'total' => $total
                               ]
                           );

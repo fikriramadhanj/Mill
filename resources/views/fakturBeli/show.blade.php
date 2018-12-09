@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Detil Pembelian</h3>
+
 @endsection
 
 @section('pageOptions')
@@ -9,7 +9,11 @@
 @endsection
 
 @section('content')
+<h3 align="center">Detil Pembelian</h3>
 <div class="container">
+  <h5> {{"Tanggal Faktur : ".date('j F Y', strtotime($supplier->tgl_fb))}} </h5>
+    <h5>{{"Nomor Faktur : ".$supplier->no_fb}}</h5>
+  <h5>{{"Nama Supplier : ".$supplier->nama_supplier}} </h5>
   <div class="row">
     <div class="col-lg-12">
       <table class="table table-bordered mt-3">
@@ -18,7 +22,7 @@
             <th> Kode Barang </th>
             <th> Nama Barang </th>
             <th> Harga Barang </th>
-            <th> Qty </th>
+            <th> Qty(Kg) </th>
             <th> Subtotal </th>
           </tr  >
         </thead>

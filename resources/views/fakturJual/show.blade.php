@@ -1,14 +1,20 @@
 @extends('layouts.index')
 
 @section('pageTitle')
-<h3>Detil Penjualan</h3>
+
 @endsection
 @section('pageOptions')
 <a href={{ route('faktur-jual.index')}} class="btn btn-primary">Kembali ke List Penjualan</a>
 @endsection
 
 @section('content')
+<h3 align="center">Detil Penjualan</h3>
+
 <div class="container">
+  <h5> {{"Tanggal Faktur : ".date('j F Y', strtotime($pelanggan->tgl_fj))}} </h5>
+    <h5>{{"Nomor Faktur : ".$pelanggan->no_fj}}</h5>
+  <h5>{{"Nama Pelanggan : ".$pelanggan->nama_pelanggan}} </h5>
+
   <div class="row">
     <div class="col-lg-12">
       <table class="table table-bordered mt-3">
@@ -17,7 +23,7 @@
             <th> Kode Barang </th>
             <th> Nama Barang </th>
             <th> Harga Barang </th>
-            <th> Qty </th>
+            <th> Qty(Kg) </th>
             <th> Subtotal </th>
 
           </tr>

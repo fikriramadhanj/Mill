@@ -12,7 +12,7 @@
             <th> Kode Barang </th>
             <th> Nama Barang </th>
             <th> Harga Barang </th>
-            <th> Qty </th>
+            <th> Qty(Kg) </th>
             <th> Subtotal </th>
 
           </tr>
