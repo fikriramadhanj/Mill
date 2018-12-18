@@ -17,7 +17,7 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggans =  DB::table('pelanggans')->paginate(5);
+        $pelanggans =  DB::table('pelanggans')->paginate(10);
         return view('pelanggan.index', [
             'pelanggans' => $pelanggans
             ]);

@@ -19,7 +19,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barangs = DB::table('barangs')->paginate(5);
+        $barangs = DB::table('barangs')->paginate(10);
 
         return view('barang.index',
             [
